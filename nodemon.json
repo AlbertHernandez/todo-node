@@ -1,0 +1,8 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "ignore": [".git", "node_modules"],
+  "watch": ["src/"],
+  "exec": "npm run build && npm run start",
+  "ext": "js,json,ts"
+}

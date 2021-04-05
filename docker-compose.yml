@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  server-todo-node:
+    container_name: server-todo-node
+    image: 'node:14'
+    restart: unless-stopped
+    working_dir: /usr/src/app
+    build: .
+    env_file: .env
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - PORT=${PORT}
+      - MONGO_URL=${MONGO_URL}
+    expose:
+      - ${PORT}
+    ports:
+      - '${PORT}:${PORT}/tcp'
+      - '${INSPECT_PORT}:${INSPECT_PORT}'
+    command:
+      [
+        'npm',
+        'run',
+        'watch',
+      ]

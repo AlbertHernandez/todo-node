@@ -1,0 +1,50 @@
+{
+  "name": "todo-node",
+  "version": "1.0.0",
+  "description": "Todo application using node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/service/index.js",
+    "watch": "nodemon --exec node --inspect=0.0.0.0:56745 -r ts-node/register src/service/index.ts",
+    "build": "rm -rf ./build && ./node_modules/typescript/bin/tsc -b --verbose",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "prepare": "husky install"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "keywords": [
+    "todo",
+    "graphql",
+    "node"
+  ],
+  "author": "Albert Hernandez <alberthernandezdev@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.2.7",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.2.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^4.2.3"
+  },
+  "lint-staged": {
+    "*.(js|ts)": [
+      "npm run lint:fix"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
