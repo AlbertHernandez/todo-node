@@ -45,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "awilix": "^4.3.3",
     "express": "^4.17.1"
   }
 }

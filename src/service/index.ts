@@ -1,11 +1,18 @@
+import * as Awilix from "awilix";
+
 import { App } from "./app";
 import { port } from "../config/environment";
-import { TodosController } from "./todos";
-import { TodosService } from "./todos/todos-service";
+import { registerDependenciesPlugin } from "./plugins";
 
-const app = new App({
-  controllers: [new TodosController({ todosService: new TodosService() })],
-  port,
-});
+const start = async () => {
+  const app = new App({
+    port,
+    plugins: [registerDependenciesPlugin],
+    container: Awilix.createContainer(),
+    controllers: ["todosController"],
+  });
 
-app.listen();
+  await app.start();
+};
+
+start();
