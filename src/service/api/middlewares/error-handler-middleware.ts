@@ -1,4 +1,7 @@
 import * as Koa from "koa";
+import { ILogger } from "../../modules/logger/interfaces";
+
+const INTERNAL_SERVER_ERROR_MESSAGE = "Internal Server Error";
 
 export const errorHandlerMiddleware: Koa.Middleware = async (ctx, next) => {
   try {
@@ -6,7 +9,9 @@ export const errorHandlerMiddleware: Koa.Middleware = async (ctx, next) => {
   } catch (error) {
     ctx.status = error.status || 500;
     ctx.body = {
-      error: "Internal Server Error",
+      error: INTERNAL_SERVER_ERROR_MESSAGE,
     };
+    const logger: ILogger = ctx.scope.resolve("logger");
+    logger.error(INTERNAL_SERVER_ERROR_MESSAGE, { message: error.message });
   }
 };

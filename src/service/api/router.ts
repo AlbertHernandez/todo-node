@@ -1,45 +1,22 @@
-import * as Koa from "koa";
 import KoaRouter from "koa-router";
-import { IRouter } from "./interfaces";
-import { Request, RouterHandler } from "./types";
 
-export class Router implements IRouter {
+import { IApiRouter } from "./interfaces";
+import { Handler } from "./types";
+import { requestHandlerMiddleware } from "./middlewares";
+
+export class Router implements IApiRouter {
   private router: KoaRouter;
 
   constructor(dependencies: { prefix: string }) {
     this.router = new KoaRouter({ prefix: dependencies.prefix });
   }
 
-  private normalizeRequest(ctx: Koa.Context): Request {
-    return {
-      body: ctx.request.body,
-    };
+  get(path: string, handler: Handler) {
+    this.router.get(path, requestHandlerMiddleware(handler));
   }
 
-  private normalizeResponse(ctx: Koa.Context, response: any): Koa.Context {
-    ctx.body = response;
-    return ctx;
-  }
-
-  private async normalizeHandlerMethod(
-    ctx: Koa.Context,
-    handlerMethod: (request: Request) => Promise<any>
-  ) {
-    const normalizedRequest = this.normalizeRequest(ctx);
-    const response = await handlerMethod(normalizedRequest);
-    return this.normalizeResponse(ctx, response);
-  }
-
-  get(path: string, handler: RouterHandler) {
-    this.router.get(path, async (ctx: Koa.Context) => {
-      return this.normalizeHandlerMethod(ctx, handler);
-    });
-  }
-
-  post(path: string, handler: RouterHandler) {
-    this.router.post(path, async (ctx: Koa.Context) => {
-      return this.normalizeHandlerMethod(ctx, handler);
-    });
+  post(path: string, handler: Handler) {
+    this.router.post(path, requestHandlerMiddleware(handler));
   }
 
   middleware() {

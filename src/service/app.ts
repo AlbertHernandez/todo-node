@@ -10,20 +10,20 @@ import {
   initializeScopeMiddleware,
   unifiedResponseMiddleware,
 } from "./api/middlewares";
-import { IRouter } from "./api/interfaces";
 import { ILogger } from "./modules/logger/interfaces";
+import { IApplicationRouter } from "./application/interfaces";
 
 export class App {
   app: Koa;
   port: number;
   container: awilix.AwilixContainer;
   plugins: Plugin[];
-  routers: string[];
+  routerNames: string[];
   logger: ILogger;
 
   constructor(dependencies: {
     port: number;
-    routers: string[];
+    routerNames: string[];
     container: awilix.AwilixContainer;
     plugins: Plugin[];
     logger: ILogger;
@@ -32,8 +32,7 @@ export class App {
     this.port = dependencies.port;
     this.container = dependencies.container;
     this.plugins = dependencies.plugins;
-    this.routers = dependencies.routers;
-    this.routers = dependencies.routers;
+    this.routerNames = dependencies.routerNames;
     this.logger = dependencies.logger;
   }
 
@@ -52,10 +51,12 @@ export class App {
   }
 
   private initializeRouters() {
-    this.routers.forEach((routerName) => {
+    this.routerNames.forEach((routerName) => {
       if (this.container.has(routerName)) {
-        const router: IRouter = this.container.resolve(routerName);
-        this.app.use(router.middleware());
+        const applicationRouter: IApplicationRouter = this.container.resolve(
+          routerName
+        );
+        this.app.use(applicationRouter.use());
       }
     });
   }
@@ -65,7 +66,7 @@ export class App {
       loggerType: "application",
     });
 
-    applicationLogger.info("Registration of Winston Logger");
+    applicationLogger.info("Registration of Winston Logger...");
 
     this.container.register({
       applicationLogger: asValue(applicationLogger),

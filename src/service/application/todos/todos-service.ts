@@ -1,7 +1,7 @@
-import { ITodoService } from "./interfaces";
+import { ITodosService } from "./interfaces";
 import { Todo } from "./types";
 
-export class TodosService implements ITodoService {
+export class TodosService implements ITodosService {
   private todos: Todo[] = [
     {
       id: "1",

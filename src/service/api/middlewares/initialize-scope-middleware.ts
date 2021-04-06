@@ -1,14 +1,20 @@
 import * as Koa from "koa";
 import { AwilixContainer, asValue } from "awilix";
+import { createScope } from "../../modules/di/helpers";
 
 export const initializeScopeMiddleware = (
   container: AwilixContainer
 ): Koa.Middleware => async (ctx, next) => {
-  const scope = container.createScope();
+  const requestId = ctx.state.id;
 
-  scope.register({
+  const scope = createScope(container, {
+    loggerType: "request",
+    requestId: ctx.state.id,
+  });
+
+  container.register({
     requestContext: asValue({
-      requestId: ctx.state.id,
+      requestId,
     }),
   });
 

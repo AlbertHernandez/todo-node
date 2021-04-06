@@ -10,7 +10,7 @@ const start = async () => {
     port,
     plugins: [registerDependenciesPlugin],
     container: Awilix.createContainer(),
-    routers: ["todosRouter"],
+    routerNames: ["todosRouter"],
     logger,
   });
 
