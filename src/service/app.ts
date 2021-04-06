@@ -8,6 +8,7 @@ import { Plugin } from "./plugins/types";
 import { IRouter } from "./interfaces";
 import {
   errorHandlerMiddleware,
+  initializeScopeMiddleware,
   unifiedResponseMiddleware,
 } from "./api/middlewares";
 
@@ -38,10 +39,11 @@ export class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(bodyParser());
     this.app.use(requestId());
+    this.app.use(initializeScopeMiddleware(this.container));
     this.app.use(unifiedResponseMiddleware);
     this.app.use(errorHandlerMiddleware);
+    this.app.use(bodyParser());
   }
 
   private initializeRouters() {
