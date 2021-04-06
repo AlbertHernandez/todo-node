@@ -10,14 +10,12 @@ export class TodosController implements ITodoController {
   }
 
   async getTodos() {
-    const todos = await this.todosService.getTodos();
-    return todos;
+    return this.todosService.getTodos();
   }
 
   async createTodo(request: Request) {
     const todo: Todo = request.body;
 
-    const createdTodo = await this.todosService.createTodo(todo);
-    return createdTodo;
+    return this.todosService.createTodo(todo);
   }
 }
