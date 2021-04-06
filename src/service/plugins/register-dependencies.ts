@@ -1,5 +1,5 @@
 import * as Awilix from "awilix";
-import { TodosController, TodosService } from "../todos";
+import { TodosController, TodosRouter, TodosService } from "../todos";
 import { Plugin } from "./types";
 
 export const registerDependenciesPlugin: Plugin = async (
@@ -8,6 +8,7 @@ export const registerDependenciesPlugin: Plugin = async (
   console.log("Registration of application dependencies...");
 
   container.register({
+    todosRouter: Awilix.asClass(TodosRouter),
     todosController: Awilix.asClass(TodosController),
     todosService: Awilix.asClass(TodosService),
   });

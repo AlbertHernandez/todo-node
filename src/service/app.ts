@@ -1,29 +1,30 @@
-import express from "express";
-import bodyParser from "body-parser";
+import Koa from "koa";
+import bodyParser from "koa-bodyparser";
+import requestId from "koa-requestid";
+
 import awilix from "awilix";
-import addRequestId from "express-request-id";
 
 import { Plugin } from "./plugins/types";
-import { IController } from "./interfaces";
+import { IRouter } from "./interfaces";
 
 export class App {
-  app: express.Application;
+  app: Koa;
   port: number;
   container: awilix.AwilixContainer;
   plugins: Plugin[];
-  controllers: string[];
+  routers: string[];
 
   constructor(dependencies: {
     port: number;
-    controllers: string[];
+    routers: string[];
     container: awilix.AwilixContainer;
     plugins: Plugin[];
   }) {
-    this.app = express();
+    this.app = new Koa();
     this.port = dependencies.port;
     this.container = dependencies.container;
     this.plugins = dependencies.plugins;
-    this.controllers = dependencies.controllers;
+    this.routers = dependencies.routers;
   }
 
   private async initializePlugins() {
@@ -33,15 +34,15 @@ export class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(bodyParser.json());
-    this.app.use(addRequestId());
+    this.app.use(bodyParser());
+    this.app.use(requestId());
   }
 
-  private initializeControllers() {
-    this.controllers.forEach((controllerName) => {
-      if (this.container.has(controllerName)) {
-        const controller: IController = this.container.resolve(controllerName);
-        this.app.use("/", controller.router);
+  private initializeRouters() {
+    this.routers.forEach((routerName) => {
+      if (this.container.has(routerName)) {
+        const router: IRouter = this.container.resolve(routerName);
+        this.app.use(router.router.middleware());
       }
     });
   }
@@ -51,7 +52,7 @@ export class App {
     await this.initializePlugins();
 
     this.initializeMiddlewares();
-    this.initializeControllers();
+    this.initializeRouters();
     console.log(`App Ready in Port ${this.port}`);
   }
 }

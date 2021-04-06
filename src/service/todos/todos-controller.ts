@@ -1,41 +1,25 @@
-import express from "express";
-import { IController } from "../interfaces";
-import { ITodoService } from "./interfaces";
+import * as Koa from "koa";
+
+import { ITodoController, ITodoService } from "./interfaces";
 import { Todo } from "./types";
 
-export class TodosController implements IController {
-  path = "/todos";
-  router = express.Router();
-
+export class TodosController implements ITodoController {
   todosService: ITodoService;
 
   constructor(dependencies: { todosService: ITodoService }) {
-    this.initializeRoutes();
-
     this.todosService = dependencies.todosService;
   }
 
-  initializeRoutes() {
-    this.router.get(this.path, this.getAllTodos);
-    this.router.post(this.path, this.createTodo);
+  async getTodos(ctx: Koa.Context) {
+    const todos = await this.todosService.getTodos();
+    ctx.body = todos;
   }
 
-  private getAllTodos = async (
-    request: express.Request,
-    response: express.Response
-  ) => {
-    const todos = await this.todosService.getTodos();
-    response.send(todos);
-  };
-
-  private createTodo = async (
-    request: express.Request,
-    response: express.Response
-  ) => {
-    const todo: Todo = request.body;
+  async createTodo(ctx: Koa.Context) {
+    const todo: Todo = ctx.request.body;
 
     const createdTodo = await this.todosService.createTodo(todo);
 
-    response.send(createdTodo);
-  };
+    ctx.body = createdTodo;
+  }
 }

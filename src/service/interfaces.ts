@@ -1,6 +1,5 @@
-import { Router } from "express";
+import Router from "koa-router";
 
-export interface IController {
-  path: string;
+export interface IRouter {
   router: Router;
 }

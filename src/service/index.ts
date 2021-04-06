@@ -9,7 +9,7 @@ const start = async () => {
     port,
     plugins: [registerDependenciesPlugin],
     container: Awilix.createContainer(),
-    controllers: ["todosController"],
+    routers: ["todosRouter"],
   });
 
   await app.start();
