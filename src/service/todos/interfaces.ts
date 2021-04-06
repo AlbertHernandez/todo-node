@@ -1,5 +1,5 @@
 import { Todo } from "./types";
-import * as Koa from "koa";
+import { Request } from "../api/types";
 
 export interface ITodoService {
   getTodos: () => Promise<Todo[]>;
@@ -7,6 +7,6 @@ export interface ITodoService {
 }
 
 export interface ITodoController {
-  getTodos: (ctx: Koa.Context) => Promise<void>;
-  createTodo: (ctx: Koa.Context) => Promise<void>;
+  getTodos: (request: Request) => Promise<Todo[]>;
+  createTodo: (request: Request) => Promise<Todo>;
 }

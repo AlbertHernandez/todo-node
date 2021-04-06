@@ -1,27 +1,19 @@
-import Router from "koa-router";
-import { IRouter } from "../interfaces";
+import { Router } from "../api/router";
 import { ITodoController } from "./interfaces";
 
-export class TodosRouter implements IRouter {
-  router = new Router({
-    prefix: "/api/v1/todos",
-  });
+export class TodosRouter extends Router {
   todosController: ITodoController;
 
   constructor(dependencies: { todosController: ITodoController }) {
+    super({ prefix: "/api/v1/todos" });
+
     this.todosController = dependencies.todosController;
     this.initializeRoutes();
   }
 
   initializeRoutes() {
-    this.router.get(
-      "/",
-      this.todosController.getTodos.bind(this.todosController)
-    );
+    this.get("/", this.todosController.getTodos.bind(this.todosController));
 
-    this.router.post(
-      "/",
-      this.todosController.createTodo.bind(this.todosController)
-    );
+    this.post("/", this.todosController.createTodo.bind(this.todosController));
   }
 }
