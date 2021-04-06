@@ -8,6 +8,7 @@ import { Plugin } from "./plugins/types";
 import {
   errorHandlerMiddleware,
   initializeScopeMiddleware,
+  logRequestMiddleware,
   unifiedResponseMiddleware,
 } from "./api/middlewares";
 import { ILogger } from "./modules/logger/interfaces";
@@ -46,6 +47,7 @@ export class App {
     this.app.use(requestId());
     this.app.use(initializeScopeMiddleware(this.container));
     this.app.use(unifiedResponseMiddleware);
+    this.app.use(logRequestMiddleware);
     this.app.use(errorHandlerMiddleware);
     this.app.use(bodyParser());
   }

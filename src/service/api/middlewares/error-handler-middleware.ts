@@ -11,7 +11,6 @@ export const errorHandlerMiddleware: Koa.Middleware = async (ctx, next) => {
     ctx.body = {
       error: INTERNAL_SERVER_ERROR_MESSAGE,
     };
-    const logger: ILogger = ctx.scope.resolve("logger");
-    logger.error(INTERNAL_SERVER_ERROR_MESSAGE, { message: error.message });
+    ctx.errorMessage = error.message;
   }
 };
