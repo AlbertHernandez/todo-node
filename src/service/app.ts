@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import awilix from "awilix";
+import addRequestId from "express-request-id";
 
 import { Plugin } from "./plugins/types";
 import { IController } from "./interfaces";
@@ -33,6 +34,7 @@ export class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(addRequestId());
   }
 
   private initializeControllers() {
