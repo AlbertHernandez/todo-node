@@ -5,12 +5,12 @@ import requestId from "koa-requestid";
 import awilix from "awilix";
 
 import { Plugin } from "./plugins/types";
-import { IRouter } from "./interfaces";
 import {
   errorHandlerMiddleware,
   initializeScopeMiddleware,
   unifiedResponseMiddleware,
 } from "./api/middlewares";
+import { IRouter } from "./api/interfaces";
 
 export class App {
   app: Koa;
@@ -50,7 +50,7 @@ export class App {
     this.routers.forEach((routerName) => {
       if (this.container.has(routerName)) {
         const router: IRouter = this.container.resolve(routerName);
-        this.app.use(router.router.middleware());
+        this.app.use(router.middleware());
       }
     });
   }
