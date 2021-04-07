@@ -53,6 +53,7 @@
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-helmet": "^6.1.0",
+    "koa-ratelimit": "^5.0.0",
     "koa-requestid": "^2.1.0",
     "koa-router": "^10.0.0",
     "winston": "^3.3.3"
