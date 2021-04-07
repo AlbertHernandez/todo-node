@@ -1,6 +1,9 @@
-import * as Koa from "koa";
+import { Middleware } from "../types";
 
-export const unifiedResponseMiddleware: Koa.Middleware = async (ctx, next) => {
+export const unifiedResponseMiddleware: Middleware = () => async (
+  ctx,
+  next
+) => {
   try {
     await next();
   } finally {

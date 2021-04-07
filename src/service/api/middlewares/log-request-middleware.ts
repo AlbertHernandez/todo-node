@@ -1,7 +1,7 @@
-import * as Koa from "koa";
 import { ILogger } from "../../modules/logger/interfaces";
+import { Middleware } from "../types";
 
-export const logRequestMiddleware: Koa.Middleware = async (ctx, next) => {
+export const logRequestMiddleware: Middleware = () => async (ctx, next) => {
   const logger: ILogger = ctx.scope.resolve("logger");
 
   try {

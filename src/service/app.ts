@@ -1,21 +1,10 @@
 import Koa from "koa";
-import bodyParser from "koa-bodyparser";
-import requestId from "koa-requestid";
-import helmet from "koa-helmet";
-import ratelimit from "koa-ratelimit";
-
 import awilix, { aliasTo, asValue } from "awilix";
 
 import { Plugin } from "./plugins/types";
-import {
-  errorHandlerMiddleware,
-  initializeScopeMiddleware,
-  logRequestMiddleware,
-  unifiedResponseMiddleware,
-} from "./api/middlewares";
 import { ILogger } from "./modules/logger/interfaces";
 import { IApplicationRouter } from "./application/interfaces";
-import { env } from "../config/environment";
+import { Middleware } from "./api/types";
 
 export class App {
   app: Koa;
@@ -24,20 +13,23 @@ export class App {
   plugins: Plugin[];
   routerNames: string[];
   logger: ILogger;
+  middlewares: Middleware[];
 
   constructor(dependencies: {
     port: number;
-    routerNames: string[];
+    routerNames?: string[];
     container: awilix.AwilixContainer;
-    plugins: Plugin[];
+    plugins?: Plugin[];
     logger: ILogger;
+    middlewares?: Middleware[];
   }) {
     this.app = new Koa();
     this.port = dependencies.port;
     this.container = dependencies.container;
-    this.plugins = dependencies.plugins;
-    this.routerNames = dependencies.routerNames;
+    this.plugins = dependencies.plugins || [];
+    this.routerNames = dependencies.routerNames || [];
     this.logger = dependencies.logger;
+    this.middlewares = dependencies.middlewares || [];
   }
 
   private async initializePlugins() {
@@ -47,28 +39,9 @@ export class App {
   }
 
   private initializeMiddlewares() {
-    const db = new Map();
-    this.app.use(
-      ratelimit({
-        driver: "memory",
-        db: db,
-        id: (ctx: Koa.Context) => ctx.ip,
-        max: 100,
-        duration: 600000, // 10 min
-        disableHeader: false,
-        whitelist: () => {
-          return env.development || env.test;
-        },
-      })
-    );
-
-    this.app.use(helmet());
-    this.app.use(requestId());
-    this.app.use(initializeScopeMiddleware(this.container));
-    this.app.use(unifiedResponseMiddleware);
-    this.app.use(logRequestMiddleware);
-    this.app.use(errorHandlerMiddleware);
-    this.app.use(bodyParser());
+    for (const middleware of this.middlewares) {
+      this.app.use(middleware(this.container));
+    }
   }
 
   private initializeRouters() {

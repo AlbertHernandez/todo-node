@@ -1,9 +1,8 @@
-import * as Koa from "koa";
-import { ILogger } from "../../modules/logger/interfaces";
+import { Middleware } from "../types";
 
 const INTERNAL_SERVER_ERROR_MESSAGE = "Internal Server Error";
 
-export const errorHandlerMiddleware: Koa.Middleware = async (ctx, next) => {
+export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
   try {
     await next();
   } catch (error) {

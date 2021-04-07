@@ -1,10 +1,11 @@
 import * as Koa from "koa";
 import { AwilixContainer, asValue } from "awilix";
 import { createScope } from "../../modules/di/helpers";
+import { Middleware } from "../types";
 
-export const initializeScopeMiddleware = (
+export const initializeScopeMiddleware: Middleware = (
   container: AwilixContainer
-): Koa.Middleware => async (ctx, next) => {
+) => async (ctx, next) => {
   const requestId = ctx.state.id;
 
   const scope = createScope(container, {
