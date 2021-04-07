@@ -14,6 +14,7 @@ export class App {
   routerNames: string[];
   logger: ILogger;
   middlewares: Middleware[];
+  env: any;
 
   constructor(dependencies: {
     port: number;
@@ -22,6 +23,7 @@ export class App {
     plugins?: Plugin[];
     logger: ILogger;
     middlewares?: Middleware[];
+    env?: any;
   }) {
     this.app = new Koa();
     this.port = dependencies.port;
@@ -30,6 +32,7 @@ export class App {
     this.routerNames = dependencies.routerNames || [];
     this.logger = dependencies.logger;
     this.middlewares = dependencies.middlewares || [];
+    this.env = dependencies.env;
   }
 
   private async initializePlugins() {
@@ -60,18 +63,35 @@ export class App {
       loggerType: "application",
     });
 
-    applicationLogger.info("Registration of Winston Logger...");
+    applicationLogger.info("Registration of application Logger...");
 
     this.container.register({
       applicationLogger: asValue(applicationLogger),
       logger: aliasTo("applicationLogger"),
     });
 
-    applicationLogger.info("Registration of Winston Logger completed!");
+    applicationLogger.info("Registration of application completed!");
+  }
+
+  private registerEnv() {
+    this.logger.info("Registration of Env");
+
+    if (!this.env) {
+      this.logger.info("There is no env to register");
+      return;
+    }
+
+    this.container.register({
+      env: asValue(this.env),
+    });
+
+    this.logger.info("Registration of Env completed!");
   }
 
   async start() {
     await this.app.listen(this.port);
+    this.registerEnv();
+
     this.registerLogger();
     await this.initializePlugins();
 

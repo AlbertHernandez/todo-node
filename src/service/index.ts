@@ -1,7 +1,7 @@
 import * as Awilix from "awilix";
 
 import { App } from "./app";
-import { port } from "../config/environment";
+import { env } from "../config/environment";
 import { registerDependenciesPlugin } from "./plugins";
 import logger from "./modules/logger";
 import {
@@ -17,7 +17,7 @@ import {
 
 const start = async () => {
   const app = new App({
-    port,
+    port: env.port,
     plugins: [registerDependenciesPlugin],
     container: Awilix.createContainer(),
     routerNames: ["todosRouter"],
@@ -32,6 +32,7 @@ const start = async () => {
       errorHandlerMiddleware,
       bodyParserMiddleware,
     ],
+    env,
   });
 
   await app.start();
