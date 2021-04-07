@@ -1,6 +1,7 @@
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import requestId from "koa-requestid";
+import helmet from "koa-helmet";
 
 import awilix, { aliasTo, asValue } from "awilix";
 
@@ -44,6 +45,7 @@ export class App {
   }
 
   private initializeMiddlewares() {
+    this.app.use(helmet());
     this.app.use(requestId());
     this.app.use(initializeScopeMiddleware(this.container));
     this.app.use(unifiedResponseMiddleware);

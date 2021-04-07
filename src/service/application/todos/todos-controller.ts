@@ -20,7 +20,7 @@ export class TodosController implements ITodoController {
 
   async getTodos() {
     this.logger.info("Albert test", { name: "albert" });
-    return this.todosService.getTodos();
+    return await this.todosService.getTodos();
   }
 
   async createTodo(request: Request) {
