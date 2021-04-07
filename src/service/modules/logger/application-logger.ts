@@ -1,28 +1,25 @@
-import winston from "winston";
+import pino from "pino";
 import { ILogger } from "./interfaces";
 import { ApplicationLogger } from "./types";
 
 export const applicationLogger: ApplicationLogger = {
   createLogger(context: any): ILogger {
-    return winston.createLogger({
-      level: context.env.development ? "debug" : "info",
-      format: winston.format.combine(
-        winston.format.splat(),
-        winston.format.timestamp({ format: "DD-MM-YYYY HH:mm:ss" })
-      ),
-      transports: [
-        new winston.transports.Console({
-          stderrLevels: ["error"],
-          format: winston.format.prettyPrint(),
-        }),
-        new winston.transports.File({
-          filename: "server.log",
-          format: context.env.development
-            ? winston.format.prettyPrint()
-            : winston.format.json(),
-          maxsize: 5242880, // 5MB
-        }),
-      ],
+    return pino({
+      prettyPrint: context.env.development,
+      timestamp() {
+        return `Time: ${
+          context.env.development
+            ? new Date(Date.now()).toLocaleString("en-US", {
+                hour12: false,
+                timeZoneName: "short",
+              })
+            : new Date(Date.now()).toLocaleString("en-US", {
+                hour12: false,
+                timeZoneName: "short",
+                timeZone: "UTC",
+              })
+        }`;
+      },
     });
   },
 };

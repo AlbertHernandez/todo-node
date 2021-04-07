@@ -5,8 +5,9 @@ export const logRequestMiddleware: Middleware = () => async (ctx, next) => {
   const logger: ILogger = ctx.scope.resolve("logger");
 
   try {
-    logger.info("Incoming Request", {
-      request: {
+    logger.info({
+      msg: "Incoming Request",
+      context: {
         method: ctx.request.method,
         url: ctx.url,
         header: ctx.header,
@@ -20,17 +21,23 @@ export const logRequestMiddleware: Middleware = () => async (ctx, next) => {
     };
 
     if (ctx.errorMessage) {
-      logger.error("Finishing Request", {
-        response: {
-          ...commonFinishingRequestContext,
-          errorMessage: ctx.errorMessage,
+      logger.error({
+        msg: "Finishing Request",
+        context: {
+          response: {
+            ...commonFinishingRequestContext,
+            errorMessage: ctx.errorMessage,
+          },
         },
       });
     } else {
-      logger.info("Finishing Request", {
-        response: {
-          ...commonFinishingRequestContext,
-          status: ctx.status,
+      logger.info({
+        msg: "Finishing Request",
+        context: {
+          response: {
+            ...commonFinishingRequestContext,
+            status: ctx.status,
+          },
         },
       });
     }

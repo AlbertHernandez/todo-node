@@ -19,7 +19,12 @@ export class TodosController implements ITodoController {
   }
 
   async getTodos() {
-    this.logger.info("Albert test", { name: "albert" });
+    this.logger.info({
+      msg: "Albert test",
+      context: {
+        name: "albert",
+      },
+    });
     return await this.todosService.getTodos();
   }
 

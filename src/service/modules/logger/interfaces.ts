@@ -1,5 +1,10 @@
+type LogMessage = {
+  msg: string;
+  context: any;
+};
+
 interface ILogMethod {
-  (msg: string, context?: any): void;
+  (message: LogMessage | string): void;
 }
 
 export interface ILogger {
