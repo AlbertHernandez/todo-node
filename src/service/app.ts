@@ -1,8 +1,9 @@
 import Koa from "koa";
-import awilix, { aliasTo, asValue } from "awilix";
+import awilix, { aliasTo, asValue, Constructor } from "awilix";
 
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
+import { ApplicationLogger } from "./modules/logger/types";
 import { IApplicationRouter } from "./application/interfaces";
 import { Middleware } from "./api/types";
 
@@ -21,7 +22,7 @@ export class App {
     routerNames?: string[];
     container: awilix.AwilixContainer;
     plugins?: Plugin[];
-    logger: ILogger;
+    applicationLogger: ApplicationLogger;
     middlewares?: Middleware[];
     env?: any;
   }) {
@@ -30,9 +31,13 @@ export class App {
     this.container = dependencies.container;
     this.plugins = dependencies.plugins || [];
     this.routerNames = dependencies.routerNames || [];
-    this.logger = dependencies.logger;
+
     this.middlewares = dependencies.middlewares || [];
     this.env = dependencies.env;
+
+    this.logger = dependencies.applicationLogger.createLogger({
+      env: this.env,
+    });
   }
 
   private async initializePlugins() {
@@ -74,10 +79,10 @@ export class App {
   }
 
   private registerEnv() {
-    this.logger.info("Registration of Env");
+    this.logger.info("Registration of application Env...");
 
     if (!this.env) {
-      this.logger.info("There is no env to register");
+      this.logger.info("No Env to register");
       return;
     }
 
@@ -85,14 +90,14 @@ export class App {
       env: asValue(this.env),
     });
 
-    this.logger.info("Registration of Env completed!");
+    this.logger.info("Registration of application Env!");
   }
 
   async start() {
     await this.app.listen(this.port);
-    this.registerEnv();
 
     this.registerLogger();
+    this.registerEnv();
     await this.initializePlugins();
 
     this.initializeMiddlewares();

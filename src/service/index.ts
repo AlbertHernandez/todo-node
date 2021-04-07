@@ -3,7 +3,7 @@ import * as Awilix from "awilix";
 import { App } from "./app";
 import { env } from "../config/environment";
 import { registerDependenciesPlugin } from "./plugins";
-import logger from "./modules/logger";
+import { applicationLogger } from "./modules/logger";
 import {
   bodyParserMiddleware,
   logRequestMiddleware,
@@ -21,7 +21,7 @@ const start = async () => {
     plugins: [registerDependenciesPlugin],
     container: Awilix.createContainer(),
     routerNames: ["todosRouter"],
-    logger,
+    applicationLogger,
     middlewares: [
       helmetMiddleware,
       ratelimitMiddleware,
