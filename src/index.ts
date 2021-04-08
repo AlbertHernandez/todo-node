@@ -14,14 +14,14 @@ import {
   ratelimitMiddleware,
   requestIdMiddleware,
 } from "./server/api/middlewares";
-import { todosRouterConfig } from "./application/todos";
+import { applicationRouterConfigs } from "./application/application-routers";
 
 const start = async () => {
   const app = new App({
     port: env.port,
     plugins: [registerApplicationDependencies],
     container: Awilix.createContainer(),
-    routerConfigs: [todosRouterConfig],
+    routerConfigs: applicationRouterConfigs,
     applicationLogger,
     middlewares: [
       helmetMiddleware,
