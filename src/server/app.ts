@@ -41,22 +41,33 @@ export class App {
   }
 
   private async initializePlugins() {
+    this.logger.info("Initializing plugins...");
+
     for (const plugin of this.plugins) {
       await plugin(this.container);
     }
+    this.logger.info("Plugins ready!");
   }
 
   private initializeMiddlewares() {
+    this.logger.info("Initializing middlewares...");
+
     for (const middleware of this.middlewares) {
       this.app.use(middleware(this.container));
     }
+
+    this.logger.info("Middlewares ready!");
   }
 
   private initializeRouters() {
+    this.logger.info("Initializing Routers...");
+
     this.routerConfigs.forEach((routerConfig) => {
       const router = new Router({ routerConfig });
       this.app.use(router.middleware());
     });
+
+    this.logger.info("Routers ready!");
   }
 
   private registerLogger() {
@@ -64,14 +75,14 @@ export class App {
       loggerType: "application",
     });
 
-    applicationLogger.info("Registration of application Logger...");
+    applicationLogger.info("Registration of Application Logger...");
 
     this.container.register({
       applicationLogger: asValue(applicationLogger),
       logger: aliasTo("applicationLogger"),
     });
 
-    applicationLogger.info("Registration of application completed!");
+    applicationLogger.info("Registration of Application Logger completed!");
   }
 
   private registerEnv() {
@@ -89,18 +100,25 @@ export class App {
     this.logger.info("Registration of application Env!");
   }
 
-  async start() {
+  async listen() {
     await this.app.listen(this.port);
+    this.logger.info(`Application Listening in Port ${this.port}`);
+  }
+
+  async start() {
+    this.logger.info("Starting the application...");
+
+    await this.listen();
 
     this.registerLogger();
+
     this.registerEnv();
+
     await this.initializePlugins();
 
     this.initializeMiddlewares();
     this.initializeRouters();
 
-    const logger: ILogger = this.container.resolve("logger");
-
-    logger.info(`App Ready in Port ${this.port}`);
+    this.logger.info("Application Ready to be Used!");
   }
 }
