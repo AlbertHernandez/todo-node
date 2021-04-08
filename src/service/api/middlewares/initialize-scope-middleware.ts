@@ -1,4 +1,3 @@
-import * as Koa from "koa";
 import { AwilixContainer, asValue } from "awilix";
 import { createScope } from "../../modules/di/helpers";
 import { Middleware } from "../types";

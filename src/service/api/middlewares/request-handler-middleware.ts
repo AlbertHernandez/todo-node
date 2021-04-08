@@ -6,31 +6,53 @@ const lowercaseFirstLetter = (source: string): string => {
 };
 
 const resolveHandler = (handler: Handler, request: Request) => {
-  const [HandlerClass, handlerMethod] = handler;
+  const [handlerClassName, handlerMethod] = handler;
+
+  if (!request.scope.has(handlerClassName)) {
+    throw new Error(`Handler class name "${handlerClassName}" does not exists`);
+  }
 
   const handlerClass: any = request.scope.resolve(
-    lowercaseFirstLetter(HandlerClass.name)
+    lowercaseFirstLetter(handlerClassName)
   );
 
   if (
     !handlerClass[handlerMethod] ||
     typeof handlerClass[handlerMethod] !== "function"
   ) {
-    throw new Error("Action not exists or not a function");
+    throw new Error(
+      `Handler Method "${handlerMethod}" does not exists in the handler class "${handlerClassName}"`
+    );
   }
 
   return handlerClass[handlerMethod].bind(handlerClass)(request);
 };
 
 export const requestHandlerMiddleware = (handler: Handler) => {
-  return async (ctx: Koa.Context): Promise<void> => {
-    const request: Request = {
-      body: ctx.request.body,
-      scope: ctx.scope,
-    };
+  return async ({ normalizedRequest }: Koa.Context): Promise<void> => {
+    const [handlerClassName, handlerMethod] = handler;
 
-    const response = await resolveHandler(handler, request);
+    if (!normalizedRequest.scope.has(handlerClassName)) {
+      throw new Error(
+        `Handler class name "${handlerClassName}" does not exists`
+      );
+    }
 
-    ctx.body = response;
+    const handlerClass: any = normalizedRequest.scope.resolve(
+      lowercaseFirstLetter(handlerClassName)
+    );
+
+    if (
+      !handlerClass[handlerMethod] ||
+      typeof handlerClass[handlerMethod] !== "function"
+    ) {
+      throw new Error(
+        `Handler Method "${handlerMethod}" does not exists in the handler class "${handlerClassName}"`
+      );
+    }
+
+    normalizedRequest.response = await handlerClass[handlerMethod].bind(
+      handlerClass
+    )(normalizedRequest);
   };
 };

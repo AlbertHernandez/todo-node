@@ -1,6 +1,12 @@
 import { Middleware } from "../types";
 
-const INTERNAL_SERVER_ERROR_MESSAGE = "Internal Server Error";
+const isClientError = (
+  error: Error & { status?: string | number }
+): boolean => {
+  return Boolean(
+    error && error.status && error.status.toString().startsWith("4")
+  );
+};
 
 export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
   try {
@@ -8,8 +14,9 @@ export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
   } catch (error) {
     ctx.status = error.status || 500;
     ctx.body = {
-      error: INTERNAL_SERVER_ERROR_MESSAGE,
+      error: isClientError(error) ? error.message : "Internal Server Error",
     };
     ctx.errorMessage = error.message;
+    ctx.errorStack = error.stack;
   }
 };

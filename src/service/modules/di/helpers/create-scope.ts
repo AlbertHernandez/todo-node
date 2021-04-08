@@ -6,10 +6,12 @@ export const createScope = (
   scopeLoggerInfo?: Record<string, unknown>
 ) => {
   const scope = container.createScope();
-  const parentLogger = container.resolve<ILogger>("applicationLogger");
+  const applicationLogger = container.resolve<ILogger>("applicationLogger");
+
+  const scopedLogger = applicationLogger.child(scopeLoggerInfo);
 
   scope.register({
-    scopedLogger: asValue(parentLogger.child(scopeLoggerInfo)),
+    scopedLogger: asValue(scopedLogger),
     logger: aliasTo("scopedLogger"),
   });
 

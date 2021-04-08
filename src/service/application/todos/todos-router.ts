@@ -1,30 +1,19 @@
-import { IApiRouter } from "../../api/interfaces";
-import { IApplicationRouter } from "../interfaces";
-import { Constructor } from "awilix";
-import { ITodoController } from "./interfaces";
+import { RouterConfig } from "../../api/types";
+import { todosSchemaValidation } from "./todos-schema-validation";
 
-export class TodosRouter implements IApplicationRouter {
-  router: IApiRouter;
-  TodosController: Constructor<ITodoController>;
+const todosRouterConfig: RouterConfig = {
+  prefix: "/api/v1/todos",
+  routes: {
+    getTodos: {
+      method: "get",
+      handler: ["todosController", "getTodos"],
+    },
+    createTodo: {
+      method: "post",
+      schema: todosSchemaValidation.createTodo,
+      handler: ["todosController", "createTodo"],
+    },
+  },
+};
 
-  prefix = "/api/v1/todos";
-
-  constructor(dependencies: {
-    Router: Constructor<IApiRouter>;
-    TodosController: Constructor<ITodoController>;
-  }) {
-    this.router = new dependencies.Router({ prefix: this.prefix });
-    this.TodosController = dependencies.TodosController;
-
-    this.initializeRoutes();
-  }
-
-  initializeRoutes() {
-    this.router.get("/", [this.TodosController, "getTodos"]);
-    this.router.post("/", [this.TodosController, "createTodo"]);
-  }
-
-  use() {
-    return this.router.middleware();
-  }
-}
+export { todosRouterConfig };

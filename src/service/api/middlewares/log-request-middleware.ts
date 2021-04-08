@@ -27,6 +27,7 @@ export const logRequestMiddleware: Middleware = () => async (ctx, next) => {
           response: {
             ...commonFinishingRequestContext,
             errorMessage: ctx.errorMessage,
+            errorStack: ctx.errorStack,
           },
         },
       });

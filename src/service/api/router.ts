@@ -1,22 +1,35 @@
 import KoaRouter from "koa-router";
 
 import { IApiRouter } from "./interfaces";
-import { Handler } from "./types";
-import { requestHandlerMiddleware } from "./middlewares";
+import { RouterConfig } from "./types";
+import {
+  normalizeRequestMiddleware,
+  requestHandlerMiddleware,
+} from "./middlewares";
+import { schemaValidation } from "./middlewares/schema-validation-middleware";
 
 export class Router implements IApiRouter {
   private router: KoaRouter;
 
-  constructor(dependencies: { prefix: string }) {
-    this.router = new KoaRouter({ prefix: dependencies.prefix });
+  constructor(dependencies: { routerConfig: RouterConfig }) {
+    this.router = this.configureRouter(dependencies.routerConfig);
   }
 
-  get(path: string, handler: Handler) {
-    this.router.get(path, requestHandlerMiddleware(handler));
-  }
+  private configureRouter(routerConfig: RouterConfig) {
+    const router = new KoaRouter({
+      prefix: routerConfig.prefix || "/",
+    });
 
-  post(path: string, handler: Handler) {
-    this.router.post(path, requestHandlerMiddleware(handler));
+    for (const route of Object.values(routerConfig.routes)) {
+      router[route.method](
+        route.path || "/",
+        normalizeRequestMiddleware(),
+        schemaValidation(route.schema),
+        requestHandlerMiddleware(route.handler)
+      );
+    }
+
+    return router;
   }
 
   middleware() {
