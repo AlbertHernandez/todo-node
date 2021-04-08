@@ -24,6 +24,7 @@ const start = async () => {
     routerConfigs: applicationRouterConfigs,
     applicationLogger,
     middlewares: [
+      bodyParserMiddleware,
       helmetMiddleware,
       ratelimitMiddleware,
       requestIdMiddleware,
@@ -31,7 +32,6 @@ const start = async () => {
       unifiedResponseMiddleware,
       logRequestMiddleware,
       errorHandlerMiddleware,
-      bodyParserMiddleware,
     ],
     env,
   });
