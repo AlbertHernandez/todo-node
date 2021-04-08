@@ -1,5 +1,5 @@
 import Koa from "koa";
-import awilix, { aliasTo, asValue, Constructor } from "awilix";
+import awilix, { aliasTo, asValue } from "awilix";
 
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";

@@ -1,11 +1,10 @@
-import { Request } from "../../api/types";
+import { Request } from "../../server/api/types";
 import { ITodoController, ITodosService } from "./interfaces";
 import { Todo } from "./types";
-import { ILogger } from "../../modules/logger/interfaces";
+import { ILogger } from "../../server/modules/logger/interfaces";
 
 export class TodosController implements ITodoController {
   todosService: ITodosService;
-  logger: ILogger;
   requestContext: any;
 
   constructor(dependencies: {
@@ -15,16 +14,9 @@ export class TodosController implements ITodoController {
   }) {
     this.todosService = dependencies.todosService;
     this.requestContext = dependencies.requestContext;
-    this.logger = dependencies.logger;
   }
 
   async getTodos() {
-    this.logger.info({
-      msg: "Albert test",
-      context: {
-        name: "albert",
-      },
-    });
     return await this.todosService.getTodos();
   }
 

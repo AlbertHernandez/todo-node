@@ -1,5 +1,5 @@
 import { Todo } from "./types";
-import { Request } from "../../api/types";
+import { Request } from "../../server/api/types";
 
 export interface ITodosService {
   getTodos: () => Promise<Todo[]>;

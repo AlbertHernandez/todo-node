@@ -1,4 +1,4 @@
-import { RouterConfig } from "../../api/types";
+import { RouterConfig } from "../../server/api/types";
 import { todosSchemaValidation } from "./todos-schema-validation";
 
 const todosRouterConfig: RouterConfig = {

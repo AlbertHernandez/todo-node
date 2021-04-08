@@ -1,4 +1,4 @@
-export class BaseError extends Error {
+export class ApplicationError extends Error {
   code: string;
   meta?: Record<string, unknown>;
 
@@ -6,7 +6,7 @@ export class BaseError extends Error {
     super(message);
 
     this.meta = meta;
-    this.code = code || "error.api.unexpected";
+    this.code = code || "error.application.unexpected";
 
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);

@@ -1,9 +1,9 @@
 import * as Awilix from "awilix";
 
-import { App } from "./app";
-import { env } from "../config/environment";
-import { registerDependenciesPlugin } from "./plugins";
-import { applicationLogger } from "./modules/logger";
+import { App } from "./server/app";
+import { env } from "./server/config/environment";
+import { registerApplicationDependencies } from "./application/register-application-dependencies";
+import { applicationLogger } from "./server/modules/logger";
 import {
   bodyParserMiddleware,
   logRequestMiddleware,
@@ -13,13 +13,13 @@ import {
   initializeScopeMiddleware,
   ratelimitMiddleware,
   requestIdMiddleware,
-} from "./api/middlewares";
+} from "./server/api/middlewares";
 import { todosRouterConfig } from "./application/todos";
 
 const start = async () => {
   const app = new App({
     port: env.port,
-    plugins: [registerDependenciesPlugin],
+    plugins: [registerApplicationDependencies],
     container: Awilix.createContainer(),
     routerConfigs: [todosRouterConfig],
     applicationLogger,

@@ -1,6 +1,6 @@
-import { BaseError } from "../../application/errors";
+import { ApplicationError } from "../../../application/errors";
 
-export class HttpError extends BaseError {
+export class HttpError extends ApplicationError {
   status: number | string;
 
   constructor(
