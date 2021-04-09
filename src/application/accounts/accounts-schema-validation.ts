@@ -4,7 +4,6 @@ export const accountsSchemaValidation = {
   get: {
     body: Joi.object({
       email: Joi.string().required(),
-      password: Joi.string().required(),
     }),
   },
   getAll: {
