@@ -1,23 +1,33 @@
-import { ITodosService } from "./interfaces";
-import { Todo } from "./types";
+import { IAccountsService } from "../accounts";
+import { AccountNotFoundError } from "../errors";
+import { ITodosRepository, ITodosService } from "./interfaces";
+import { Todo, TodoFilter } from "./types";
 
 export class TodosService implements ITodosService {
-  private todos: Todo[] = [
-    {
-      id: "1",
-      author: "Marcin",
-      title: "Lorem Ipsum",
-      content: "Dolor sit amet",
-      isCompleted: false,
-    },
-  ];
+  private todosRepository: ITodosRepository;
+  private accountsService: IAccountsService;
 
-  async getTodos() {
-    return this.todos;
+  constructor(dependencies: {
+    todosRepository: ITodosRepository;
+    accountsService: IAccountsService;
+  }) {
+    this.todosRepository = dependencies.todosRepository;
+    this.accountsService = dependencies.accountsService;
+  }
+
+  async getTodos(filter?: TodoFilter) {
+    return await this.todosRepository.getTodos(filter);
   }
 
   async createTodo(todo: Todo) {
-    this.todos.push(todo);
-    return todo;
+    const account = await this.accountsService.get(todo.author);
+
+    if (!account) {
+      throw new AccountNotFoundError("Account not found", {
+        email: todo.author,
+      });
+    }
+
+    return await this.todosRepository.createTodo(todo);
   }
 }

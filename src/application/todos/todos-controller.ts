@@ -1,11 +1,10 @@
 import { Request } from "../../server/api/types";
 import { ITodoController, ITodosService } from "./interfaces";
-import { Todo } from "./types";
+import { Todo, TodoFilter } from "./types";
 import { ILogger } from "../../server/modules/logger/interfaces";
 
 export class TodosController implements ITodoController {
   todosService: ITodosService;
-  requestContext: any;
 
   constructor(dependencies: {
     todosService: ITodosService;
@@ -13,11 +12,11 @@ export class TodosController implements ITodoController {
     requestContext: any;
   }) {
     this.todosService = dependencies.todosService;
-    this.requestContext = dependencies.requestContext;
   }
 
-  async getTodos() {
-    return await this.todosService.getTodos();
+  async getTodos(request: Request) {
+    const todoFilter: TodoFilter = request.body;
+    return await this.todosService.getTodos(todoFilter);
   }
 
   async createTodo(request: Request) {

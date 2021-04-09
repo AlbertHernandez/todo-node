@@ -1,8 +1,13 @@
-import { Todo } from "./types";
+import { Todo, TodoFilter } from "./types";
 import { Request } from "../../server/api/types";
 
 export interface ITodosService {
-  getTodos: () => Promise<Todo[]>;
+  getTodos: (filter?: TodoFilter) => Promise<Todo[]>;
+  createTodo: (todo: Todo) => Promise<Todo>;
+}
+
+export interface ITodosRepository {
+  getTodos: (filter?: TodoFilter) => Promise<Todo[]>;
   createTodo: (todo: Todo) => Promise<Todo>;
 }
 

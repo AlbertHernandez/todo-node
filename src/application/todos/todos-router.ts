@@ -7,13 +7,17 @@ import {
 } from "../../server/api/middlewares";
 
 const todosRouter = new KoaRouter({
-  prefix: "/api/v1/todos",
+  prefix: "/api/v1",
 });
 
-todosRouter.get("/", requestHandlerMiddleware(["todosController", "getTodos"]));
+todosRouter.get(
+  "/todos",
+  schemaValidation(todosSchemaValidation.getTodos),
+  requestHandlerMiddleware(["todosController", "getTodos"])
+);
 
 todosRouter.post(
-  "/",
+  "/todo",
   schemaValidation(todosSchemaValidation.createTodo),
   requestHandlerMiddleware(["todosController", "createTodo"])
 );

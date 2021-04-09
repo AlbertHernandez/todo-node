@@ -1,9 +1,14 @@
 export type Todo = {
-  [TodoValues.ID]: string;
-  [TodoValues.AUTHOR]: string;
-  [TodoValues.TITLE]: string;
-  [TodoValues.CONTENT]: string;
-  [TodoValues.IS_COMPLETED]: boolean;
+  id: string;
+  author: string;
+  title: string;
+  content: string;
+  isCompleted: boolean;
+};
+
+export type TodoFilter = {
+  author?: string;
+  isCompleted?: boolean;
 };
 
 export enum TodoValues {
