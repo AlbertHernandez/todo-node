@@ -12,9 +12,14 @@ export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+    const clientError = isClientError(error);
     ctx.status = error.status || 500;
+
     ctx.body = {
-      error: isClientError(error) ? error.message : "Internal Server Error",
+      error: {
+        message: clientError ? error.message : "Internal Server Error",
+        meta: clientError ? error.meta : undefined,
+      },
     };
     ctx.errorMessage = error.message;
     ctx.errorStack = error.stack;
