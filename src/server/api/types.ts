@@ -7,8 +7,6 @@ export type Request = {
   [RequestValues.QUERY]: any;
   [RequestValues.HEADERS]: any;
   [RequestValues.PARAMS]: any;
-  scope: AwilixContainer;
-  response?: any;
 };
 
 export enum RequestValues {
@@ -22,23 +20,9 @@ export type Handler = [string, string];
 
 export type Middleware = (container: AwilixContainer) => Koa.Middleware;
 
-export type RequestMiddleware = (ctx: any) => Koa.Middleware;
-
 export type SchemasConfig = Partial<{
   [RequestValues.QUERY]?: ObjectSchema;
   [RequestValues.BODY]?: ObjectSchema;
   [RequestValues.PARAMS]?: ObjectSchema;
   [RequestValues.HEADERS]?: ObjectSchema;
 }>;
-
-export type RouterConfig = {
-  prefix?: any;
-  routes: {
-    [description: string]: {
-      method: "get" | "post";
-      path?: string;
-      schema?: SchemasConfig;
-      handler: Handler;
-    };
-  };
-};

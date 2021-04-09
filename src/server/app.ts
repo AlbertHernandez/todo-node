@@ -4,22 +4,22 @@ import awilix, { aliasTo, asValue } from "awilix";
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
 import { ApplicationLogger } from "./modules/logger/types";
-import { Middleware, RouterConfig } from "./api/types";
-import { Router } from "./api/router";
+import { Middleware } from "./api/types";
+import KoaRouter from "koa-router";
 
 export class App {
   app: Koa;
   port: number;
   container: awilix.AwilixContainer;
   plugins: Plugin[];
-  routerConfigs: RouterConfig[];
+  routers: KoaRouter[];
   logger: ILogger;
   middlewares: Middleware[];
   env: any;
 
   constructor(dependencies: {
     port: number;
-    routerConfigs?: RouterConfig[];
+    routers?: KoaRouter[];
     container: awilix.AwilixContainer;
     plugins?: Plugin[];
     applicationLogger: ApplicationLogger;
@@ -30,7 +30,7 @@ export class App {
     this.port = dependencies.port;
     this.container = dependencies.container;
     this.plugins = dependencies.plugins || [];
-    this.routerConfigs = dependencies.routerConfigs || [];
+    this.routers = dependencies.routers || [];
 
     this.middlewares = dependencies.middlewares || [];
     this.env = dependencies.env;
@@ -62,8 +62,7 @@ export class App {
   private initializeRouters() {
     this.logger.info("Initializing Routers...");
 
-    this.routerConfigs.forEach((routerConfig) => {
-      const router = new Router({ routerConfig });
+    this.routers.forEach((router) => {
       this.app.use(router.middleware());
     });
 

@@ -1,3 +1,3 @@
-import { todosRouterConfig } from "./todos";
+import { todosRouter } from "./todos";
 
-export const applicationRouterConfigs = [todosRouterConfig];
+export const applicationRouters = [todosRouter];

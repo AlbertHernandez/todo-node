@@ -1,19 +1,21 @@
-import { RouterConfig } from "../../server/api/types";
+import KoaRouter from "koa-router";
+
 import { todosSchemaValidation } from "./todos-schema-validation";
+import {
+  requestHandlerMiddleware,
+  schemaValidation,
+} from "../../server/api/middlewares";
 
-const todosRouterConfig: RouterConfig = {
+const todosRouter = new KoaRouter({
   prefix: "/api/v1/todos",
-  routes: {
-    getTodos: {
-      method: "get",
-      handler: ["todosController", "getTodos"],
-    },
-    createTodo: {
-      method: "post",
-      schema: todosSchemaValidation.createTodo,
-      handler: ["todosController", "createTodo"],
-    },
-  },
-};
+});
 
-export { todosRouterConfig };
+todosRouter.get("/", requestHandlerMiddleware(["todosController", "getTodos"]));
+
+todosRouter.post(
+  "/",
+  schemaValidation(todosSchemaValidation.createTodo),
+  requestHandlerMiddleware(["todosController", "createTodo"])
+);
+
+export { todosRouter };

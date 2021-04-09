@@ -7,5 +7,4 @@ export * from "./rate-limit-middleware";
 export * from "./request-handler-middleware";
 export * from "./request-id-middleware";
 export * from "./unified-response-middleware";
-export * from "./normalize-request-middleware";
 export * from "./schema-validation-middleware";

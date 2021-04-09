@@ -1,13 +1,14 @@
 import Joi from "@hapi/joi";
+import { TodoValues } from "./types";
 
 export const todosSchemaValidation = {
   createTodo: {
     body: Joi.object({
-      id: Joi.string().required(),
-      author: Joi.string().required(),
-      title: Joi.string().required(),
-      content: Joi.string().required(),
-      isCompleted: Joi.boolean().required(),
+      [TodoValues.ID]: Joi.string().required(),
+      [TodoValues.AUTHOR]: Joi.string().required(),
+      [TodoValues.TITLE]: Joi.string().required(),
+      [TodoValues.CONTENT]: Joi.string().required(),
+      [TodoValues.IS_COMPLETED]: Joi.boolean().required(),
     }),
   },
 };

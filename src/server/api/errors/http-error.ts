@@ -1,7 +1,7 @@
-import { ApplicationError } from "../../../application/errors";
-
-export class HttpError extends ApplicationError {
-  status: number | string;
+export class HttpError extends Error {
+  code: string;
+  meta?: Record<string, unknown>;
+  status?: number | string;
 
   constructor(
     message: string,
@@ -9,8 +9,13 @@ export class HttpError extends ApplicationError {
     code?: string,
     meta?: Record<string, unknown>
   ) {
-    super(message, code, meta);
+    super(message);
 
     this.status = status;
+    this.meta = meta;
+    this.code = code || "error.api.unexpected";
+
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
