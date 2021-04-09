@@ -39,6 +39,6 @@ export const requestHandlerMiddleware = (handler: Handler) => {
       handlerClass
     )(normalizedRequest);
 
-    ctx.body = handlerResponse;
+    ctx.body = handlerResponse || {};
   };
 };
