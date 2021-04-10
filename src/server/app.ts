@@ -15,7 +15,7 @@ export class App {
   routers: KoaRouter[];
   logger: ILogger;
   middlewares: Middleware[];
-  env: any;
+  env?: any;
 
   constructor(dependencies: {
     port: number;
