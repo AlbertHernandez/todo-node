@@ -8,3 +8,5 @@ export * from "./request-handler-middleware";
 export * from "./request-id-middleware";
 export * from "./unified-response-middleware";
 export * from "./schema-validation-middleware";
+export * from "./authentication-middleware";
+export * from "./authorization-middleware";

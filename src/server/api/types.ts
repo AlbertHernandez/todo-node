@@ -26,3 +26,16 @@ export type SchemasConfig = Partial<{
   headers?: ObjectSchema;
   params?: ObjectSchema;
 }>;
+
+export enum UserName {
+  GENERIC_API_USER = "generic-api-user",
+}
+
+export enum UserType {
+  API = "api",
+}
+
+export type ApiUser = {
+  type: UserType;
+  name: UserName;
+};

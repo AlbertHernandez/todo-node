@@ -13,6 +13,7 @@ import {
   initializeScopeMiddleware,
   ratelimitMiddleware,
   requestIdMiddleware,
+  authenticationMiddleware,
 } from "./server/api/middlewares";
 import { applicationRouters } from "./application/application-routers";
 
@@ -27,6 +28,7 @@ const start = async () => {
       bodyParserMiddleware,
       helmetMiddleware,
       ratelimitMiddleware,
+      authenticationMiddleware,
       requestIdMiddleware,
       initializeScopeMiddleware,
       unifiedResponseMiddleware,
