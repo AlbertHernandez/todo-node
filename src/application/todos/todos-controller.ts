@@ -1,14 +1,12 @@
 import { Request } from "../../server/api/types";
 import { ITodoController, ITodosService } from "./interfaces";
 import { Todo, TodoFilter } from "./types";
-import { ILogger } from "../../server/modules/logger/interfaces";
 
 export class TodosController implements ITodoController {
   todosService: ITodosService;
 
   constructor(dependencies: {
     todosService: ITodosService;
-    logger: ILogger;
     requestContext: any;
   }) {
     this.todosService = dependencies.todosService;
