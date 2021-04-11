@@ -1,4 +1,4 @@
-import Koa from "koa";
+import * as Koa from "koa";
 import awilix from "awilix";
 import { ILogger } from "./modules/logger/interfaces";
 

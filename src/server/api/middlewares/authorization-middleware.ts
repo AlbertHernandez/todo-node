@@ -1,4 +1,4 @@
-import { Context, Next } from "koa";
+import * as Koa from "koa";
 import { ApiUser, UserType } from "../types";
 
 export const authorizationMiddleware = ({
@@ -6,7 +6,7 @@ export const authorizationMiddleware = ({
 }: {
   allowedUserTypes: UserType[];
 }) =>
-  async function authorizationMiddleware(ctx: Context, next: Next) {
+  async function authorizationMiddleware(ctx: Koa.Context, next: Koa.Next) {
     const user: ApiUser | null = ctx.session.user;
 
     const isAllowedUser = user && allowedUserTypes.includes(user.type);
