@@ -20,6 +20,6 @@ export class TodosController implements ITodoController {
   async createTodo(request: Request) {
     const todo: Todo = request.body;
 
-    return this.todosService.createTodo(todo);
+    return await this.todosService.createTodo(todo);
   }
 }
