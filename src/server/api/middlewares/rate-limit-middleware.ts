@@ -2,6 +2,7 @@ import Koa from "koa";
 import ratelimit from "koa-ratelimit";
 import { Middleware } from "../types";
 import { IApp } from "../../interfaces";
+import { Env } from "../../config/environment/types";
 
 export const ratelimitMiddleware: Middleware = (app: IApp) =>
   ratelimit({
@@ -12,6 +13,7 @@ export const ratelimitMiddleware: Middleware = (app: IApp) =>
     duration: 600000, // 10 min
     disableHeader: false,
     whitelist: () => {
-      return app.env.development || app.env.test;
+      const env: Env = app.env;
+      return env.development || env.test;
     },
   });

@@ -2,14 +2,16 @@ import pino from "pino";
 import { IApp } from "../../interfaces";
 import { ILogger } from "./interfaces";
 import { ApplicationLogger } from "./types";
+import { Env } from "../../config/environment/types";
 
 export const applicationLogger: ApplicationLogger = {
   createLogger(app: IApp): ILogger {
+    const env: Env = app.env;
     return pino({
-      prettyPrint: app.env.development,
+      prettyPrint: env.development,
       timestamp() {
         return `Time: ${
-          app.env.development
+          env.development
             ? new Date(Date.now()).toLocaleString("en-US", {
                 hour12: false,
                 timeZoneName: "short",

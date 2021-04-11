@@ -1,5 +1,6 @@
 import { UserName, Middleware, UserType } from "../types";
 import { IApp } from "../../interfaces";
+import { Env } from "../../config/environment/types";
 
 type User = {
   key: string;
@@ -8,9 +9,10 @@ type User = {
 };
 
 const getUsers = (app: IApp): User[] => {
+  const env: Env = app.env;
   return [
     {
-      key: app.env.apiKey,
+      key: env.apiKey,
       name: UserName.GENERIC_API_USER,
       type: UserType.API,
     },
