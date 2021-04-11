@@ -107,21 +107,6 @@ export class App implements IApp {
     );
   }
 
-  private registerEnv() {
-    this.logger.info("Registration of application Env...");
-
-    if (!this.env) {
-      this.logger.info("No Env to register");
-      return;
-    }
-
-    this.container.register({
-      env: Awilix.asValue(this.env),
-    });
-
-    this.logger.info("Registration of application Env!");
-  }
-
   private registerApp() {
     this.logger.info("Registration of application...");
 
@@ -157,8 +142,6 @@ export class App implements IApp {
 
     this.registerLogger();
     this.registerErrorHandler();
-
-    this.registerEnv();
 
     await this.initializePlugins();
 
