@@ -18,4 +18,5 @@ export interface SchemasConfig {
 export interface ApiUser {
   type: UserType;
   name: UserName;
+  key: string;
 }

@@ -2,14 +2,9 @@ import { App } from "../../../interfaces";
 import { Env } from "../../../config/environment/interfaces";
 import { AppMiddleware } from "./interfaces";
 import { UserName, UserType } from "../../enums";
+import { ApiUser } from "../../interfaces";
 
-type User = {
-  key: string;
-  name: UserName;
-  type: UserType;
-};
-
-const getUsers = (app: App): User[] => {
+const getUsers = (app: App): ApiUser[] => {
   const env: Env = app.env;
   return [
     {
@@ -25,15 +20,10 @@ export const authenticationMiddleware: AppMiddleware = (app) =>
     const users = getUsers(app);
     const apiKey = ctx.get("api-key");
 
-    const user = users.find((user) => user.key === apiKey);
+    const user = users.find((user) => user.key === apiKey) || null;
 
     ctx.session = {
-      user: user
-        ? {
-            type: user.type,
-            name: user.name,
-          }
-        : null,
+      user,
     };
 
     await next();
