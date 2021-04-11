@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 import { Env } from "./interfaces";
 import { LoggerLevel } from "../../modules/logger/enums";
+import { Environment } from "./enums";
 
 dotenv.config();
 
-const isNodeEnv = (env: string) => process.env.NODE_ENV === env;
+const isNodeEnv = (env: Environment) => process.env.NODE_ENV === env;
 
 const getLoggerLevel = (): LoggerLevel => {
   const loggerLevel = process.env.LOGGER_LEVEL || "";
@@ -16,10 +17,10 @@ const getLoggerLevel = (): LoggerLevel => {
 };
 
 export const env: Env = {
-  development: isNodeEnv("development"),
-  test: isNodeEnv("test"),
-  beta: isNodeEnv("beta"),
-  production: isNodeEnv("production"),
+  development: isNodeEnv(Environment.Development),
+  test: isNodeEnv(Environment.Test),
+  beta: isNodeEnv(Environment.Beta),
+  production: isNodeEnv(Environment.Production),
   mongo: {
     url: process.env.MONGO_URI || "",
   },
