@@ -3,10 +3,10 @@ import { registerTodosDependencies } from "./todos";
 import { registerAccountsDependencies } from "./accounts";
 
 export const registerApplicationDependencies: Plugin = async (app) => {
-  app.logger.info("Registration of application dependencies...");
+  app.logger.debug("Registration of application dependencies...");
 
   await registerTodosDependencies(app);
   await registerAccountsDependencies(app);
 
-  app.logger.info("Registration of application dependencies completed!");
+  app.logger.debug("Registration of application dependencies completed!");
 };

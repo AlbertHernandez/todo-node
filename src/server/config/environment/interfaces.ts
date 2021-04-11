@@ -1,3 +1,5 @@
+import { LoggerLevel } from "../../modules/logger/enums";
+
 export interface Env {
   development: boolean;
   test: boolean;
@@ -8,4 +10,5 @@ export interface Env {
   };
   port: number;
   apiKey: string;
+  loggerLevel: LoggerLevel;
 }

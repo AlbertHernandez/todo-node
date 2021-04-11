@@ -4,7 +4,7 @@ import { TodosController, TodosRepository, TodosService } from "./";
 import { Plugin } from "../../server/plugins/interfaces";
 
 export const registerTodosDependencies: Plugin = async (app) => {
-  app.logger.info("Registration of todos dependencies...");
+  app.logger.debug("Registration of todos dependencies...");
 
   app.container.register({
     todosController: Awilix.asClass(TodosController),
@@ -12,5 +12,5 @@ export const registerTodosDependencies: Plugin = async (app) => {
     todosRepository: Awilix.asClass(TodosRepository),
   });
 
-  app.logger.info("Registration of todos dependencies completed!");
+  app.logger.debug("Registration of todos dependencies completed!");
 };

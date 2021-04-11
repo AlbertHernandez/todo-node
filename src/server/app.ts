@@ -48,32 +48,32 @@ export class App implements IApp {
   }
 
   private async initializePlugins() {
-    this.logger.info("Initializing plugins...");
+    this.logger.debug("Initializing plugins...");
 
     for (const plugin of this.plugins) {
       await plugin(this);
     }
-    this.logger.info("Plugins ready!");
+    this.logger.debug("Plugins ready!");
   }
 
   private initializeMiddlewares() {
-    this.logger.info("Initializing middlewares...");
+    this.logger.debug("Initializing middlewares...");
 
     for (const middleware of this.middlewares) {
       this.app.use(middleware(this));
     }
 
-    this.logger.info("Middlewares ready!");
+    this.logger.debug("Middlewares ready!");
   }
 
   private initializeRouters() {
-    this.logger.info("Initializing Routers...");
+    this.logger.debug("Initializing Routers...");
 
     this.routers.forEach((router) => {
       this.app.use(router.middleware());
     });
 
-    this.logger.info("Routers ready!");
+    this.logger.debug("Routers ready!");
   }
 
   private registerLogger() {
@@ -81,14 +81,14 @@ export class App implements IApp {
       loggerType: "application",
     });
 
-    applicationLogger.info("Registration of Application Logger...");
+    applicationLogger.debug("Registration of Application Logger...");
 
     this.container.register({
       applicationLogger: Awilix.asValue(applicationLogger),
       logger: Awilix.aliasTo("applicationLogger"),
     });
 
-    applicationLogger.info("Registration of Application Logger completed!");
+    applicationLogger.debug("Registration of Application Logger completed!");
   }
 
   private registerErrorHandler() {
@@ -96,30 +96,30 @@ export class App implements IApp {
       loggerType: "application",
     });
 
-    applicationLogger.info("Registration of Application Error Handler...");
+    applicationLogger.debug("Registration of Application Error Handler...");
 
     this.container.register({
       errorHandler: Awilix.asValue(this.errorHandler),
     });
 
-    applicationLogger.info(
+    applicationLogger.debug(
       "Registration of Application Error Handler completed!"
     );
   }
 
   private registerApp() {
-    this.logger.info("Registration of application...");
+    this.logger.debug("Registration of application...");
 
     this.container.register({
       app: Awilix.asValue(this),
     });
 
-    this.logger.info("Registration of application completed!");
+    this.logger.debug("Registration of application completed!");
   }
 
   private async listen() {
     await this.app.listen(this.port);
-    this.logger.info(`Application Listening in Port ${this.port}`);
+    this.logger.debug(`Application Listening in Port ${this.port}`);
   }
 
   private subscribeToErrors() {
@@ -136,7 +136,7 @@ export class App implements IApp {
   }
 
   async start() {
-    this.logger.info("Starting the application...");
+    this.logger.debug("Starting the application...");
 
     await this.listen();
 

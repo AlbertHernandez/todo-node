@@ -6,6 +6,7 @@ export const applicationLogger: ApplicationLogger = {
   createLogger(app): Logger {
     const env: Env = app.env;
     return pino({
+      level: env.loggerLevel,
       prettyPrint: env.development,
       timestamp() {
         return `Time: ${

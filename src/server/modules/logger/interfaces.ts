@@ -1,4 +1,5 @@
 import { App } from "../../interfaces";
+import { LoggerLevel } from "./enums";
 
 type LogMessage = {
   msg: string;
@@ -10,10 +11,12 @@ interface LogMethod {
 }
 
 export interface Logger {
-  debug: LogMethod;
-  info: LogMethod;
-  warn: LogMethod;
-  error: LogMethod;
+  [LoggerLevel.Trace]: LogMethod;
+  [LoggerLevel.Debug]: LogMethod;
+  [LoggerLevel.Info]: LogMethod;
+  [LoggerLevel.Warn]: LogMethod;
+  [LoggerLevel.Error]: LogMethod;
+  [LoggerLevel.Fatal]: LogMethod;
   child: (options: any) => Logger;
 }
 

@@ -4,7 +4,7 @@ import { Plugin } from "../../server/plugins/interfaces";
 import { AccountsController, AccountsRepository, AccountsService } from ".";
 
 export const registerAccountsDependencies: Plugin = async (app) => {
-  app.logger.info("Registration of accounts dependencies...");
+  app.logger.debug("Registration of accounts dependencies...");
 
   app.container.register({
     accountsController: Awilix.asClass(AccountsController),
@@ -12,5 +12,5 @@ export const registerAccountsDependencies: Plugin = async (app) => {
     accountsRepository: Awilix.asClass(AccountsRepository),
   });
 
-  app.logger.info("Registration of accounts dependencies completed!");
+  app.logger.debug("Registration of accounts dependencies completed!");
 };
