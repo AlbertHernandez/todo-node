@@ -26,7 +26,7 @@ function setRequestPart(
 }
 
 export const schemaValidation = (schemas: SchemasConfig | null) => {
-  return async (ctx: Koa.Context, next: Koa.Next) => {
+  return async function schemaValidation(ctx: Koa.Context, next: Koa.Next) {
     if (schemas) {
       Object.entries(schemas).forEach(([requestPart, schema]) => {
         const requestPartType = requestPart as RequestValues;

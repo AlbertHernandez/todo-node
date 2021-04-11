@@ -5,14 +5,15 @@ export const authorizationMiddleware = ({
   allowedUserTypes,
 }: {
   allowedUserTypes: UserType[];
-}) => async (ctx: Context, next: Next) => {
-  const user: ApiUser | null = ctx.session.user;
+}) =>
+  async function authorizationMiddleware(ctx: Context, next: Next) {
+    const user: ApiUser | null = ctx.session.user;
 
-  const isAllowedUser = user && allowedUserTypes.includes(user.type);
+    const isAllowedUser = user && allowedUserTypes.includes(user.type);
 
-  if (!user || !isAllowedUser) {
-    ctx.throw(401, "Unauthorized");
-  }
+    if (!user || !isAllowedUser) {
+      ctx.throw(401, "Unauthorized");
+    }
 
-  await next();
-};
+    await next();
+  };

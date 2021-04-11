@@ -17,23 +17,21 @@ const getUsers = (app: IApp): User[] => {
   ];
 };
 
-export const authenticationMiddleware: Middleware = (app: IApp) => async (
-  ctx,
-  next
-) => {
-  const users = getUsers(app);
-  const apiKey = ctx.get("api-key");
+export const authenticationMiddleware: Middleware = (app: IApp) =>
+  async function authenticationMiddleware(ctx, next) {
+    const users = getUsers(app);
+    const apiKey = ctx.get("api-key");
 
-  const user = users.find((user) => user.key === apiKey);
+    const user = users.find((user) => user.key === apiKey);
 
-  ctx.session = {
-    user: user
-      ? {
-          type: user.type,
-          name: user.name,
-        }
-      : null,
+    ctx.session = {
+      user: user
+        ? {
+            type: user.type,
+            name: user.name,
+          }
+        : null,
+    };
+
+    await next();
   };
-
-  await next();
-};

@@ -6,7 +6,7 @@ const lowercaseFirstLetter = (source: string): string => {
 };
 
 export const requestHandlerMiddleware = (handler: Handler) => {
-  return async (ctx: Koa.Context): Promise<void> => {
+  return async function requestHandlerMiddleware(ctx: Koa.Context) {
     const [handlerClassName, handlerMethod] = handler;
 
     if (!ctx.scope.has(handlerClassName)) {
