@@ -1,11 +1,7 @@
 import Router from "koa-router";
 
 import { todosSchemaValidation } from "./todos-schema-validation";
-import {
-  authorizationMiddleware,
-  requestHandlerMiddleware,
-  schemaValidation,
-} from "../../server/api/middlewares";
+import * as routerMiddleware from "../../server/api/middlewares/router-middlewares";
 import { UserType } from "../../server/api/types";
 
 const todosRouter = new Router({
@@ -14,20 +10,20 @@ const todosRouter = new Router({
 
 todosRouter.get(
   "/todos",
-  authorizationMiddleware({
+  routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.API],
   }),
-  schemaValidation(todosSchemaValidation.getTodos),
-  requestHandlerMiddleware(["todosController", "getTodos"])
+  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.getTodos),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "getTodos"])
 );
 
 todosRouter.post(
   "/todo",
-  authorizationMiddleware({
+  routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.API],
   }),
-  schemaValidation(todosSchemaValidation.createTodo),
-  requestHandlerMiddleware(["todosController", "createTodo"])
+  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.createTodo),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "createTodo"])
 );
 
 export { todosRouter };

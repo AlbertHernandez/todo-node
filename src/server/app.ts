@@ -4,11 +4,11 @@ import * as Awilix from "awilix";
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
 import { ApplicationLogger } from "./modules/logger/types";
-import { AppMiddleware } from "./api/types";
 import Router from "koa-router";
 import { IApp } from "./interfaces";
 import { ApplicationErrorHandler } from "./modules/error-handler/types";
 import { IErrorHandler } from "./modules/error-handler/interfaces";
+import { AppMiddleware } from "./api/middlewares/app-middlewares/types";
 
 export class App implements IApp {
   app: Koa;

@@ -1,10 +1,6 @@
 import Router from "koa-router";
 
-import {
-  authorizationMiddleware,
-  requestHandlerMiddleware,
-  schemaValidation,
-} from "../../server/api/middlewares";
+import * as routerMiddleware from "../../server/api/middlewares/router-middlewares";
 import { UserType } from "../../server/api/types";
 import { accountsSchemaValidation } from "./accounts-schema-validation";
 
@@ -14,20 +10,20 @@ const accountsRouter = new Router({
 
 accountsRouter.get(
   "/account",
-  authorizationMiddleware({
+  routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.API],
   }),
-  schemaValidation(accountsSchemaValidation.get),
-  requestHandlerMiddleware(["accountsController", "get"])
+  routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.get),
+  routerMiddleware.requestHandlerMiddleware(["accountsController", "get"])
 );
 
 accountsRouter.get(
   "/accounts",
-  authorizationMiddleware({
+  routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.API],
   }),
-  schemaValidation(accountsSchemaValidation.getAll),
-  requestHandlerMiddleware(["accountsController", "getAll"])
+  routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.getAll),
+  routerMiddleware.requestHandlerMiddleware(["accountsController", "getAll"])
 );
 
 export { accountsRouter };

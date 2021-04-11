@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { Handler, Request } from "../types";
+import { Handler, Request } from "../../types";
 
 const lowercaseFirstLetter = (source: string): string => {
   return source.charAt(0).toLowerCase() + source.slice(1);

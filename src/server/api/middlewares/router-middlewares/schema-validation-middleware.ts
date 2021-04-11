@@ -1,6 +1,6 @@
 import * as Koa from "koa";
-import { RequestValidationError } from "../errors";
-import { RequestValues, SchemasConfig } from "../types";
+import { RequestValidationError } from "../../errors";
+import { RequestValues, SchemasConfig } from "../../types";
 
 function getRequestPart(
   ctx: Koa.ParameterizedContext,
@@ -25,8 +25,11 @@ function setRequestPart(
   }
 }
 
-export const schemaValidation = (schemas: SchemasConfig | null) => {
-  return async function schemaValidation(ctx: Koa.Context, next: Koa.Next) {
+export const schemaValidationMiddleware = (schemas: SchemasConfig | null) => {
+  return async function schemaValidationMiddleware(
+    ctx: Koa.Context,
+    next: Koa.Next
+  ) {
     if (schemas) {
       Object.entries(schemas).forEach(([requestPart, schema]) => {
         const requestPartType = requestPart as RequestValues;

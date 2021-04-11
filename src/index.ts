@@ -14,7 +14,7 @@ import {
   ratelimitMiddleware,
   requestIdMiddleware,
   authenticationMiddleware,
-} from "./server/api/middlewares";
+} from "./server/api/middlewares/app-middlewares";
 import { applicationRouters } from "./application/application-routers";
 import { applicationErrorHandler } from "./server/modules/error-handler";
 

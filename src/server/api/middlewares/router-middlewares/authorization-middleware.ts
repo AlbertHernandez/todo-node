@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { ApiUser, UserType } from "../types";
+import { ApiUser, UserType } from "../../types";
 
 export const authorizationMiddleware = ({
   allowedUserTypes,

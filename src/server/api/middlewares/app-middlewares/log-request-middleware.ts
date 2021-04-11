@@ -1,5 +1,5 @@
-import { ILogger } from "../../modules/logger/interfaces";
-import { AppMiddleware } from "../types";
+import { ILogger } from "../../../modules/logger/interfaces";
+import { AppMiddleware } from "./types";
 
 export const logRequestMiddleware: AppMiddleware = () =>
   async function logRequestMiddleware(ctx, next) {

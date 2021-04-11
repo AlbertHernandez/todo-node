@@ -1,6 +1,4 @@
 import { ObjectSchema } from "@hapi/joi";
-import * as Koa from "koa";
-import { IApp } from "../interfaces";
 
 export type Request = {
   body: any;
@@ -17,8 +15,6 @@ export enum RequestValues {
 }
 
 export type Handler = [string, string];
-
-export type AppMiddleware = (app: IApp) => Koa.Middleware;
 
 export type SchemasConfig = Partial<{
   body?: ObjectSchema;

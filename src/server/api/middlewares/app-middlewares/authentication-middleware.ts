@@ -1,6 +1,7 @@
-import { UserName, UserType, AppMiddleware } from "../types";
-import { IApp } from "../../interfaces";
-import { Env } from "../../config/environment/types";
+import { UserName, UserType } from "../../types";
+import { IApp } from "../../../interfaces";
+import { Env } from "../../../config/environment/types";
+import { AppMiddleware } from "./types";
 
 type User = {
   key: string;

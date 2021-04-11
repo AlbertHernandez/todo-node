@@ -1,8 +1,8 @@
 import * as Koa from "koa";
 import ratelimit from "koa-ratelimit";
-import { AppMiddleware } from "../types";
-import { IApp } from "../../interfaces";
-import { Env } from "../../config/environment/types";
+import { AppMiddleware } from "./types";
+import { IApp } from "../../../interfaces";
+import { Env } from "../../../config/environment/types";
 
 export const ratelimitMiddleware: AppMiddleware = (app: IApp) =>
   ratelimit({

@@ -1,7 +1,7 @@
 import * as Awilix from "awilix";
-import { IApp } from "../../interfaces";
-import { createScope } from "../../modules/di/helpers";
-import { AppMiddleware } from "../types";
+import { IApp } from "../../../interfaces";
+import { createScope } from "../../../modules/di/helpers";
+import { AppMiddleware } from "./types";
 
 export const initializeScopeMiddleware: AppMiddleware = (app: IApp) =>
   async function initializeScopeMiddleware(ctx, next) {

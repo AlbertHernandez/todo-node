@@ -1,5 +1,6 @@
-import { IApp } from "../../interfaces";
-import { HttpStatusCode, AppMiddleware } from "../types";
+import { IApp } from "../../../interfaces";
+import { HttpStatusCode } from "../../types";
+import { AppMiddleware } from "./types";
 
 const isClientError = (
   error: Error & { status?: string | number }
