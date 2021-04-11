@@ -1,4 +1,4 @@
-import { Account, AuthenticationRequest } from "./types";
+import { Account } from "./types";
 import { Request } from "../../server/api/types";
 
 export interface IAccountsRepository {

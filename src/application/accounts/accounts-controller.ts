@@ -18,7 +18,7 @@ export class AccountsController implements IAccountsController {
     return await this.accountsService.get(email);
   }
 
-  async getAll(request: Request): Promise<Account[]> {
+  async getAll(): Promise<Account[]> {
     return await this.accountsService.getAll();
   }
 }

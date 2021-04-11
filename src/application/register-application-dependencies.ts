@@ -1,4 +1,3 @@
-import * as Awilix from "awilix";
 import { Plugin } from "../server/plugins/types";
 import { ILogger } from "../server/modules/logger/interfaces";
 import { registerTodosDependencies } from "./todos";
