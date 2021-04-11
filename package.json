@@ -7,8 +7,8 @@
     "start": "node build/service/index.js",
     "watch": "nodemon --exec node --inspect=0.0.0.0:56745 -r ts-node/register src/index.ts",
     "build": "rm -rf ./build && ./node_modules/typescript/bin/tsc -b --verbose",
-    "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "prepare": "husky install"
   },
   "engines": {
