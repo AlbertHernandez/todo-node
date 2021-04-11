@@ -1,4 +1,4 @@
 import requestId from "koa-requestid";
-import { Middleware } from "../types";
+import { AppMiddleware } from "../types";
 
-export const requestIdMiddleware: Middleware = () => requestId();
+export const requestIdMiddleware: AppMiddleware = () => requestId();

@@ -1,4 +1,4 @@
-import { UserName, Middleware, UserType } from "../types";
+import { UserName, UserType, AppMiddleware } from "../types";
 import { IApp } from "../../interfaces";
 import { Env } from "../../config/environment/types";
 
@@ -19,7 +19,7 @@ const getUsers = (app: IApp): User[] => {
   ];
 };
 
-export const authenticationMiddleware: Middleware = (app: IApp) =>
+export const authenticationMiddleware: AppMiddleware = (app: IApp) =>
   async function authenticationMiddleware(ctx, next) {
     const users = getUsers(app);
     const apiKey = ctx.get("api-key");

@@ -4,7 +4,7 @@ import * as Awilix from "awilix";
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
 import { ApplicationLogger } from "./modules/logger/types";
-import { Middleware } from "./api/types";
+import { AppMiddleware } from "./api/types";
 import Router from "koa-router";
 import { IApp } from "./interfaces";
 import { ApplicationErrorHandler } from "./modules/error-handler/types";
@@ -19,7 +19,7 @@ export class App implements IApp {
   env?: any;
   private plugins: Plugin[];
   private routers: Router[];
-  private middlewares: Middleware[];
+  private middlewares: AppMiddleware[];
 
   constructor(dependencies: {
     port: number;
@@ -28,7 +28,7 @@ export class App implements IApp {
     plugins?: Plugin[];
     applicationLogger: ApplicationLogger;
     applicationErrorHandler: ApplicationErrorHandler;
-    middlewares?: Middleware[];
+    middlewares?: AppMiddleware[];
     env?: any;
   }) {
     this.app = new Koa();

@@ -18,7 +18,7 @@ export enum RequestValues {
 
 export type Handler = [string, string];
 
-export type Middleware = (app: IApp) => Koa.Middleware;
+export type AppMiddleware = (app: IApp) => Koa.Middleware;
 
 export type SchemasConfig = Partial<{
   body?: ObjectSchema;

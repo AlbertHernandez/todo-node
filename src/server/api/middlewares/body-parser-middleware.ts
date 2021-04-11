@@ -1,4 +1,4 @@
 import bodyParser from "koa-bodyparser";
-import { Middleware } from "../types";
+import { AppMiddleware } from "../types";
 
-export const bodyParserMiddleware: Middleware = () => bodyParser();
+export const bodyParserMiddleware: AppMiddleware = () => bodyParser();

@@ -1,9 +1,9 @@
 import * as Awilix from "awilix";
 import { IApp } from "../../interfaces";
 import { createScope } from "../../modules/di/helpers";
-import { Middleware } from "../types";
+import { AppMiddleware } from "../types";
 
-export const initializeScopeMiddleware: Middleware = (app: IApp) =>
+export const initializeScopeMiddleware: AppMiddleware = (app: IApp) =>
   async function initializeScopeMiddleware(ctx, next) {
     const requestId = ctx.state.id;
 

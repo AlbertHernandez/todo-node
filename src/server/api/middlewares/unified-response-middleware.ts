@@ -1,6 +1,6 @@
-import { HttpStatusCode, Middleware } from "../types";
+import { HttpStatusCode, AppMiddleware } from "../types";
 
-export const unifiedResponseMiddleware: Middleware = () =>
+export const unifiedResponseMiddleware: AppMiddleware = () =>
   async function unifiedResponseMiddleware(ctx, next) {
     await next();
 

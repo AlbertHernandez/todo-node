@@ -1,7 +1,7 @@
 import { ILogger } from "../../modules/logger/interfaces";
-import { Middleware } from "../types";
+import { AppMiddleware } from "../types";
 
-export const logRequestMiddleware: Middleware = () =>
+export const logRequestMiddleware: AppMiddleware = () =>
   async function logRequestMiddleware(ctx, next) {
     const logger: ILogger = ctx.scope.resolve("logger");
 
