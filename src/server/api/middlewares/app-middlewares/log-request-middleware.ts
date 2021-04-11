@@ -6,7 +6,7 @@ export const logRequestMiddleware: AppMiddleware = () =>
     const logger: Logger = ctx.scope.resolve("logger");
 
     try {
-      logger.info({
+      logger.debug({
         msg: "Incoming Request",
         context: {
           method: ctx.request.method,
@@ -16,7 +16,7 @@ export const logRequestMiddleware: AppMiddleware = () =>
       });
       await next();
     } finally {
-      logger.info({
+      logger.debug({
         msg: "Finishing Request",
         context: {
           body: ctx.body,
