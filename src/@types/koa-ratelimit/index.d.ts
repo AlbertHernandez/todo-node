@@ -19,6 +19,7 @@ declare module "koa-ratelimit" {
     disableHeader?: boolean;
     whitelist?: (ctx: Koa.Context) => boolean;
     blacklist?: (ctx: Koa.Context) => boolean;
+    throw?: boolean;
   };
 
   export default function (rateLimitOptions: RateLimitOptions): any;

@@ -27,6 +27,7 @@ const start = async () => {
     applicationLogger,
     applicationErrorHandler,
     middlewares: [
+      errorHandlerMiddleware,
       bodyParserMiddleware,
       helmetMiddleware,
       ratelimitMiddleware,
@@ -35,7 +36,6 @@ const start = async () => {
       initializeScopeMiddleware,
       unifiedResponseMiddleware,
       logRequestMiddleware,
-      errorHandlerMiddleware,
     ],
     env,
   });
