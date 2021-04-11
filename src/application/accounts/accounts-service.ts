@@ -1,10 +1,13 @@
-import { Account } from "./types";
-import { IAccountsRepository, IAccountsService } from "./interfaces";
+import {
+  Account,
+  AccountsRepository,
+  AccountsService as IAccountsService,
+} from "./interfaces";
 
 export class AccountsService implements IAccountsService {
-  private accountsRepository: IAccountsRepository;
+  private accountsRepository: AccountsRepository;
 
-  constructor(dependencies: { accountsRepository: IAccountsRepository }) {
+  constructor(dependencies: { accountsRepository: AccountsRepository }) {
     this.accountsRepository = dependencies.accountsRepository;
   }
 

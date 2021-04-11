@@ -1,6 +1,7 @@
 import * as Koa from "koa";
+import { RequestValues } from "../../enums";
 import { RequestValidationError } from "../../errors";
-import { RequestValues, SchemasConfig } from "../../types";
+import { SchemasConfig } from "../../interfaces";
 
 function getRequestPart(
   ctx: Koa.ParameterizedContext,

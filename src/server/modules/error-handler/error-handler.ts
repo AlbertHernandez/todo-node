@@ -1,11 +1,11 @@
-import { ILogger } from "../logger/interfaces";
-import { BaseError } from "../../errors/base-error";
-import { IErrorHandler } from "./interfaces";
+import { Logger } from "../logger/interfaces";
+import { BaseError } from "../../errors";
+import { ErrorHandler as IErrorHandler } from "./interfaces";
 
 export class ErrorHandler implements IErrorHandler {
-  private logger: ILogger;
+  private logger: Logger;
 
-  constructor(dependencies: { logger: ILogger }) {
+  constructor(dependencies: { logger: Logger }) {
     this.logger = dependencies.logger;
   }
 

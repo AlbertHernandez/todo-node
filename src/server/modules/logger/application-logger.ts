@@ -1,11 +1,9 @@
 import pino from "pino";
-import { IApp } from "../../interfaces";
-import { ILogger } from "./interfaces";
-import { ApplicationLogger } from "./types";
-import { Env } from "../../config/environment/types";
+import { ApplicationLogger, Logger } from "./interfaces";
+import { Env } from "../../config/environment/interfaces";
 
 export const applicationLogger: ApplicationLogger = {
-  createLogger(app: IApp): ILogger {
+  createLogger(app): Logger {
     const env: Env = app.env;
     return pino({
       prettyPrint: env.development,

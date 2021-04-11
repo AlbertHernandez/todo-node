@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../types";
+import { HttpStatusCode } from "../enums";
 import { HttpError } from "./http-error";
 
 export class RequestValidationError extends HttpError {

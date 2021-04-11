@@ -1,7 +1,9 @@
-import { Account } from "./types";
-import { IAccountsRepository } from "./interfaces";
+import {
+  Account,
+  AccountsRepository as IAccountRepository,
+} from "./interfaces";
 
-export class AccountsRepository implements IAccountsRepository {
+export class AccountsRepository implements IAccountRepository {
   private accounts: Account[];
 
   constructor() {

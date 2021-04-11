@@ -1,15 +1,19 @@
-import { IAccountsService } from "../accounts";
+import { AccountsService } from "../accounts/interfaces";
 import { AccountNotFoundError } from "../errors";
-import { ITodosRepository, ITodosService } from "./interfaces";
-import { Todo, TodoFilter } from "./types";
+import {
+  Todo,
+  TodoFilter,
+  TodosRepository,
+  TodosService as ITodosService,
+} from "./interfaces";
 
 export class TodosService implements ITodosService {
-  private todosRepository: ITodosRepository;
-  private accountsService: IAccountsService;
+  private todosRepository: TodosRepository;
+  private accountsService: AccountsService;
 
   constructor(dependencies: {
-    todosRepository: ITodosRepository;
-    accountsService: IAccountsService;
+    todosRepository: TodosRepository;
+    accountsService: AccountsService;
   }) {
     this.todosRepository = dependencies.todosRepository;
     this.accountsService = dependencies.accountsService;

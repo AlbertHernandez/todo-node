@@ -1,14 +1,14 @@
 import * as Koa from "koa";
 import * as Awilix from "awilix";
-import { ILogger } from "./modules/logger/interfaces";
-import { IErrorHandler } from "./modules/error-handler/interfaces";
+import { Logger } from "./modules/logger/interfaces";
+import { ErrorHandler } from "./modules/error-handler/interfaces";
 
-export interface IApp {
+export interface App {
   app: Koa;
   start: () => Promise<void>;
   env?: any;
   port: number;
   container: Awilix.AwilixContainer;
-  logger: ILogger;
-  errorHandler: IErrorHandler;
+  logger: Logger;
+  errorHandler: ErrorHandler;
 }

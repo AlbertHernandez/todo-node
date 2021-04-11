@@ -1,7 +1,7 @@
 import Router from "koa-router";
+import { UserType } from "../../server/api/enums";
 
 import * as routerMiddleware from "../../server/api/middlewares/router-middlewares";
-import { UserType } from "../../server/api/types";
 import { accountsSchemaValidation } from "./accounts-schema-validation";
 
 const accountsRouter = new Router({

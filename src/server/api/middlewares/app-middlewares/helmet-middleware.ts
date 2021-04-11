@@ -1,4 +1,4 @@
 import helmet from "koa-helmet";
-import { AppMiddleware } from "./types";
+import { AppMiddleware } from "./interfaces";
 
 export const helmetMiddleware: AppMiddleware = () => helmet();

@@ -1,16 +1,22 @@
+import { App } from "../../interfaces";
+
 type LogMessage = {
   msg: string;
   context: any;
 };
 
-interface ILogMethod {
+interface LogMethod {
   (message: LogMessage | string): void;
 }
 
-export interface ILogger {
-  debug: ILogMethod;
-  info: ILogMethod;
-  warn: ILogMethod;
-  error: ILogMethod;
-  child: (options: any) => ILogger;
+export interface Logger {
+  debug: LogMethod;
+  info: LogMethod;
+  warn: LogMethod;
+  error: LogMethod;
+  child: (options: any) => Logger;
+}
+
+export interface ApplicationLogger {
+  createLogger(app: App): Logger;
 }

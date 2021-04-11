@@ -1,21 +1,22 @@
 import Koa from "koa";
 import * as Awilix from "awilix";
 
-import { Plugin } from "./plugins/types";
-import { ILogger } from "./modules/logger/interfaces";
-import { ApplicationLogger } from "./modules/logger/types";
+import { Plugin } from "./plugins/interfaces";
+import { ApplicationLogger, Logger } from "./modules/logger/interfaces";
 import Router from "koa-router";
-import { IApp } from "./interfaces";
-import { ApplicationErrorHandler } from "./modules/error-handler/types";
-import { IErrorHandler } from "./modules/error-handler/interfaces";
-import { AppMiddleware } from "./api/middlewares/app-middlewares/types";
+import { App as IApp } from "./interfaces";
+import {
+  ApplicationErrorHandler,
+  ErrorHandler,
+} from "./modules/error-handler/interfaces";
+import { AppMiddleware } from "./api/middlewares/app-middlewares/interfaces";
 
 export class App implements IApp {
   app: Koa;
   port: number;
   container: Awilix.AwilixContainer;
-  logger: ILogger;
-  errorHandler: IErrorHandler;
+  logger: Logger;
+  errorHandler: ErrorHandler;
   env?: any;
   private plugins: Plugin[];
   private routers: Router[];

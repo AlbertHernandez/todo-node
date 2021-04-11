@@ -1,10 +1,8 @@
-import { IApp } from "../../interfaces";
-import { IErrorHandler } from "./interfaces";
-import { ApplicationErrorHandler } from "./types";
+import { ApplicationErrorHandler } from "./interfaces";
 import { ErrorHandler } from "./error-handler";
 
 export const applicationErrorHandler: ApplicationErrorHandler = {
-  createErrorHandler(app: IApp): IErrorHandler {
+  createErrorHandler(app) {
     return new ErrorHandler({
       logger: app.logger,
     });

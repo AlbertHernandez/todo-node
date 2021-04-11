@@ -1,10 +1,9 @@
 import * as Koa from "koa";
 import ratelimit from "koa-ratelimit";
-import { AppMiddleware } from "./types";
-import { IApp } from "../../../interfaces";
-import { Env } from "../../../config/environment/types";
+import { AppMiddleware } from "./interfaces";
+import { Env } from "../../../config/environment/interfaces";
 
-export const ratelimitMiddleware: AppMiddleware = (app: IApp) =>
+export const ratelimitMiddleware: AppMiddleware = (app) =>
   ratelimit({
     driver: "memory",
     db: new Map(),

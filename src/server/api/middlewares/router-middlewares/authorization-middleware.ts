@@ -1,5 +1,6 @@
 import * as Koa from "koa";
-import { ApiUser, UserType } from "../../types";
+import { UserType } from "../../enums";
+import { ApiUser } from "../../interfaces";
 
 export const authorizationMiddleware = ({
   allowedUserTypes,

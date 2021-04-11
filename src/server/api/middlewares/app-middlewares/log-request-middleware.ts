@@ -1,9 +1,9 @@
-import { ILogger } from "../../../modules/logger/interfaces";
-import { AppMiddleware } from "./types";
+import { Logger } from "../../../modules/logger/interfaces";
+import { AppMiddleware } from "./interfaces";
 
 export const logRequestMiddleware: AppMiddleware = () =>
   async function logRequestMiddleware(ctx, next) {
-    const logger: ILogger = ctx.scope.resolve("logger");
+    const logger: Logger = ctx.scope.resolve("logger");
 
     try {
       logger.info({

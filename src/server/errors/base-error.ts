@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../api/types";
+import { HttpStatusCode } from "../api/enums";
 
 export class BaseError extends Error {
   code: string;

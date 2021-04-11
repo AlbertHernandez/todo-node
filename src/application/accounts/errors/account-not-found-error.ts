@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../../../server/api/types";
+import { HttpStatusCode } from "../../../server/api/enums";
 import { ApplicationError } from "../../errors";
 
 export class AccountNotFoundError extends ApplicationError {

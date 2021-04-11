@@ -1,4 +1,4 @@
-export type Env = {
+export interface Env {
   development: boolean;
   test: boolean;
   beta: boolean;
@@ -8,4 +8,4 @@ export type Env = {
   };
   port: number;
   apiKey: string;
-};
+}

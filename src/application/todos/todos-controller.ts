@@ -1,12 +1,16 @@
-import { Request } from "../../server/api/types";
-import { ITodoController, ITodosService } from "./interfaces";
-import { Todo, TodoFilter } from "./types";
+import { Request } from "../../server/api/interfaces";
+import {
+  Todo,
+  TodoController as ITodoController,
+  TodoFilter,
+  TodosService,
+} from "./interfaces";
 
 export class TodosController implements ITodoController {
-  todosService: ITodosService;
+  todosService: TodosService;
 
   constructor(dependencies: {
-    todosService: ITodosService;
+    todosService: TodosService;
     requestContext: any;
   }) {
     this.todosService = dependencies.todosService;

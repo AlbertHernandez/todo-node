@@ -1,5 +1,5 @@
 import { BaseError } from "../../errors";
-import { HttpStatusCode } from "../types";
+import { HttpStatusCode } from "../enums";
 
 export class HttpError extends BaseError {
   constructor(

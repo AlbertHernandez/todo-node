@@ -1,12 +1,15 @@
-import { Account } from ".";
-import { Request } from "../../server/api/types";
-import { IAccountsController, IAccountsService } from "./interfaces";
+import { Request } from "../../server/api/interfaces";
+import {
+  Account,
+  AccountsController as IAccountsController,
+  AccountsService,
+} from "./interfaces";
 
 export class AccountsController implements IAccountsController {
-  accountsService: IAccountsService;
+  accountsService: AccountsService;
 
   constructor(dependencies: {
-    accountsService: IAccountsService;
+    accountsService: AccountsService;
     requestContext: any;
   }) {
     this.accountsService = dependencies.accountsService;

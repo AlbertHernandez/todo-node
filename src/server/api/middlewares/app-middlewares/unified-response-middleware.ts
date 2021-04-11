@@ -1,5 +1,5 @@
-import { HttpStatusCode } from "../../types";
-import { AppMiddleware } from "./types";
+import { HttpStatusCode } from "../../enums";
+import { AppMiddleware } from "./interfaces";
 
 export const unifiedResponseMiddleware: AppMiddleware = () =>
   async function unifiedResponseMiddleware(ctx, next) {

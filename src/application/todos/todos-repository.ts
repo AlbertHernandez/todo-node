@@ -1,5 +1,8 @@
-import { Todo, TodoFilter } from "./types";
-import { ITodosRepository } from "./interfaces";
+import {
+  Todo,
+  TodoFilter,
+  TodosRepository as ITodosRepository,
+} from "./interfaces";
 
 export class TodosRepository implements ITodosRepository {
   private todos: Todo[];

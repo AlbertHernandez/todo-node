@@ -1,7 +1,7 @@
-import { UserName, UserType } from "../../types";
-import { IApp } from "../../../interfaces";
-import { Env } from "../../../config/environment/types";
-import { AppMiddleware } from "./types";
+import { App } from "../../../interfaces";
+import { Env } from "../../../config/environment/interfaces";
+import { AppMiddleware } from "./interfaces";
+import { UserName, UserType } from "../../enums";
 
 type User = {
   key: string;
@@ -9,7 +9,7 @@ type User = {
   type: UserType;
 };
 
-const getUsers = (app: IApp): User[] => {
+const getUsers = (app: App): User[] => {
   const env: Env = app.env;
   return [
     {
@@ -20,7 +20,7 @@ const getUsers = (app: IApp): User[] => {
   ];
 };
 
-export const authenticationMiddleware: AppMiddleware = (app: IApp) =>
+export const authenticationMiddleware: AppMiddleware = (app) =>
   async function authenticationMiddleware(ctx, next) {
     const users = getUsers(app);
     const apiKey = ctx.get("api-key");

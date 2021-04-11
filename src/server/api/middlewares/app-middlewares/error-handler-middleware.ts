@@ -1,6 +1,5 @@
-import { IApp } from "../../../interfaces";
-import { HttpStatusCode } from "../../types";
-import { AppMiddleware } from "./types";
+import { HttpStatusCode } from "../../enums";
+import { AppMiddleware } from "./interfaces";
 
 const isClientError = (
   error: Error & { status?: string | number }
@@ -10,7 +9,7 @@ const isClientError = (
   );
 };
 
-export const errorHandlerMiddleware: AppMiddleware = (app: IApp) =>
+export const errorHandlerMiddleware: AppMiddleware = (app) =>
   async function errorHandlerMiddleware(ctx, next) {
     try {
       await next();

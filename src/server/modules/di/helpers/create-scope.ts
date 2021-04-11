@@ -1,12 +1,12 @@
 import * as Awilix from "awilix";
-import { ILogger } from "../../logger/interfaces";
+import { Logger } from "../../logger/interfaces";
 
 export const createScope = (
   container: Awilix.AwilixContainer,
   scopeLoggerInfo?: Record<string, unknown>
 ) => {
   const scope = container.createScope();
-  const applicationLogger = container.resolve<ILogger>("applicationLogger");
+  const applicationLogger = container.resolve<Logger>("applicationLogger");
 
   const scopedLogger = applicationLogger.child(scopeLoggerInfo);
 
