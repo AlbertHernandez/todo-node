@@ -1,5 +1,4 @@
-import { Account } from "./types";
-import { Request } from "../../server/api/types";
+import { Request } from "../../server/api/interfaces";
 
 export interface AccountsRepository {
   get: (email: string) => Promise<Account | null>;
