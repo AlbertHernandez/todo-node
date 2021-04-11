@@ -1,8 +1,8 @@
-import { aliasTo, asValue, AwilixContainer } from "awilix";
+import * as Awilix from "awilix";
 import { ILogger } from "../../logger/interfaces";
 
 export const createScope = (
-  container: AwilixContainer,
+  container: Awilix.AwilixContainer,
   scopeLoggerInfo?: Record<string, unknown>
 ) => {
   const scope = container.createScope();
@@ -11,8 +11,8 @@ export const createScope = (
   const scopedLogger = applicationLogger.child(scopeLoggerInfo);
 
   scope.register({
-    scopedLogger: asValue(scopedLogger),
-    logger: aliasTo("scopedLogger"),
+    scopedLogger: Awilix.asValue(scopedLogger),
+    logger: Awilix.aliasTo("scopedLogger"),
   });
 
   return scope;

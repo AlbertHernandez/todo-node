@@ -1,4 +1,4 @@
-import { asValue } from "awilix";
+import * as Awilix from "awilix";
 import { IApp } from "../../interfaces";
 import { createScope } from "../../modules/di/helpers";
 import { Middleware } from "../types";
@@ -13,7 +13,7 @@ export const initializeScopeMiddleware: Middleware = (app: IApp) =>
     });
 
     app.container.register({
-      requestContext: asValue({
+      requestContext: Awilix.asValue({
         requestId,
       }),
     });

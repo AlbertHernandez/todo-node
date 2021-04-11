@@ -1,5 +1,5 @@
 import Koa from "koa";
-import awilix, { aliasTo, asValue } from "awilix";
+import * as Awilix from "awilix";
 
 import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
@@ -13,7 +13,7 @@ import { ApplicationErrorHandler } from "./modules/error-handler/types";
 export class App implements IApp {
   app: Koa;
   port: number;
-  container: awilix.AwilixContainer;
+  container: Awilix.AwilixContainer;
   logger: ILogger;
   errorHandler: IErrorHandler;
   env?: any;
@@ -24,7 +24,7 @@ export class App implements IApp {
   constructor(dependencies: {
     port: number;
     routers?: Router[];
-    container: awilix.AwilixContainer;
+    container: Awilix.AwilixContainer;
     plugins?: Plugin[];
     applicationLogger: ApplicationLogger;
     applicationErrorHandler: ApplicationErrorHandler;
@@ -83,8 +83,8 @@ export class App implements IApp {
     applicationLogger.info("Registration of Application Logger...");
 
     this.container.register({
-      applicationLogger: asValue(applicationLogger),
-      logger: aliasTo("applicationLogger"),
+      applicationLogger: Awilix.asValue(applicationLogger),
+      logger: Awilix.aliasTo("applicationLogger"),
     });
 
     applicationLogger.info("Registration of Application Logger completed!");
@@ -98,7 +98,7 @@ export class App implements IApp {
     applicationLogger.info("Registration of Application Error Handler...");
 
     this.container.register({
-      errorHandler: asValue(this.errorHandler),
+      errorHandler: Awilix.asValue(this.errorHandler),
     });
 
     applicationLogger.info(
@@ -115,7 +115,7 @@ export class App implements IApp {
     }
 
     this.container.register({
-      env: asValue(this.env),
+      env: Awilix.asValue(this.env),
     });
 
     this.logger.info("Registration of application Env!");
@@ -125,7 +125,7 @@ export class App implements IApp {
     this.logger.info("Registration of application...");
 
     this.container.register({
-      app: asValue(this),
+      app: Awilix.asValue(this),
     });
 
     this.logger.info("Registration of application completed!");

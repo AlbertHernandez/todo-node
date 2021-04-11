@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import awilix from "awilix";
+import * as Awilix from "awilix";
 import { ILogger } from "./modules/logger/interfaces";
 
 export interface IApp {
@@ -7,6 +7,6 @@ export interface IApp {
   start: () => Promise<void>;
   env?: any;
   port: number;
-  container: awilix.AwilixContainer;
+  container: Awilix.AwilixContainer;
   logger: ILogger;
 }
