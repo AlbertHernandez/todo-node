@@ -5,7 +5,7 @@ export const unifiedResponseMiddleware: AppMiddleware = () =>
   async function unifiedResponseMiddleware(ctx, next) {
     await next();
 
-    const existsRoute = ctx.status !== HttpStatusCode.NOT_FOUND;
+    const existsRoute = ctx.status !== HttpStatusCode.NotFound;
 
     if (existsRoute) {
       const { requestId } = ctx.scope.resolve("requestContext");

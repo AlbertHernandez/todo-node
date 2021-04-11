@@ -5,7 +5,7 @@ export class AccountNotFoundError extends ApplicationError {
   constructor(message: string, meta?: Record<string, unknown>) {
     super(
       message,
-      HttpStatusCode.NOT_ACCEPTABLE,
+      HttpStatusCode.NotAcceptable,
       "error.business.accountNotFound",
       meta
     );

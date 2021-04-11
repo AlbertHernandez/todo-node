@@ -11,7 +11,7 @@ const accountsRouter = new Router({
 accountsRouter.get(
   "/account",
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.API],
+    allowedUserTypes: [UserType.Api],
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.get),
   routerMiddleware.requestHandlerMiddleware(["accountsController", "get"])
@@ -20,7 +20,7 @@ accountsRouter.get(
 accountsRouter.get(
   "/accounts",
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.API],
+    allowedUserTypes: [UserType.Api],
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.getAll),
   routerMiddleware.requestHandlerMiddleware(["accountsController", "getAll"])

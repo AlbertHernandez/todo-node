@@ -7,7 +7,7 @@ function getRequestPart(
   ctx: Koa.ParameterizedContext,
   requestPart: RequestValues
 ): NodeJS.Dict<any> {
-  if (requestPart === RequestValues.PARAMS) {
+  if (requestPart === RequestValues.Params) {
     return ctx.params;
   }
 
@@ -19,7 +19,7 @@ function setRequestPart(
   requestPart: RequestValues,
   value: any
 ): void {
-  if (requestPart === RequestValues.PARAMS) {
+  if (requestPart === RequestValues.Params) {
     ctx.params = value;
   } else {
     ctx.request[requestPart] = value;

@@ -1,22 +1,22 @@
 export enum RequestValues {
-  BODY = "body",
-  QUERY = "query",
-  HEADERS = "headers",
-  PARAMS = "params",
+  Body = "body",
+  Query = "query",
+  Headers = "headers",
+  Params = "params",
 }
 
 export enum UserName {
-  GENERIC_API_USER = "generic-api-user",
+  GenericApiUser = "generic-api-user",
 }
 
 export enum UserType {
-  API = "api",
+  Api = "api",
 }
 
 export enum HttpStatusCode {
-  OK = 200,
-  BAD_REQUEST = 400,
-  NOT_FOUND = 404,
-  NOT_ACCEPTABLE = 406,
-  INTERNAL_SERVER = 500,
+  Ok = 200,
+  BadRequest = 400,
+  NotFound = 404,
+  NotAcceptable = 406,
+  InternalServer = 500,
 }

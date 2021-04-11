@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../enums";
 export class HttpError extends BaseError {
   constructor(
     message: string,
-    status: HttpStatusCode = HttpStatusCode.INTERNAL_SERVER,
+    status: HttpStatusCode = HttpStatusCode.InternalServer,
     isOperational = true,
     code?: string,
     meta?: Record<string, unknown>

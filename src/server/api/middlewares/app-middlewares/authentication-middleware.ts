@@ -14,8 +14,8 @@ const getUsers = (app: App): User[] => {
   return [
     {
       key: env.apiKey,
-      name: UserName.GENERIC_API_USER,
-      type: UserType.API,
+      name: UserName.GenericApiUser,
+      type: UserType.Api,
     },
   ];
 };

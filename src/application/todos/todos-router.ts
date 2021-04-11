@@ -11,7 +11,7 @@ const todosRouter = new Router({
 todosRouter.get(
   "/todos",
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.API],
+    allowedUserTypes: [UserType.Api],
   }),
   routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.getTodos),
   routerMiddleware.requestHandlerMiddleware(["todosController", "getTodos"])
@@ -20,7 +20,7 @@ todosRouter.get(
 todosRouter.post(
   "/todo",
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.API],
+    allowedUserTypes: [UserType.Api],
   }),
   routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.createTodo),
   routerMiddleware.requestHandlerMiddleware(["todosController", "createTodo"])

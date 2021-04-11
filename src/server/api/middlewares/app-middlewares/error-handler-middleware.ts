@@ -17,7 +17,7 @@ export const errorHandlerMiddleware: AppMiddleware = (app) =>
       await app.errorHandler.handleError(error);
 
       const clientError = isClientError(error);
-      ctx.status = error.status || HttpStatusCode.INTERNAL_SERVER;
+      ctx.status = error.status || HttpStatusCode.InternalServer;
 
       ctx.body = {
         error: {
