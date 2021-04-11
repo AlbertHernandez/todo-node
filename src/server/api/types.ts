@@ -1,6 +1,7 @@
 import { ObjectSchema } from "@hapi/joi";
 import { AwilixContainer } from "awilix";
 import * as Koa from "koa";
+import { IApp } from "../interfaces";
 
 export type Request = {
   body: any;
@@ -18,7 +19,7 @@ export enum RequestValues {
 
 export type Handler = [string, string];
 
-export type Middleware = (container: AwilixContainer) => Koa.Middleware;
+export type Middleware = (app: IApp) => Koa.Middleware;
 
 export type SchemasConfig = Partial<{
   body?: ObjectSchema;

@@ -1,11 +1,9 @@
 import Koa from "koa";
 import ratelimit from "koa-ratelimit";
-import { AwilixContainer } from "awilix";
-
 import { Middleware } from "../types";
-import { Env } from "../../config/environment/types";
+import { IApp } from "../../interfaces";
 
-export const ratelimitMiddleware: Middleware = (container: AwilixContainer) =>
+export const ratelimitMiddleware: Middleware = (app: IApp) =>
   ratelimit({
     driver: "memory",
     db: new Map(),
@@ -14,7 +12,6 @@ export const ratelimitMiddleware: Middleware = (container: AwilixContainer) =>
     duration: 600000, // 10 min
     disableHeader: false,
     whitelist: () => {
-      const env: Env = container.resolve("env");
-      return env.development || env.test;
+      return app.env.development || app.env.test;
     },
   });

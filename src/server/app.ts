@@ -6,16 +6,17 @@ import { ILogger } from "./modules/logger/interfaces";
 import { ApplicationLogger } from "./modules/logger/types";
 import { Middleware } from "./api/types";
 import KoaRouter from "koa-router";
+import { IApp } from "./interfaces";
 
-export class App {
+export class App implements IApp {
   app: Koa;
   port: number;
   container: awilix.AwilixContainer;
-  plugins: Plugin[];
-  routers: KoaRouter[];
   logger: ILogger;
-  middlewares: Middleware[];
   env?: any;
+  private plugins: Plugin[];
+  private routers: KoaRouter[];
+  private middlewares: Middleware[];
 
   constructor(dependencies: {
     port: number;
@@ -35,16 +36,14 @@ export class App {
     this.middlewares = dependencies.middlewares || [];
     this.env = dependencies.env;
 
-    this.logger = dependencies.applicationLogger.createLogger({
-      env: this.env,
-    });
+    this.logger = dependencies.applicationLogger.createLogger(this);
   }
 
   private async initializePlugins() {
     this.logger.info("Initializing plugins...");
 
     for (const plugin of this.plugins) {
-      await plugin(this.container);
+      await plugin(this);
     }
     this.logger.info("Plugins ready!");
   }
@@ -53,7 +52,7 @@ export class App {
     this.logger.info("Initializing middlewares...");
 
     for (const middleware of this.middlewares) {
-      this.app.use(middleware(this.container));
+      this.app.use(middleware(this));
     }
 
     this.logger.info("Middlewares ready!");
@@ -99,7 +98,17 @@ export class App {
     this.logger.info("Registration of application Env!");
   }
 
-  async listen() {
+  private registerApp() {
+    this.logger.info("Registration of application...");
+
+    this.container.register({
+      app: asValue(this),
+    });
+
+    this.logger.info("Registration of application completed!");
+  }
+
+  private async listen() {
     await this.app.listen(this.port);
     this.logger.info(`Application Listening in Port ${this.port}`);
   }
@@ -117,6 +126,8 @@ export class App {
 
     this.initializeMiddlewares();
     this.initializeRouters();
+
+    this.registerApp();
 
     this.logger.info("Application Ready to be Used!");
   }

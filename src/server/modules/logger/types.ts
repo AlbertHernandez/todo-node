@@ -1,5 +1,6 @@
+import { IApp } from "../../interfaces";
 import { ILogger } from "./interfaces";
 
 export type ApplicationLogger = {
-  createLogger(context: any): ILogger;
+  createLogger(app: IApp): ILogger;
 };

@@ -1,6 +1,5 @@
 import { UserName, Middleware, UserType } from "../types";
-import { AwilixContainer } from "awilix";
-import { Env } from "../../config/environment/types";
+import { IApp } from "../../interfaces";
 
 type User = {
   key: string;
@@ -8,22 +7,21 @@ type User = {
   type: UserType;
 };
 
-const getUsers = (container: AwilixContainer): User[] => {
-  const env: Env = container.resolve("env");
-
+const getUsers = (app: IApp): User[] => {
   return [
     {
-      key: env.apiKey,
+      key: app.env.apiKey,
       name: UserName.GENERIC_API_USER,
       type: UserType.API,
     },
   ];
 };
 
-export const authenticationMiddleware: Middleware = (
-  container: AwilixContainer
-) => async (ctx, next) => {
-  const users = getUsers(container);
+export const authenticationMiddleware: Middleware = (app: IApp) => async (
+  ctx,
+  next
+) => {
+  const users = getUsers(app);
   const apiKey = ctx.get("api-key");
 
   const user = users.find((user) => user.key === apiKey);

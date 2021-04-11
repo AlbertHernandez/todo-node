@@ -1,3 +1,3 @@
-import { AwilixContainer } from "awilix";
+import { IApp } from "../interfaces";
 
-export type Plugin = (container: AwilixContainer) => Promise<void>;
+export type Plugin = (app: IApp) => Promise<void>;
