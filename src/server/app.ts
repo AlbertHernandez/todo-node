@@ -17,7 +17,7 @@ export class App implements IApp {
   container: Awilix.AwilixContainer;
   logger: Logger;
   errorHandler: ErrorHandler;
-  env?: any;
+  env: any;
   private plugins: Plugin[];
   private routers: Router[];
   private middlewares: AppMiddleware[];
@@ -30,7 +30,7 @@ export class App implements IApp {
     applicationLogger: ApplicationLogger;
     applicationErrorHandler: ApplicationErrorHandler;
     middlewares?: AppMiddleware[];
-    env?: any;
+    env: any;
   }) {
     this.app = new Koa();
     this.port = dependencies.port;
@@ -39,7 +39,7 @@ export class App implements IApp {
     this.routers = dependencies.routers || [];
 
     this.middlewares = dependencies.middlewares || [];
-    this.env = dependencies.env;
+    this.env = dependencies.env || {};
 
     this.logger = dependencies.applicationLogger.createLogger(this);
     this.errorHandler = dependencies.applicationErrorHandler.createErrorHandler(
