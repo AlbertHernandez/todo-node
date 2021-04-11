@@ -7,8 +7,8 @@ import { ApplicationLogger } from "./modules/logger/types";
 import { Middleware } from "./api/types";
 import Router from "koa-router";
 import { IApp } from "./interfaces";
-import { IErrorHandler } from "../application/errors/interfaces";
 import { ApplicationErrorHandler } from "./modules/error-handler/types";
+import { IErrorHandler } from "./modules/error-handler/interfaces";
 
 export class App implements IApp {
   app: Koa;

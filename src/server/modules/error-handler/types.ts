@@ -1,5 +1,5 @@
 import { IApp } from "../../interfaces";
-import { IErrorHandler } from "../../../application/errors/interfaces";
+import { IErrorHandler } from "./interfaces";
 
 export type ApplicationErrorHandler = {
   createErrorHandler(app: IApp): IErrorHandler;

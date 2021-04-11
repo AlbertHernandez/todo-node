@@ -1,6 +1,6 @@
-import { IErrorHandler } from "../../../application/errors/interfaces";
 import { ILogger } from "../logger/interfaces";
-import { BaseError } from "../../../application/errors/base-error";
+import { BaseError } from "../../errors/base-error";
+import { IErrorHandler } from "./interfaces";
 
 export class ErrorHandler implements IErrorHandler {
   private logger: ILogger;

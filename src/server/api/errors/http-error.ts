@@ -1,4 +1,4 @@
-import { BaseError } from "../../../application/errors/base-error";
+import { BaseError } from "../../errors";
 import { HttpStatusCode } from "../types";
 
 export class HttpError extends BaseError {

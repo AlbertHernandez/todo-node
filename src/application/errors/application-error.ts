@@ -1,5 +1,5 @@
 import { HttpStatusCode } from "../../server/api/types";
-import { BaseError } from "./base-error";
+import { BaseError } from "../../server/errors";
 
 export class ApplicationError extends BaseError {
   constructor(

@@ -1,5 +1,5 @@
+import { IErrorHandler } from "../../modules/error-handler/interfaces";
 import { HttpStatusCode, Middleware } from "../types";
-import { IErrorHandler } from "../../../application/errors/interfaces";
 
 const isClientError = (
   error: Error & { status?: string | number }
