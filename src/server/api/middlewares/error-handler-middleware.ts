@@ -1,4 +1,4 @@
-import { IErrorHandler } from "../../modules/error-handler/interfaces";
+import { IApp } from "../../interfaces";
 import { HttpStatusCode, Middleware } from "../types";
 
 const isClientError = (
@@ -9,13 +9,12 @@ const isClientError = (
   );
 };
 
-export const errorHandlerMiddleware: Middleware = () =>
+export const errorHandlerMiddleware: Middleware = (app: IApp) =>
   async function errorHandlerMiddleware(ctx, next) {
     try {
       await next();
     } catch (error) {
-      const errorHandler: IErrorHandler = ctx.scope.resolve("errorHandler");
-      await errorHandler.handleError(error);
+      await app.errorHandler.handleError(error);
 
       const clientError = isClientError(error);
       ctx.status = error.status || HttpStatusCode.INTERNAL_SERVER;
