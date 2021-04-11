@@ -4,17 +4,7 @@ import { App } from "./server/app";
 import { env } from "./server/config/environment";
 import { registerApplicationDependencies } from "./application/register-application-dependencies";
 import { applicationLogger } from "./server/modules/logger";
-import {
-  bodyParserMiddleware,
-  logRequestMiddleware,
-  unifiedResponseMiddleware,
-  errorHandlerMiddleware,
-  helmetMiddleware,
-  initializeScopeMiddleware,
-  ratelimitMiddleware,
-  requestIdMiddleware,
-  authenticationMiddleware,
-} from "./server/api/middlewares/app-middlewares";
+import * as appMiddlewares from "./server/api/middlewares/app-middlewares";
 import { applicationRouters } from "./application/application-routers";
 import { applicationErrorHandler } from "./server/modules/error-handler";
 
@@ -27,15 +17,16 @@ const start = async () => {
     applicationLogger,
     applicationErrorHandler,
     middlewares: [
-      errorHandlerMiddleware,
-      bodyParserMiddleware,
-      helmetMiddleware,
-      ratelimitMiddleware,
-      authenticationMiddleware,
-      requestIdMiddleware,
-      initializeScopeMiddleware,
-      unifiedResponseMiddleware,
-      logRequestMiddleware,
+      appMiddlewares.errorHandlerMiddleware,
+      appMiddlewares.requestLimitErrorMiddleware,
+      appMiddlewares.bodyParserMiddleware,
+      appMiddlewares.helmetMiddleware,
+      appMiddlewares.ratelimitMiddleware,
+      appMiddlewares.authenticationMiddleware,
+      appMiddlewares.requestIdMiddleware,
+      appMiddlewares.initializeScopeMiddleware,
+      appMiddlewares.unifiedResponseMiddleware,
+      appMiddlewares.logRequestMiddleware,
     ],
     env,
   });

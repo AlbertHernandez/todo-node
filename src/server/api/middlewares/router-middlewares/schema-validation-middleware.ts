@@ -40,7 +40,7 @@ export const schemaValidationMiddleware = (schemas: SchemasConfig | null) => {
           const { error, value } = schema.validate(requestPart);
 
           if (error) {
-            throw new RequestValidationError(error.message);
+            throw new RequestValidationError(error.message, ctx.ip);
           }
 
           if (Object.values(RequestValues).includes(requestPartType)) {
