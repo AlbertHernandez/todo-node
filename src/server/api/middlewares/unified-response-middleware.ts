@@ -1,4 +1,4 @@
-import { Middleware } from "../types";
+import { HttpStatusCode, Middleware } from "../types";
 
 export const unifiedResponseMiddleware: Middleware = () => async (
   ctx,
@@ -6,7 +6,7 @@ export const unifiedResponseMiddleware: Middleware = () => async (
 ) => {
   await next();
 
-  const existsRoute = ctx.status !== 404;
+  const existsRoute = ctx.status !== HttpStatusCode.NOT_FOUND;
 
   if (existsRoute) {
     const { requestId } = ctx.scope.resolve("requestContext");

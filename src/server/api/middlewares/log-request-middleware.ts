@@ -15,32 +15,12 @@ export const logRequestMiddleware: Middleware = () => async (ctx, next) => {
     });
     await next();
   } finally {
-    const commonFinishingRequestContext = {
-      body: ctx.body,
-      status: ctx.status,
-    };
-
-    if (ctx.errorMessage) {
-      logger.error({
-        msg: "Finishing Request",
-        context: {
-          response: {
-            ...commonFinishingRequestContext,
-            errorMessage: ctx.errorMessage,
-            errorStack: ctx.errorStack,
-          },
-        },
-      });
-    } else {
-      logger.info({
-        msg: "Finishing Request",
-        context: {
-          response: {
-            ...commonFinishingRequestContext,
-            status: ctx.status,
-          },
-        },
-      });
-    }
+    logger.info({
+      msg: "Finishing Request",
+      context: {
+        body: ctx.body,
+        status: ctx.status,
+      },
+    });
   }
 };

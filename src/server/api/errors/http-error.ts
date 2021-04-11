@@ -1,21 +1,14 @@
-export class HttpError extends Error {
-  code: string;
-  meta?: Record<string, unknown>;
-  status?: number | string;
+import { BaseError } from "../../../application/errors/base-error";
+import { HttpStatusCode } from "../types";
 
+export class HttpError extends BaseError {
   constructor(
     message: string,
-    status: number | string = 500,
+    status: HttpStatusCode = HttpStatusCode.INTERNAL_SERVER,
+    isOperational = true,
     code?: string,
     meta?: Record<string, unknown>
   ) {
-    super(message);
-
-    this.status = status;
-    this.meta = meta;
-    this.code = code || "error.api.unexpected";
-
-    this.name = this.constructor.name;
-    Error.captureStackTrace(this, this.constructor);
+    super(message, status, isOperational, code || "error.api.unexpected", meta);
   }
 }

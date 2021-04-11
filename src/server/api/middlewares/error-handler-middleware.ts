@@ -1,4 +1,5 @@
-import { Middleware } from "../types";
+import { HttpStatusCode, Middleware } from "../types";
+import { IErrorHandler } from "../../../application/errors/interfaces";
 
 const isClientError = (
   error: Error & { status?: string | number }
@@ -12,8 +13,11 @@ export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+    const errorHandler: IErrorHandler = ctx.scope.resolve("errorHandler");
+    await errorHandler.handleError(error);
+
     const clientError = isClientError(error);
-    ctx.status = error.status || 500;
+    ctx.status = error.status || HttpStatusCode.INTERNAL_SERVER;
 
     ctx.body = {
       error: {
@@ -21,7 +25,5 @@ export const errorHandlerMiddleware: Middleware = () => async (ctx, next) => {
         meta: clientError ? error.meta : undefined,
       },
     };
-    ctx.errorMessage = error.message;
-    ctx.errorStack = error.stack;
   }
 };

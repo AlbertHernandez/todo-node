@@ -16,6 +16,7 @@ import {
   authenticationMiddleware,
 } from "./server/api/middlewares";
 import { applicationRouters } from "./application/application-routers";
+import { applicationErrorHandler } from "./server/modules/error-handler";
 
 const start = async () => {
   const app = new App({
@@ -24,6 +25,7 @@ const start = async () => {
     container: Awilix.createContainer(),
     routers: applicationRouters,
     applicationLogger,
+    applicationErrorHandler,
     middlewares: [
       bodyParserMiddleware,
       helmetMiddleware,
