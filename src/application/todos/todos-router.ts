@@ -1,4 +1,4 @@
-import KoaRouter from "koa-router";
+import Router from "koa-router";
 
 import { todosSchemaValidation } from "./todos-schema-validation";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../../server/api/middlewares";
 import { UserType } from "../../server/api/types";
 
-const todosRouter = new KoaRouter({
+const todosRouter = new Router({
   prefix: "/api/v1",
 });
 

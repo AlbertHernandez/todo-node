@@ -5,7 +5,7 @@ import { Plugin } from "./plugins/types";
 import { ILogger } from "./modules/logger/interfaces";
 import { ApplicationLogger } from "./modules/logger/types";
 import { Middleware } from "./api/types";
-import KoaRouter from "koa-router";
+import Router from "koa-router";
 import { IApp } from "./interfaces";
 import { IErrorHandler } from "../application/errors/interfaces";
 import { ApplicationErrorHandler } from "./modules/error-handler/types";
@@ -18,12 +18,12 @@ export class App implements IApp {
   errorHandler: IErrorHandler;
   env?: any;
   private plugins: Plugin[];
-  private routers: KoaRouter[];
+  private routers: Router[];
   private middlewares: Middleware[];
 
   constructor(dependencies: {
     port: number;
-    routers?: KoaRouter[];
+    routers?: Router[];
     container: awilix.AwilixContainer;
     plugins?: Plugin[];
     applicationLogger: ApplicationLogger;

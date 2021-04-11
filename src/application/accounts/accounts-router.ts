@@ -1,4 +1,4 @@
-import KoaRouter from "koa-router";
+import Router from "koa-router";
 
 import {
   authorizationMiddleware,
@@ -8,7 +8,7 @@ import {
 import { UserType } from "../../server/api/types";
 import { accountsSchemaValidation } from "./accounts-schema-validation";
 
-const accountsRouter = new KoaRouter({
+const accountsRouter = new Router({
   prefix: "/api/v1",
 });
 
