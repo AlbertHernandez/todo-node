@@ -17,7 +17,7 @@ export class AccountsRepository implements IAccountRepository {
     ];
   }
 
-  async get(email: string): Promise<Account | null> {
+  async get(email: string) {
     const rawAccount = this.accounts.find(
       (rawAccount) => rawAccount.email === email
     );
@@ -25,7 +25,7 @@ export class AccountsRepository implements IAccountRepository {
     return rawAccount ? this.mapToAccount(rawAccount) : null;
   }
 
-  async getAll(): Promise<Account[]> {
+  async getAll() {
     return this.accounts.map((rawAccount) => this.mapToAccount(rawAccount));
   }
 

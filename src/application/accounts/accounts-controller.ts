@@ -1,6 +1,5 @@
 import { Request } from "../../server/api/interfaces";
 import {
-  Account,
   AccountsController as IAccountsController,
   AccountsService,
 } from "./interfaces";
@@ -15,13 +14,13 @@ export class AccountsController implements IAccountsController {
     this.accountsService = dependencies.accountsService;
   }
 
-  async get(request: Request): Promise<Account | null> {
+  async get(request: Request) {
     const email: string = request.body.email;
 
     return await this.accountsService.get(email);
   }
 
-  async getAll(): Promise<Account[]> {
+  async getAll() {
     return await this.accountsService.getAll();
   }
 }

@@ -1,5 +1,4 @@
 import {
-  Account,
   AccountsRepository,
   AccountsService as IAccountsService,
 } from "./interfaces";
@@ -11,11 +10,11 @@ export class AccountsService implements IAccountsService {
     this.accountsRepository = dependencies.accountsRepository;
   }
 
-  async get(email: string): Promise<Account | null> {
+  async get(email: string) {
     return await this.accountsRepository.get(email);
   }
 
-  async getAll(): Promise<Account[]> {
+  async getAll() {
     return await this.accountsRepository.getAll();
   }
 }
