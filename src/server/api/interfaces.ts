@@ -20,3 +20,7 @@ export interface ApiUser {
   name: UserName;
   key: string;
 }
+
+export interface RequestContext {
+  requestId: string;
+}

@@ -3,3 +3,4 @@ export * from "./request-validation-error";
 export * from "./client-error";
 export * from "./too-many-requests-error";
 export * from "./unauthorized-error";
+export * from "./not-found-error";

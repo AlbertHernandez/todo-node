@@ -1,5 +1,6 @@
 import { HttpStatusCode } from "../../enums";
 import { AppMiddleware } from "./interfaces";
+import { ErrorHandler } from "../../../modules/error-handler/interfaces";
 
 const isClientError = (
   error: Error & { status?: string | number }
@@ -14,7 +15,8 @@ export const errorHandlerMiddleware: AppMiddleware = (app) =>
     try {
       await next();
     } catch (error) {
-      await app.errorHandler.handleError(error);
+      const errorHandler: ErrorHandler = ctx.scope.resolve("errorHandler");
+      await errorHandler.handleError(error);
 
       const clientError = isClientError(error);
       ctx.status = error.status || HttpStatusCode.InternalServer;
@@ -24,6 +26,7 @@ export const errorHandlerMiddleware: AppMiddleware = (app) =>
           message: clientError ? error.message : "Internal Server Error",
           meta: clientError ? error.meta : undefined,
         },
+        ...ctx.body,
       };
     }
   };
