@@ -7,4 +7,3 @@ export * from "./log-request-middleware";
 export * from "./rate-limit-middleware";
 export * from "./request-id-middleware";
 export * from "./unified-response-middleware";
-export * from "./request-limit-error-middleware";

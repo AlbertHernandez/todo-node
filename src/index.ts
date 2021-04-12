@@ -18,7 +18,6 @@ const start = async () => {
     applicationErrorHandler,
     middlewares: [
       appMiddlewares.errorHandlerMiddleware,
-      appMiddlewares.requestLimitErrorMiddleware,
       appMiddlewares.bodyParserMiddleware,
       appMiddlewares.helmetMiddleware,
       appMiddlewares.ratelimitMiddleware,
