@@ -1,13 +1,21 @@
 import { Request } from "../../server/api/interfaces";
 
+interface GetTodosMethod {
+  (filter?: TodoFilter): Promise<Todo[]>;
+}
+
+interface CreateTodoMethod {
+  (todo: Todo): Promise<Todo>;
+}
+
 export interface TodosService {
-  getTodos: (filter?: TodoFilter) => Promise<Todo[]>;
-  createTodo: (todo: Todo) => Promise<Todo>;
+  getTodos: GetTodosMethod;
+  createTodo: CreateTodoMethod;
 }
 
 export interface TodosRepository {
-  getTodos: (filter?: TodoFilter) => Promise<Todo[]>;
-  createTodo: (todo: Todo) => Promise<Todo>;
+  getTodos: GetTodosMethod;
+  createTodo: CreateTodoMethod;
 }
 
 export interface TodoController {
