@@ -8,7 +8,7 @@ export const ratelimitMiddleware: AppMiddleware = (app) =>
     driver: "memory",
     db: new Map(),
     id: (ctx: Koa.Context) => ctx.ip,
-    max: 3,
+    max: 100,
     duration: 600000, // 10 min
     disableHeader: false,
     throw: true,
