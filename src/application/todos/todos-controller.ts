@@ -9,10 +9,7 @@ import {
 export class TodosController implements ITodoController {
   todosService: TodosService;
 
-  constructor(dependencies: {
-    todosService: TodosService;
-    requestContext: any;
-  }) {
+  constructor(dependencies: { todosService: TodosService }) {
     this.todosService = dependencies.todosService;
   }
 
