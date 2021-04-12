@@ -1,5 +1,6 @@
 import * as Koa from "koa";
 import { UserType } from "../../enums";
+import { UnauthorizedError } from "../../errors";
 import { ApiUser } from "../../interfaces";
 
 export const authorizationMiddleware = ({
@@ -13,7 +14,7 @@ export const authorizationMiddleware = ({
     const isAllowedUser = user && allowedUserTypes.includes(user.type);
 
     if (!user || !isAllowedUser) {
-      ctx.throw(401, "Unauthorized");
+      throw new UnauthorizedError("Unauthorized", ctx.ip);
     }
 
     await next();
