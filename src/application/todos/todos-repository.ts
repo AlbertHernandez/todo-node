@@ -19,7 +19,7 @@ export class TodosRepository implements ITodosRepository {
     ];
   }
 
-  async getTodos(filter: TodoFilter = {}): Promise<Todo[]> {
+  async getTodos(filter: TodoFilter = {}) {
     const rawMatchedTodos = this.todos.filter((todo) =>
       this.match(todo, filter)
     );
@@ -29,7 +29,7 @@ export class TodosRepository implements ITodosRepository {
     );
   }
 
-  async createTodo(todo: Todo): Promise<Todo> {
+  async createTodo(todo: Todo) {
     this.todos.push(todo);
     return todo;
   }
