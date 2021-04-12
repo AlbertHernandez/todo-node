@@ -30,6 +30,16 @@ export class ErrorHandler implements IErrorHandler {
     }
 
     if (error instanceof ClientError) {
+      this.logger.trace({
+        msg: error.message,
+        context: {
+          ip: error.ip,
+          status: error.status,
+          meta: error.meta,
+          code: error.code,
+          name: error.name,
+        },
+      });
       return;
     }
 
