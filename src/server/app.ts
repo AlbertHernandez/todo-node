@@ -99,7 +99,8 @@ export class App implements IApp {
     applicationLogger.trace("Registration of Application Error Handler...");
 
     this.container.register({
-      errorHandler: Awilix.asValue(this.errorHandler),
+      applicationErrorHandler: Awilix.asValue(this.errorHandler),
+      errorHandler: Awilix.aliasTo("applicationErrorHandler"),
     });
 
     applicationLogger.trace(
