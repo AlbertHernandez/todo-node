@@ -2,6 +2,7 @@ import { Logger } from "../logger/interfaces";
 import { BaseError } from "../../errors";
 import { ErrorHandler as IErrorHandler } from "./interfaces";
 import { ClientError, TooManyRequestsError } from "../../api/errors";
+import { ApplicationError } from "../../../application/errors";
 
 export class ErrorHandler implements IErrorHandler {
   private logger: Logger;
@@ -38,6 +39,21 @@ export class ErrorHandler implements IErrorHandler {
           meta: error.meta,
           code: error.code,
           name: error.name,
+        },
+      });
+      return;
+    }
+
+    if (error instanceof ApplicationError) {
+      this.logger.warn({
+        msg: error.message,
+        context: {
+          isOperational: error.isOperational,
+          status: error.status,
+          meta: error.meta,
+          code: error.code,
+          name: error.name,
+          stack: error.stack,
         },
       });
       return;
