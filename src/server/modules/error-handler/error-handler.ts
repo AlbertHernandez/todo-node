@@ -1,7 +1,7 @@
 import { Logger } from "../logger/interfaces";
 import { BaseError } from "../../errors";
 import { ErrorHandler as IErrorHandler } from "./interfaces";
-import { ClientError } from "../../api/errors";
+import { ClientError, TooManyRequestsError } from "../../api/errors";
 
 export class ErrorHandler implements IErrorHandler {
   private logger: Logger;
@@ -15,7 +15,7 @@ export class ErrorHandler implements IErrorHandler {
   }
 
   logError(error: Error) {
-    if (error instanceof ClientError) {
+    if (error instanceof TooManyRequestsError) {
       this.logger.warn({
         msg: error.message,
         context: {
@@ -26,6 +26,10 @@ export class ErrorHandler implements IErrorHandler {
           name: error.name,
         },
       });
+      return;
+    }
+
+    if (error instanceof ClientError) {
       return;
     }
 
