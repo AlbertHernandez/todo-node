@@ -1,4 +1,4 @@
-import { Request } from "../../server/api/types";
+import { Request } from "../../server/api/interfaces";
 
 export interface TodosService {
   getTodos: (filter?: TodoFilter) => Promise<Todo[]>;
