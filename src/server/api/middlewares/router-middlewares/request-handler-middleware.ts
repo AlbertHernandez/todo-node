@@ -1,5 +1,6 @@
 import * as Koa from "koa";
 import { Request } from "../../interfaces";
+import { HttpStatusCode } from "../../enums";
 
 type Handler = [string, string];
 
@@ -37,10 +38,15 @@ export const requestHandlerMiddleware = (handler: Handler) => {
       params: ctx.params,
     };
 
-    const handlerResponse = await handlerClass[handlerMethod].bind(
-      handlerClass
-    )(normalizedRequest);
+    try {
+      const handlerResponse = await handlerClass[handlerMethod].bind(
+        handlerClass
+      )(normalizedRequest);
 
-    ctx.body = handlerResponse || {};
+      ctx.body = handlerResponse || {};
+    } catch (error) {
+      ctx.status = error.status;
+      throw error;
+    }
   };
 };

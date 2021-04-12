@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { RequestValues } from "../../enums";
+import { HttpStatusCode, RequestValues } from "../../enums";
 import { RequestValidationError } from "../../errors";
 import { SchemasConfig } from "../../interfaces";
 
@@ -40,6 +40,7 @@ export const schemaValidationMiddleware = (schemas: SchemasConfig | null) => {
           const { error, value } = schema.validate(requestPart);
 
           if (error) {
+            ctx.status = HttpStatusCode.BadRequest;
             throw new RequestValidationError(error.message, ctx.ip);
           }
 

@@ -6,9 +6,9 @@ export class RequestValidationError extends ClientError {
     super(
       message,
       ip,
-      HttpStatusCode.TooManyRequests,
+      HttpStatusCode.BadRequest,
       true,
-      "error.api.tooManyRequests",
+      "error.api.notAcceptable",
       meta
     );
   }
