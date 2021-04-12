@@ -13,8 +13,9 @@ export const requestHandlerMiddleware = (handler: Handler) => {
     const [handlerClassName, handlerMethod] = handler;
 
     if (!ctx.scope.has(handlerClassName)) {
+      ctx.status = HttpStatusCode.NotImplemented;
       throw new Error(
-        `Handler class name "${handlerClassName}" does not exists`
+        `Handler class name "${handlerClassName}" does not exist`
       );
     }
 
@@ -26,8 +27,9 @@ export const requestHandlerMiddleware = (handler: Handler) => {
       !handlerClass[handlerMethod] ||
       typeof handlerClass[handlerMethod] !== "function"
     ) {
+      ctx.status = HttpStatusCode.NotImplemented;
       throw new Error(
-        `Handler Method "${handlerMethod}" does not exists in the handler class "${handlerClassName}"`
+        `Handler Method "${handlerMethod}" does not exist in the handler class "${handlerClassName}"`
       );
     }
 

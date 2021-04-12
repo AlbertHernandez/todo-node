@@ -1,6 +1,6 @@
 import * as Awilix from "awilix";
 import { Logger } from "../../logger/interfaces";
-import { ErrorHandler } from "../../error-handler";
+import { applicationErrorHandler } from "../../error-handler";
 
 export const createScope = (
   container: Awilix.AwilixContainer,
@@ -10,7 +10,9 @@ export const createScope = (
   const applicationLogger = container.resolve<Logger>("applicationLogger");
 
   const scopedLogger = applicationLogger.child(scopeLoggerInfo);
-  const scopedErrorHandler = new ErrorHandler({ logger: scopedLogger });
+  const scopedErrorHandler = applicationErrorHandler.createErrorHandler(
+    scopedLogger
+  );
 
   scope.register({
     scopedLogger: Awilix.asValue(scopedLogger),

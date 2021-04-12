@@ -21,4 +21,5 @@ export enum HttpStatusCode {
   NotAcceptable = 406,
   TooManyRequests = 429,
   InternalServer = 500,
+  NotImplemented = 501,
 }

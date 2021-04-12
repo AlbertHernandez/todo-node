@@ -1,4 +1,4 @@
-import { App } from "../../interfaces";
+import { Logger } from "../logger/interfaces";
 
 export interface ErrorHandler {
   handleError: (error: Error) => Promise<void>;
@@ -6,5 +6,5 @@ export interface ErrorHandler {
 }
 
 export interface ApplicationErrorHandler {
-  createErrorHandler(app: App): ErrorHandler;
+  createErrorHandler(logger: Logger): ErrorHandler;
 }

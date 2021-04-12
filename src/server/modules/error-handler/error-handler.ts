@@ -20,6 +20,7 @@ export class ErrorHandler implements IErrorHandler {
       this.logger.warn({
         msg: error.message,
         context: {
+          isOperational: error.isOperational,
           ip: error.ip,
           status: error.status,
           meta: error.meta,
@@ -34,6 +35,7 @@ export class ErrorHandler implements IErrorHandler {
       this.logger.trace({
         msg: error.message,
         context: {
+          isOperational: error.isOperational,
           ip: error.ip,
           status: error.status,
           meta: error.meta,

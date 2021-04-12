@@ -43,7 +43,7 @@ export class App implements IApp {
 
     this.logger = dependencies.applicationLogger.createLogger(this);
     this.errorHandler = dependencies.applicationErrorHandler.createErrorHandler(
-      this
+      this.logger
     );
   }
 
