@@ -9,7 +9,7 @@ export const accountsSchemaValidation = {
   },
   remove: {
     body: Joi.object({
-      email: Joi.string().required(),
+      id: Joi.string().required(),
     }),
   },
   get: {

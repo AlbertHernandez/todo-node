@@ -23,7 +23,7 @@ export class AccountsService implements IAccountsService {
     return await this.accountsRepository.create(account);
   }
 
-  async remove(email: string) {
-    return await this.accountsRepository.remove(email);
+  async remove(id: string) {
+    return await this.accountsRepository.remove(id);
   }
 }

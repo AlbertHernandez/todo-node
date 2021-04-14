@@ -1,56 +1,36 @@
 import {
   Todo,
   TodoFilter,
+  TodoSchema,
   TodosRepository as ITodosRepository,
 } from "./interfaces";
+import { TodoDataModel } from "./types";
 
 export class TodosRepository implements ITodosRepository {
-  private todos: Todo[];
+  private todoDataModel: TodoDataModel;
 
-  constructor() {
-    this.todos = [
-      {
-        id: "1",
-        author: "Marcin",
-        title: "Lorem Ipsum",
-        content: "Dolor sit amet",
-        isCompleted: false,
-      },
-    ];
+  constructor(dependencies: { todoDataModel: TodoDataModel }) {
+    this.todoDataModel = dependencies.todoDataModel;
   }
 
-  async getTodos(filter: TodoFilter = {}) {
-    const rawMatchedTodos = this.todos.filter((todo) =>
-      this.match(todo, filter)
-    );
+  async getTodos(filter: TodoFilter = {}): Promise<Todo[]> {
+    const rawMatchedTodos = await this.todoDataModel.find(filter, null, {
+      lean: true,
+    });
 
-    return rawMatchedTodos.map((rawMatchedTodo) =>
-      this.mapToTodo(rawMatchedTodo)
-    );
+    return rawMatchedTodos.length
+      ? rawMatchedTodos.map((rawMatchedTodo) => this.mapToTodo(rawMatchedTodo))
+      : [];
   }
 
   async createTodo(todo: Todo) {
-    this.todos.push(todo);
-    return todo;
+    const rawTodo = await this.todoDataModel.create(todo);
+    return this.mapToTodo(rawTodo);
   }
 
-  private match(todo: Todo, filter: TodoFilter) {
-    let match = true;
-
-    if (filter.isCompleted !== undefined) {
-      match = match && todo.isCompleted === filter.isCompleted;
-    }
-
-    if (filter.author !== undefined) {
-      match = match && todo.author === filter.author;
-    }
-
-    return match;
-  }
-
-  private mapToTodo(rawTodo: Todo): Todo {
+  private mapToTodo(rawTodo: TodoSchema): Todo {
     return {
-      id: rawTodo.id,
+      id: rawTodo._id,
       author: rawTodo.author,
       title: rawTodo.title,
       content: rawTodo.content,

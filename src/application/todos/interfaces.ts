@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Request } from "../../server/api/interfaces";
 
 interface GetTodosMethod {
@@ -34,4 +35,13 @@ export interface Todo {
 export interface TodoFilter {
   author?: string;
   isCompleted?: boolean;
+}
+
+export interface TodoSchema extends mongoose.Document {
+  author: string;
+  title: string;
+  content: string;
+  isCompleted: boolean;
+  createdAt: Date | null;
+  updatedAt: Date | null;
 }

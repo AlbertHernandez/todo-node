@@ -1,5 +1,5 @@
+import mongoose from "mongoose";
 import { Request } from "../../server/api/interfaces";
-import { Document } from "mongoose";
 
 interface GetAccountsMethod {
   (email: string): Promise<Account | null>;
@@ -14,7 +14,7 @@ interface CreateAccountMethod {
 }
 
 interface RemoveAccountMethod {
-  (email: string): Promise<void>;
+  (id: string): Promise<void>;
 }
 
 export interface AccountsRepository {
@@ -39,13 +39,14 @@ export interface AccountsController {
 }
 
 export interface Account {
+  id: string;
   name: string;
   email: string;
   createdAt: Date | null;
   updatedAt: Date | null;
 }
 
-export interface AccountSchema extends Document {
+export interface AccountSchema extends mongoose.Document {
   name: string;
   email: string;
   createdAt: Date | null;

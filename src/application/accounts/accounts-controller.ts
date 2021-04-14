@@ -32,8 +32,8 @@ export class AccountsController implements IAccountsController {
   }
 
   async remove(request: Request) {
-    const email: string = request.body.email;
+    const id: string = request.body.id;
 
-    return await this.accountsService.remove(email);
+    return await this.accountsService.remove(id);
   }
 }

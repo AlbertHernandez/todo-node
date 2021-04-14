@@ -1,5 +1,6 @@
 import {
   Account,
+  AccountSchema,
   AccountsRepository as IAccountRepository,
 } from "./interfaces";
 import { DuplicateAccountError } from "./errors";
@@ -50,14 +51,15 @@ export class AccountsRepository implements IAccountRepository {
     return this.mapToAccount(rawAccount);
   }
 
-  async remove(email: string) {
+  async remove(id: string) {
     await this.accountDataModel.deleteOne({
-      email,
+      _id: id,
     });
   }
 
-  private mapToAccount(rawAccount: Account): Account {
+  private mapToAccount(rawAccount: AccountSchema): Account {
     return {
+      id: rawAccount._id,
       name: rawAccount.name,
       email: rawAccount.email,
       createdAt: rawAccount.createdAt,
