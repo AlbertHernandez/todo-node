@@ -26,4 +26,13 @@ todosRouter.post(
   routerMiddleware.requestHandlerMiddleware(["todosController", "createTodo"])
 );
 
+todosRouter.delete(
+  "/todo",
+  routerMiddleware.authorizationMiddleware({
+    allowedUserTypes: [UserType.Api],
+  }),
+  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.remove),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "remove"])
+);
+
 export { todosRouter };

@@ -7,6 +7,11 @@ export const todosSchemaValidation = {
       isCompleted: Joi.boolean(),
     }),
   },
+  remove: {
+    body: Joi.object({
+      id: Joi.string().required(),
+    }),
+  },
   createTodo: {
     body: Joi.object({
       author: Joi.string().required(),

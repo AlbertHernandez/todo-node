@@ -23,4 +23,10 @@ export class TodosController implements ITodoController {
 
     return await this.todosService.createTodo(todo);
   }
+
+  async remove(request: Request) {
+    const id: string = request.body.id;
+
+    return await this.todosService.remove(id);
+  }
 }

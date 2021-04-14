@@ -9,19 +9,26 @@ interface CreateTodoMethod {
   (todo: Todo): Promise<Todo>;
 }
 
+interface DeleteTodoMethod {
+  (id: string): Promise<void>;
+}
+
 export interface TodosService {
   getTodos: GetTodosMethod;
   createTodo: CreateTodoMethod;
+  remove: DeleteTodoMethod;
 }
 
 export interface TodosRepository {
   getTodos: GetTodosMethod;
   createTodo: CreateTodoMethod;
+  remove: DeleteTodoMethod;
 }
 
 export interface TodoController {
   getTodos: (request: Request) => Promise<Todo[]>;
   createTodo: (request: Request) => Promise<Todo>;
+  remove: (request: Request) => Promise<void>;
 }
 
 export interface Todo {

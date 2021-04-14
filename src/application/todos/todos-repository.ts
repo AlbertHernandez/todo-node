@@ -28,6 +28,12 @@ export class TodosRepository implements ITodosRepository {
     return this.mapToTodo(rawTodo);
   }
 
+  async remove(id: string) {
+    await this.todoDataModel.deleteOne({
+      _id: id,
+    });
+  }
+
   private mapToTodo(rawTodo: TodoSchema): Todo {
     return {
       id: rawTodo._id,
