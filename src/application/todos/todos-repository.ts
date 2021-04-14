@@ -58,10 +58,20 @@ export class TodosRepository implements ITodosRepository {
   }
 
   private mapToDbFilters(filter: TodoFilter) {
-    return {
-      ...filter,
-      _id: filter.id,
-      id: undefined,
-    };
+    const dbFilters: any = {};
+
+    if (filter.author !== undefined) {
+      dbFilters.author = filter.author;
+    }
+
+    if (filter.isCompleted !== undefined) {
+      dbFilters.isCompleted = filter.isCompleted;
+    }
+
+    if (filter.id !== undefined) {
+      dbFilters._id = filter.id;
+    }
+
+    return dbFilters;
   }
 }
