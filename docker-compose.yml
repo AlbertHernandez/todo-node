@@ -1,9 +1,9 @@
-version: '3'
+version: "3"
 
 services:
   server-todo-node:
     container_name: server-todo-node
-    image: 'node:14'
+    image: "node:14"
     restart: unless-stopped
     working_dir: /usr/src/app
     build: .
@@ -16,11 +16,27 @@ services:
     expose:
       - ${PORT}
     ports:
-      - '${PORT}:${PORT}/tcp'
-      - '${INSPECT_PORT}:${INSPECT_PORT}'
-    command:
-      [
-        'npm',
-        'run',
-        'watch',
-      ]
+      - "${PORT}:${PORT}/tcp"
+      - "${INSPECT_PORT}:${INSPECT_PORT}"
+    command: ["./wait-for-it.sh", "mongo:27017", "--", "npm", "run", "watch"]
+    networks:
+      - default
+
+  mongo-todo-node:
+    container_name: mongo-todo-node
+    image: "mongo:latest"
+    volumes:
+      - ./mongo-data:/data/db
+    environment:
+      - MONGO_DATA_DIR=/mongo-data
+      - MONGO_LOG_DIR=/dev/null
+    command: mongod
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+    networks:
+      - default
+
+volumes:
+  mongo-data:

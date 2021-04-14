@@ -7,6 +7,9 @@ node_modules
 # misc
 .DS_Store
 
+# Mongo data
+/mongo-data
+
 # production
 /build
 
