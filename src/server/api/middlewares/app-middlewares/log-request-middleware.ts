@@ -12,6 +12,7 @@ export const logRequestMiddleware: AppMiddleware = () =>
           method: ctx.request.method,
           url: ctx.url,
           header: ctx.header,
+          body: ctx.request.body,
         },
       });
       await next();
