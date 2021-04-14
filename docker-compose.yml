@@ -12,7 +12,7 @@ services:
       - ./:/usr/src/app
     environment:
       - PORT=${PORT}
-      - MONGO_URL=${MONGO_URL}
+      - MONGO_URI=${MONGO_URI}
     expose:
       - ${PORT}
     ports:

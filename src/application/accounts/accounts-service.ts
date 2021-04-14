@@ -1,4 +1,5 @@
 import {
+  Account,
   AccountsRepository,
   AccountsService as IAccountsService,
 } from "./interfaces";
@@ -16,5 +17,13 @@ export class AccountsService implements IAccountsService {
 
   async getAll() {
     return await this.accountsRepository.getAll();
+  }
+
+  async create(account: Account) {
+    return await this.accountsRepository.create(account);
+  }
+
+  async remove(email: string) {
+    return await this.accountsRepository.remove(email);
   }
 }

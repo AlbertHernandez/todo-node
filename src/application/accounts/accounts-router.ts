@@ -26,4 +26,22 @@ accountsRouter.get(
   routerMiddleware.requestHandlerMiddleware(["accountsController", "getAll"])
 );
 
+accountsRouter.post(
+  "/account",
+  routerMiddleware.authorizationMiddleware({
+    allowedUserTypes: [UserType.Api],
+  }),
+  routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.create),
+  routerMiddleware.requestHandlerMiddleware(["accountsController", "create"])
+);
+
+accountsRouter.delete(
+  "/account",
+  routerMiddleware.authorizationMiddleware({
+    allowedUserTypes: [UserType.Api],
+  }),
+  routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.remove),
+  routerMiddleware.requestHandlerMiddleware(["accountsController", "remove"])
+);
+
 export { accountsRouter };

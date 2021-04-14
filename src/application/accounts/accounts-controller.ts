@@ -1,5 +1,6 @@
 import { Request } from "../../server/api/interfaces";
 import {
+  Account,
   AccountsController as IAccountsController,
   AccountsService,
 } from "./interfaces";
@@ -22,5 +23,17 @@ export class AccountsController implements IAccountsController {
 
   async getAll() {
     return await this.accountsService.getAll();
+  }
+
+  async create(request: Request) {
+    const account: Account = request.body;
+
+    return await this.accountsService.create(account);
+  }
+
+  async remove(request: Request) {
+    const email: string = request.body.email;
+
+    return await this.accountsService.remove(email);
   }
 }

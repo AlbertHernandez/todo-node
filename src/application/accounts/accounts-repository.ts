@@ -2,31 +2,58 @@ import {
   Account,
   AccountsRepository as IAccountRepository,
 } from "./interfaces";
+import { DuplicateAccountError } from "./errors";
+import { AccountDataModel } from "./types";
 
 export class AccountsRepository implements IAccountRepository {
-  private accounts: Account[];
+  private accountDataModel: AccountDataModel;
 
-  constructor() {
-    this.accounts = [
-      {
-        name: "Admin",
-        email: "admin@todos.com",
-        createdAt: null,
-        updatedAt: null,
-      },
-    ];
+  constructor(dependencies: { accountDataModel: AccountDataModel }) {
+    this.accountDataModel = dependencies.accountDataModel;
   }
 
   async get(email: string) {
-    const rawAccount = this.accounts.find(
-      (rawAccount) => rawAccount.email === email
+    const rawAccount = await this.accountDataModel.findOne(
+      {
+        email,
+      },
+      null,
+      {
+        lean: true,
+      }
     );
 
     return rawAccount ? this.mapToAccount(rawAccount) : null;
   }
 
   async getAll() {
-    return this.accounts.map((rawAccount) => this.mapToAccount(rawAccount));
+    const rawAccounts = await this.accountDataModel.find({}, null, {
+      lean: true,
+    });
+
+    return rawAccounts.length
+      ? rawAccounts.map((rawAccount) => this.mapToAccount(rawAccount))
+      : [];
+  }
+
+  async create(account: Account) {
+    const existingAccount = await this.get(account.email);
+
+    if (existingAccount) {
+      throw new DuplicateAccountError(
+        "Account with that email already exists",
+        { account }
+      );
+    }
+
+    const rawAccount = await this.accountDataModel.create(account);
+    return this.mapToAccount(rawAccount);
+  }
+
+  async remove(email: string) {
+    await this.accountDataModel.deleteOne({
+      email,
+    });
   }
 
   private mapToAccount(rawAccount: Account): Account {

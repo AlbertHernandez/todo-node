@@ -47,7 +47,7 @@ export const requestHandlerMiddleware = (handler: Handler) => {
 
       ctx.body = handlerResponse || {};
     } catch (error) {
-      ctx.status = error.status;
+      ctx.status = error.status || HttpStatusCode.InternalServer;
       throw error;
     }
   };
