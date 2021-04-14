@@ -13,7 +13,7 @@ export class TodosRepository implements ITodosRepository {
     this.todoDataModel = dependencies.todoDataModel;
   }
 
-  async getTodos(filter: TodoFilter = {}): Promise<Todo[]> {
+  async get(filter: TodoFilter = {}): Promise<Todo[]> {
     const rawMatchedTodos = await this.todoDataModel.find(filter, null, {
       lean: true,
     });
@@ -23,7 +23,7 @@ export class TodosRepository implements ITodosRepository {
       : [];
   }
 
-  async createTodo(todo: Todo) {
+  async create(todo: Todo) {
     const rawTodo = await this.todoDataModel.create(todo);
     return this.mapToTodo(rawTodo);
   }

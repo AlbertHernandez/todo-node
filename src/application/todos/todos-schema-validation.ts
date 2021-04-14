@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 
 export const todosSchemaValidation = {
-  getTodos: {
+  get: {
     body: Joi.object({
       author: Joi.string(),
       isCompleted: Joi.boolean(),
@@ -12,7 +12,7 @@ export const todosSchemaValidation = {
       id: Joi.string().required(),
     }),
   },
-  createTodo: {
+  create: {
     body: Joi.object({
       author: Joi.string().required(),
       title: Joi.string().required(),

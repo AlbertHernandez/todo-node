@@ -13,15 +13,15 @@ export class TodosController implements ITodoController {
     this.todosService = dependencies.todosService;
   }
 
-  async getTodos(request: Request) {
+  async get(request: Request) {
     const todoFilter: TodoFilter = request.body;
-    return await this.todosService.getTodos(todoFilter);
+    return await this.todosService.get(todoFilter);
   }
 
-  async createTodo(request: Request) {
+  async create(request: Request) {
     const todo: Todo = request.body;
 
-    return await this.todosService.createTodo(todo);
+    return await this.todosService.create(todo);
   }
 
   async remove(request: Request) {

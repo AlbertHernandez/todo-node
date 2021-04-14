@@ -13,8 +13,8 @@ todosRouter.get(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.getTodos),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "getTodos"])
+  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.get),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "get"])
 );
 
 todosRouter.post(
@@ -22,8 +22,8 @@ todosRouter.post(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.createTodo),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "createTodo"])
+  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.create),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "create"])
 );
 
 todosRouter.delete(

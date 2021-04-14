@@ -14,20 +14,20 @@ interface DeleteTodoMethod {
 }
 
 export interface TodosService {
-  getTodos: GetTodosMethod;
-  createTodo: CreateTodoMethod;
+  get: GetTodosMethod;
+  create: CreateTodoMethod;
   remove: DeleteTodoMethod;
 }
 
 export interface TodosRepository {
-  getTodos: GetTodosMethod;
-  createTodo: CreateTodoMethod;
+  get: GetTodosMethod;
+  create: CreateTodoMethod;
   remove: DeleteTodoMethod;
 }
 
 export interface TodoController {
-  getTodos: (request: Request) => Promise<Todo[]>;
-  createTodo: (request: Request) => Promise<Todo>;
+  get: (request: Request) => Promise<Todo[]>;
+  create: (request: Request) => Promise<Todo>;
   remove: (request: Request) => Promise<void>;
 }
 

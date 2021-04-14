@@ -19,11 +19,11 @@ export class TodosService implements ITodosService {
     this.accountsService = dependencies.accountsService;
   }
 
-  async getTodos(filter?: TodoFilter) {
-    return await this.todosRepository.getTodos(filter);
+  async get(filter?: TodoFilter) {
+    return await this.todosRepository.get(filter);
   }
 
-  async createTodo(todo: Todo) {
+  async create(todo: Todo) {
     const account = await this.accountsService.get(todo.author);
 
     if (!account) {
@@ -32,7 +32,7 @@ export class TodosService implements ITodosService {
       });
     }
 
-    return await this.todosRepository.createTodo(todo);
+    return await this.todosRepository.create(todo);
   }
 
   async remove(id: string) {
