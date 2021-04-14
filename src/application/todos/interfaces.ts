@@ -42,6 +42,7 @@ export interface Todo {
 export interface TodoFilter {
   author?: string;
   isCompleted?: boolean;
+  id?: string;
 }
 
 export interface TodoSchema extends mongoose.Document {

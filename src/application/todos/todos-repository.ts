@@ -5,6 +5,8 @@ import {
   TodosRepository as ITodosRepository,
 } from "./interfaces";
 import { TodoDataModel } from "./types";
+import { TodoNotFoundError } from "./errors";
+import { isValidId } from "../common/helpers";
 
 export class TodosRepository implements ITodosRepository {
   private todoDataModel: TodoDataModel;
@@ -14,7 +16,12 @@ export class TodosRepository implements ITodosRepository {
   }
 
   async get(filter: TodoFilter = {}): Promise<Todo[]> {
-    const rawMatchedTodos = await this.todoDataModel.find(filter, null, {
+    if (filter.id && !isValidId(filter.id)) {
+      return [];
+    }
+
+    const dbFilters = this.mapToDbFilters(filter);
+    const rawMatchedTodos = await this.todoDataModel.find(dbFilters, null, {
       lean: true,
     });
 
@@ -29,6 +36,12 @@ export class TodosRepository implements ITodosRepository {
   }
 
   async remove(id: string) {
+    const [todo] = await this.get({ id });
+
+    if (!todo) {
+      throw new TodoNotFoundError("Not found todo to be removed", { id });
+    }
+
     await this.todoDataModel.deleteOne({
       _id: id,
     });
@@ -41,6 +54,14 @@ export class TodosRepository implements ITodosRepository {
       title: rawTodo.title,
       content: rawTodo.content,
       isCompleted: rawTodo.isCompleted,
+    };
+  }
+
+  private mapToDbFilters(filter: TodoFilter) {
+    return {
+      ...filter,
+      _id: filter.id,
+      id: undefined,
     };
   }
 }
