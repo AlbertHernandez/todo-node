@@ -6,6 +6,7 @@ import {
 import { DuplicateAccountError } from "./errors";
 import { AccountDataModel } from "./types";
 import { generateUuid } from "../common/helpers";
+import { MongoError } from "../../server/modules/mongo/enums";
 
 export class AccountsRepository implements IAccountRepository {
   private accountDataModel: AccountDataModel;
@@ -39,21 +40,22 @@ export class AccountsRepository implements IAccountRepository {
   }
 
   async create(account: Account) {
-    const existingAccount = await this.get(account.email);
+    try {
+      const rawAccount = await this.accountDataModel.create({
+        ...account,
+        id: account.id || generateUuid(),
+      });
 
-    if (existingAccount) {
-      throw new DuplicateAccountError(
-        "Account with that email already exists",
-        { account }
-      );
+      return this.mapToAccount(rawAccount);
+    } catch (error) {
+      if (error.message.includes(MongoError.Duplicate)) {
+        throw new DuplicateAccountError("Duplicated account", {
+          account,
+          duplicateKey: error.keyValue,
+        });
+      }
+      throw error;
     }
-
-    const rawAccount = await this.accountDataModel.create({
-      ...account,
-      id: account.id || generateUuid(),
-    });
-
-    return this.mapToAccount(rawAccount);
   }
 
   async remove(id: string) {

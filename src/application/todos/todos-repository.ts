@@ -6,6 +6,8 @@ import {
 } from "./interfaces";
 import { TodoDataModel } from "./types";
 import { generateUuid } from "../common/helpers";
+import { DuplicateAccountError } from "../accounts/errors";
+import { MongoError } from "../../server/modules/mongo/enums";
 
 export class TodosRepository implements ITodosRepository {
   private todoDataModel: TodoDataModel;
@@ -25,11 +27,21 @@ export class TodosRepository implements ITodosRepository {
   }
 
   async create(todo: Todo) {
-    const rawTodo = await this.todoDataModel.create({
-      ...todo,
-      id: todo.id || generateUuid(),
-    });
-    return this.mapToTodo(rawTodo);
+    try {
+      const rawTodo = await this.todoDataModel.create({
+        ...todo,
+        id: todo.id || generateUuid(),
+      });
+      return this.mapToTodo(rawTodo);
+    } catch (error) {
+      if (error.message.includes(MongoError.Duplicate)) {
+        throw new DuplicateAccountError("Duplicated todo", {
+          todo,
+          duplicateKey: error.keyValue,
+        });
+      }
+      throw error;
+    }
   }
 
   async remove(id: string) {
