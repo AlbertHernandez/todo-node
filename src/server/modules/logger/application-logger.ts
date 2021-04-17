@@ -1,27 +1,14 @@
-import pino from "pino";
 import { ApplicationLogger, Logger } from "./interfaces";
 import { Env } from "../../config/environment/interfaces";
+import { loggerFactory } from "./logger-factory";
 
 export const applicationLogger: ApplicationLogger = {
   createLogger(app): Logger {
     const env: Env = app.env;
-    return pino({
+    return loggerFactory.get({
       level: env.loggerLevel,
-      prettyPrint: env.development,
-      timestamp() {
-        return `Time: ${
-          env.development
-            ? new Date(Date.now()).toLocaleString("en-US", {
-                hour12: false,
-                timeZoneName: "short",
-              })
-            : new Date(Date.now()).toLocaleString("en-US", {
-                hour12: false,
-                timeZoneName: "short",
-                timeZone: "UTC",
-              })
-        }`;
-      },
+      prettify: env.development,
+      utcTimestamp: !env.development,
     });
   },
 };

@@ -10,7 +10,7 @@ const isClientError = (
   );
 };
 
-export const errorHandlerMiddleware: AppMiddleware = (app) =>
+export const errorHandlerMiddleware: AppMiddleware = () =>
   async function errorHandlerMiddleware(ctx, next) {
     try {
       await next();

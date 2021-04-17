@@ -1,4 +1,5 @@
 import { App } from "../../interfaces";
+import { LoggerLevel } from "./enums";
 
 type LogMessage = {
   msg: string;
@@ -21,4 +22,10 @@ export interface Logger {
 
 export interface ApplicationLogger {
   createLogger(app: App): Logger;
+}
+
+export interface LoggerOptions {
+  level?: LoggerLevel;
+  prettify?: boolean;
+  utcTimestamp?: boolean;
 }
