@@ -44,4 +44,12 @@ accountsRouter.delete(
   routerMiddleware.requestHandlerMiddleware(["accountsController", "remove"])
 );
 
+accountsRouter.delete(
+  "/accounts",
+  routerMiddleware.authorizationMiddleware({
+    allowedUserTypes: [UserType.Api],
+  }),
+  routerMiddleware.requestHandlerMiddleware(["accountsController", "removeAll"])
+);
+
 export { accountsRouter };

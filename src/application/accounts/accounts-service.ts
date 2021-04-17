@@ -26,4 +26,8 @@ export class AccountsService implements IAccountsService {
   async remove(id: string) {
     return await this.accountsRepository.remove(id);
   }
+
+  async removeAll() {
+    return await this.accountsRepository.removeAll();
+  }
 }

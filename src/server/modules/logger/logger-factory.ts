@@ -4,7 +4,7 @@ import { Logger, LoggerOptions } from "./interfaces";
 export const loggerFactory = {
   get(options: LoggerOptions = {}): Logger {
     return pino({
-      level: options.level,
+      level: options.level || "info",
       prettyPrint: options.prettify,
       timestamp() {
         return `Time: ${

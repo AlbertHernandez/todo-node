@@ -36,4 +36,8 @@ export class AccountsController implements IAccountsController {
 
     return await this.accountsService.remove(id);
   }
+
+  async removeAll() {
+    return await this.accountsService.removeAll();
+  }
 }

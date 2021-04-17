@@ -57,6 +57,10 @@ export class AccountsRepository implements IAccountRepository {
     });
   }
 
+  async removeAll() {
+    await this.accountDataModel.deleteMany();
+  }
+
   private mapToAccount(rawAccount: AccountSchema): Account {
     return {
       id: rawAccount._id,

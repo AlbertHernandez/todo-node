@@ -17,11 +17,16 @@ interface RemoveAccountMethod {
   (id: string): Promise<void>;
 }
 
+interface RemoveAllAccountMethod {
+  (): Promise<void>;
+}
+
 export interface AccountsRepository {
   get: GetAccountsMethod;
   getAll: GetAllAccountsMethod;
   create: CreateAccountMethod;
   remove: RemoveAccountMethod;
+  removeAll: RemoveAllAccountMethod;
 }
 
 export interface AccountsService {
@@ -29,6 +34,7 @@ export interface AccountsService {
   getAll: GetAllAccountsMethod;
   create: CreateAccountMethod;
   remove: RemoveAccountMethod;
+  removeAll: RemoveAllAccountMethod;
 }
 
 export interface AccountsController {
@@ -36,6 +42,7 @@ export interface AccountsController {
   getAll: (request: Request) => Promise<Account[]>;
   create: (request: Request) => Promise<Account>;
   remove: (request: Request) => Promise<void>;
+  removeAll: (request: Request) => Promise<void>;
 }
 
 export interface Account {
