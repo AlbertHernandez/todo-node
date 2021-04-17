@@ -9,7 +9,7 @@ import { applicationRouters } from "./application/application-routers";
 import { applicationErrorHandler } from "./server/modules/error-handler";
 import * as plugins from "./server/plugins";
 
-const start = async () => {
+export const start = async () => {
   const app = new App({
     port: env.port,
     plugins: [plugins.mongoPlugin, registerApplicationDependencies],
