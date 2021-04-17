@@ -10,7 +10,7 @@
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "prepare": "husky install",
-    "database:feed": "nodemon --exec node --inspect=0.0.0.0:56746 -r ts-node/register src/scripts/feed-database/index.ts"
+    "database:feed": "node -r ts-node/register src/scripts/feed-database/index.ts"
   },
   "engines": {
     "node": "14.x"
