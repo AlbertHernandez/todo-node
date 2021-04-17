@@ -11,4 +11,5 @@ export interface Env {
   port: number;
   apiKey: string;
   loggerLevel: LoggerLevel;
+  todoAppApiUrl: string;
 }

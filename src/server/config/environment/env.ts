@@ -27,4 +27,5 @@ export const env: Env = {
   port: Number(process.env.PORT) || 3000,
   apiKey: process.env.API_KEY || "",
   loggerLevel: getLoggerLevel(),
+  todoAppApiUrl: process.env.TODO_APP_API_URL || "",
 };
