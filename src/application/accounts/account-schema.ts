@@ -2,8 +2,20 @@ import mongoose from "mongoose";
 
 export const accountSchema = new mongoose.Schema(
   {
-    name: String,
-    email: String,
+    id: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,

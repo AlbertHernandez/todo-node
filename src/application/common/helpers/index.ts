@@ -1,1 +1,1 @@
-export * from "./is-valid-id";
+export * from "./generate-uuid";

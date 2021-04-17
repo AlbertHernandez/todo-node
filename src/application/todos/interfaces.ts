@@ -53,6 +53,7 @@ export interface TodoFilter {
 }
 
 export interface TodoSchema extends mongoose.Document {
+  id: string;
   author: string;
   title: string;
   content: string;

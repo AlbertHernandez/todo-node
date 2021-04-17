@@ -5,6 +5,7 @@ import {
 } from "./interfaces";
 import { DuplicateAccountError } from "./errors";
 import { AccountDataModel } from "./types";
+import { generateUuid } from "../common/helpers";
 
 export class AccountsRepository implements IAccountRepository {
   private accountDataModel: AccountDataModel;
@@ -47,13 +48,17 @@ export class AccountsRepository implements IAccountRepository {
       );
     }
 
-    const rawAccount = await this.accountDataModel.create(account);
+    const rawAccount = await this.accountDataModel.create({
+      ...account,
+      id: account.id || generateUuid(),
+    });
+
     return this.mapToAccount(rawAccount);
   }
 
   async remove(id: string) {
     await this.accountDataModel.deleteOne({
-      _id: id,
+      id,
     });
   }
 
@@ -63,7 +68,7 @@ export class AccountsRepository implements IAccountRepository {
 
   private mapToAccount(rawAccount: AccountSchema): Account {
     return {
-      id: rawAccount._id,
+      id: rawAccount.id,
       name: rawAccount.name,
       email: rawAccount.email,
       createdAt: rawAccount.createdAt,
