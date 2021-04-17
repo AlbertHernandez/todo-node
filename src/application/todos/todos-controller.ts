@@ -29,4 +29,8 @@ export class TodosController implements ITodoController {
 
     return await this.todosService.remove(id);
   }
+
+  async removeAll() {
+    return await this.todosService.removeAll();
+  }
 }

@@ -13,22 +13,29 @@ interface DeleteTodoMethod {
   (id: string): Promise<void>;
 }
 
+interface DeleteAllTodosMethod {
+  (): Promise<void>;
+}
+
 export interface TodosService {
   get: GetTodosMethod;
   create: CreateTodoMethod;
   remove: DeleteTodoMethod;
+  removeAll: DeleteAllTodosMethod;
 }
 
 export interface TodosRepository {
   get: GetTodosMethod;
   create: CreateTodoMethod;
   remove: DeleteTodoMethod;
+  removeAll: DeleteAllTodosMethod;
 }
 
 export interface TodoController {
   get: (request: Request) => Promise<Todo[]>;
   create: (request: Request) => Promise<Todo>;
   remove: (request: Request) => Promise<void>;
+  removeAll: (request: Request) => Promise<void>;
 }
 
 export interface Todo {

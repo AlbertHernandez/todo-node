@@ -35,4 +35,12 @@ todosRouter.delete(
   routerMiddleware.requestHandlerMiddleware(["todosController", "remove"])
 );
 
+todosRouter.delete(
+  "/todos",
+  routerMiddleware.authorizationMiddleware({
+    allowedUserTypes: [UserType.Api],
+  }),
+  routerMiddleware.requestHandlerMiddleware(["todosController", "removeAll"])
+);
+
 export { todosRouter };

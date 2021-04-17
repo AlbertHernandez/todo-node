@@ -38,4 +38,8 @@ export class TodosService implements ITodosService {
   async remove(id: string) {
     return await this.todosRepository.remove(id);
   }
+
+  async removeAll() {
+    return await this.todosRepository.removeAll();
+  }
 }

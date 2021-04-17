@@ -47,6 +47,10 @@ export class TodosRepository implements ITodosRepository {
     });
   }
 
+  async removeAll() {
+    await this.todoDataModel.deleteMany();
+  }
+
   private mapToTodo(rawTodo: TodoSchema): Todo {
     return {
       id: rawTodo._id,
