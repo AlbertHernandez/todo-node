@@ -1,1 +1,1 @@
-export * from "./application-logger";
+export * from "./application-logger-factory";

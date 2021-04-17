@@ -20,8 +20,8 @@ export interface Logger {
   child: (options: any) => Logger;
 }
 
-export interface ApplicationLogger {
-  createLogger(app: App): Logger;
+export interface ApplicationLoggerFactory {
+  get(app: App): Logger;
 }
 
 export interface LoggerOptions {

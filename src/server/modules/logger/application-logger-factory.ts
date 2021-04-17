@@ -1,9 +1,9 @@
-import { ApplicationLogger, Logger } from "./interfaces";
+import { ApplicationLoggerFactory, Logger } from "./interfaces";
 import { Env } from "../../config/environment/interfaces";
 import { loggerFactory } from "./logger-factory";
 
-export const applicationLogger: ApplicationLogger = {
-  createLogger(app): Logger {
+export const applicationLoggerFactory: ApplicationLoggerFactory = {
+  get(app): Logger {
     const env: Env = app.env;
     return loggerFactory.get({
       level: env.loggerLevel,

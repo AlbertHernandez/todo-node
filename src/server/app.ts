@@ -2,11 +2,11 @@ import Koa from "koa";
 import * as Awilix from "awilix";
 
 import { Plugin } from "./plugins/interfaces";
-import { ApplicationLogger, Logger } from "./modules/logger/interfaces";
+import { ApplicationLoggerFactory, Logger } from "./modules/logger/interfaces";
 import Router from "koa-router";
 import { App as IApp } from "./interfaces";
 import {
-  ApplicationErrorHandler,
+  ApplicationErrorHandlerFactory,
   ErrorHandler,
 } from "./modules/error-handler/interfaces";
 import { AppMiddleware } from "./api/middlewares/app-middlewares/interfaces";
@@ -27,8 +27,8 @@ export class App implements IApp {
     routers?: Router[];
     container: Awilix.AwilixContainer;
     plugins?: Plugin[];
-    applicationLogger: ApplicationLogger;
-    applicationErrorHandler: ApplicationErrorHandler;
+    applicationLogger: ApplicationLoggerFactory;
+    applicationErrorHandler: ApplicationErrorHandlerFactory;
     middlewares?: AppMiddleware[];
     env: any;
   }) {
@@ -41,10 +41,8 @@ export class App implements IApp {
     this.middlewares = dependencies.middlewares || [];
     this.env = dependencies.env || {};
 
-    this.logger = dependencies.applicationLogger.createLogger(this);
-    this.errorHandler = dependencies.applicationErrorHandler.createErrorHandler(
-      this
-    );
+    this.logger = dependencies.applicationLogger.get(this);
+    this.errorHandler = dependencies.applicationErrorHandler.get(this);
   }
 
   private async initializePlugins() {

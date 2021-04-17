@@ -3,10 +3,10 @@ import * as Awilix from "awilix";
 import { App } from "./server/app";
 import { env } from "./server/config/environment";
 import { registerApplicationDependencies } from "./application/register-application-dependencies";
-import { applicationLogger } from "./server/modules/logger";
+import { applicationLoggerFactory } from "./server/modules/logger";
 import * as appMiddlewares from "./server/api/middlewares/app-middlewares";
 import { applicationRouters } from "./application/application-routers";
-import { applicationErrorHandler } from "./server/modules/error-handler";
+import { applicationErrorHandlerFactory } from "./server/modules/error-handler";
 import * as plugins from "./server/plugins";
 
 export const start = async () => {
@@ -15,8 +15,8 @@ export const start = async () => {
     plugins: [plugins.mongoPlugin, registerApplicationDependencies],
     container: Awilix.createContainer(),
     routers: applicationRouters,
-    applicationLogger,
-    applicationErrorHandler,
+    applicationLogger: applicationLoggerFactory,
+    applicationErrorHandler: applicationErrorHandlerFactory,
     middlewares: [
       appMiddlewares.errorHandlerMiddleware,
       appMiddlewares.helmetMiddleware,

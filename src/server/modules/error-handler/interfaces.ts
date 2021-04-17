@@ -6,8 +6,8 @@ export interface ErrorHandler {
   isTrustedError: (error: Error) => boolean;
 }
 
-export interface ApplicationErrorHandler {
-  createErrorHandler(app: App): ErrorHandler;
+export interface ApplicationErrorHandlerFactory {
+  get(app: App): ErrorHandler;
 }
 
 export interface ErrorHandlerOptions {
