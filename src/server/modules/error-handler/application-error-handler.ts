@@ -1,11 +1,11 @@
 import { ApplicationErrorHandler } from "./interfaces";
-import { ErrorHandler } from "./error-handler";
-import { Logger } from "../logger/interfaces";
+import { App } from "../../interfaces";
+import { errorHandlerFactory } from "./error-handler-factory";
 
 export const applicationErrorHandler: ApplicationErrorHandler = {
-  createErrorHandler(logger: Logger) {
-    return new ErrorHandler({
-      logger,
+  createErrorHandler(app: App) {
+    return errorHandlerFactory.get({
+      logger: app.logger,
     });
   },
 };

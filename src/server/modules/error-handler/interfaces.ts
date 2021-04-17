@@ -1,3 +1,4 @@
+import { App } from "../../interfaces";
 import { Logger } from "../logger/interfaces";
 
 export interface ErrorHandler {
@@ -6,5 +7,9 @@ export interface ErrorHandler {
 }
 
 export interface ApplicationErrorHandler {
-  createErrorHandler(logger: Logger): ErrorHandler;
+  createErrorHandler(app: App): ErrorHandler;
+}
+
+export interface ErrorHandlerOptions {
+  logger: Logger;
 }
