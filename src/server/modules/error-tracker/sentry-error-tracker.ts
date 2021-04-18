@@ -1,9 +1,7 @@
-import * as Koa from 'koa'
 import * as Sentry from '@sentry/node'
 import { Severity } from '@sentry/node'
 import { Env } from '../../config/environment/interfaces'
-import { ErrorContext, ErrorTracker } from './interfaces'
-import { ApiUser } from '../../api/interfaces'
+import { ErrorContext, ErrorTracker, RequestScope } from './interfaces'
 import { BaseError } from '../../errors'
 import { ClientError, TooManyRequestsError } from '../../api/errors'
 import { ApplicationError } from '../../../application/errors'
@@ -11,7 +9,9 @@ import { Logger } from '../logger/interfaces'
 
 export class SentryErrorTracker implements ErrorTracker {
   constructor (dependencies: { env: Env, logger: Logger }) {
-    if (!dependencies.env.sentry.isEnabled) {
+    if (dependencies.env.sentry.isEnabled) {
+      dependencies.logger.trace('Sentry is enabled')
+    } else {
       dependencies.logger.trace('Sentry is disabled')
     }
 
@@ -24,29 +24,27 @@ export class SentryErrorTracker implements ErrorTracker {
     })
   }
 
-  configureRequestScope (ctx: Koa.Context): void {
-    const { requestId } = ctx.scope.resolve('requestContext')
-    const user: ApiUser | null = ctx?.session?.user
-
+  configureRequestScope (requestScope: RequestScope): void {
     Sentry.configureScope((scope) => {
-      scope.addEventProcessor((event) => {
-        const normalizedRequest = {
-          ...ctx.request,
-          headers: {
-            ...ctx.request.headers,
-            'api-key': undefined
-          }
-        }
-        return Sentry.Handlers.parseRequest(event, normalizedRequest)
-      })
-      scope.setContext('Request', {
-        requestId
-      })
-      scope.setUser({
-        ip_address: ctx.ip,
-        username: (user != null) ? user.name : undefined,
-        type: (user != null) ? user.type : undefined
-      })
+      if (requestScope.request != null) {
+        scope.addEventProcessor((event) => {
+          return Sentry.Handlers.parseRequest(event, requestScope.request)
+        })
+      }
+
+      if (requestScope.context != null) {
+        scope.setContext('Request', requestScope.context)
+      }
+
+      if (requestScope.user != null) {
+        const { ip, name, type, ...restUserProps } = requestScope.user
+        scope.setUser({
+          ip_address: ip,
+          username: name,
+          type: type,
+          ...restUserProps
+        })
+      }
     })
   }
 
