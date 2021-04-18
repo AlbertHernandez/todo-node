@@ -27,8 +27,8 @@ export class App implements IApp {
     routers?: Router[];
     container: Awilix.AwilixContainer;
     plugins?: Plugin[];
-    applicationLogger: ApplicationLoggerFactory;
-    applicationErrorHandler: ApplicationErrorHandlerFactory;
+    applicationLoggerFactory: ApplicationLoggerFactory;
+    applicationErrorHandlerFactory: ApplicationErrorHandlerFactory;
     middlewares?: AppMiddleware[];
     env: any;
   }) {
@@ -41,8 +41,8 @@ export class App implements IApp {
     this.middlewares = dependencies.middlewares || [];
     this.env = dependencies.env || {};
 
-    this.logger = dependencies.applicationLogger.get(this);
-    this.errorHandler = dependencies.applicationErrorHandler.get(this);
+    this.logger = dependencies.applicationLoggerFactory.get(this);
+    this.errorHandler = dependencies.applicationErrorHandlerFactory.get(this);
   }
 
   private async initializePlugins() {
