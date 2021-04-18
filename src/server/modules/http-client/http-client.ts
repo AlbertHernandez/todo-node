@@ -8,7 +8,7 @@ import {
 } from "./interfaces";
 
 export class HttpClient implements IHttpClient {
-  axios: Axios.AxiosInstance;
+  axios;
 
   constructor(dependencies: HttpClientOptions = {}) {
     this.axios = axios.create({

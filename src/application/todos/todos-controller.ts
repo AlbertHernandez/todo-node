@@ -7,7 +7,7 @@ import {
 } from "./interfaces";
 
 export class TodosController implements ITodoController {
-  todosService: TodosService;
+  todosService;
 
   constructor(dependencies: { todosService: TodosService }) {
     this.todosService = dependencies.todosService;

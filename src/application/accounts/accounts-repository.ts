@@ -9,7 +9,7 @@ import { generateUuid } from "../common/helpers";
 import { MongoError } from "../../server/modules/mongo/enums";
 
 export class AccountsRepository implements IAccountRepository {
-  private accountDataModel: AccountDataModel;
+  private accountDataModel;
 
   constructor(dependencies: { accountDataModel: AccountDataModel }) {
     this.accountDataModel = dependencies.accountDataModel;

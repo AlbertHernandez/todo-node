@@ -19,8 +19,8 @@ export const start = async () => {
     ],
     container: Awilix.createContainer(),
     routers: applicationRouters,
-    applicationLogger: applicationLoggerFactory,
-    applicationErrorHandler: applicationErrorHandlerFactory,
+    applicationLoggerFactory,
+    applicationErrorHandlerFactory,
     middlewares: [
       appMiddlewares.errorHandlerMiddleware,
       appMiddlewares.helmetMiddleware,

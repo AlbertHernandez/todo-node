@@ -2,7 +2,7 @@ import { HttpStatusCode } from "../enums";
 import { HttpError } from "./http-error";
 
 export class ClientError extends HttpError {
-  ip: string;
+  ip;
 
   constructor(
     message: string,

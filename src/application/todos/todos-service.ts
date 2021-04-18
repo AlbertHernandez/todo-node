@@ -8,8 +8,8 @@ import {
 } from "./interfaces";
 
 export class TodosService implements ITodosService {
-  private todosRepository: TodosRepository;
-  private accountsService: AccountsService;
+  private todosRepository;
+  private accountsService;
 
   constructor(dependencies: {
     todosRepository: TodosRepository;

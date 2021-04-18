@@ -1,10 +1,10 @@
 import { HttpStatusCode } from "../api/enums";
 
 export class BaseError extends Error {
-  code: string;
-  meta?: Record<string, unknown>;
-  status: HttpStatusCode;
-  isOperational: boolean;
+  code;
+  meta?;
+  status;
+  isOperational;
 
   constructor(
     message: string,

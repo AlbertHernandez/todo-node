@@ -6,11 +6,11 @@ import {
 } from "./interfaces";
 import { TodoDataModel } from "./types";
 import { generateUuid } from "../common/helpers";
-import { DuplicateAccountError } from "../accounts/errors";
 import { MongoError } from "../../server/modules/mongo/enums";
+import { DuplicateTodoError } from "./errors";
 
 export class TodosRepository implements ITodosRepository {
-  private todoDataModel: TodoDataModel;
+  private todoDataModel;
 
   constructor(dependencies: { todoDataModel: TodoDataModel }) {
     this.todoDataModel = dependencies.todoDataModel;
@@ -35,7 +35,7 @@ export class TodosRepository implements ITodosRepository {
       return this.mapToTodo(rawTodo);
     } catch (error) {
       if (error.message.includes(MongoError.Duplicate)) {
-        throw new DuplicateAccountError("Duplicated todo", {
+        throw new DuplicateTodoError("Duplicated todo", {
           todo,
           duplicateKey: error.keyValue,
         });

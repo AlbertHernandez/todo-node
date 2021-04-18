@@ -6,7 +6,7 @@ import {
 } from "./interfaces";
 
 export class AccountsController implements IAccountsController {
-  accountsService: AccountsService;
+  private accountsService;
 
   constructor(dependencies: {
     accountsService: AccountsService;

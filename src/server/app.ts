@@ -5,18 +5,15 @@ import { Plugin } from "./plugins/interfaces";
 import { ApplicationLoggerFactory, Logger } from "./modules/logger/interfaces";
 import Router from "koa-router";
 import { App as IApp } from "./interfaces";
-import {
-  ApplicationErrorHandlerFactory,
-  ErrorHandler,
-} from "./modules/error-handler/interfaces";
+import { ApplicationErrorHandlerFactory } from "./modules/error-handler/interfaces";
 import { AppMiddleware } from "./api/middlewares/app-middlewares/interfaces";
 
 export class App implements IApp {
   app: Koa;
-  port: number;
-  container: Awilix.AwilixContainer;
-  logger: Logger;
-  errorHandler: ErrorHandler;
+  port;
+  container;
+  logger;
+  errorHandler;
   env: any;
   private plugins: Plugin[];
   private routers: Router[];

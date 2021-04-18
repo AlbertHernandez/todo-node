@@ -5,7 +5,7 @@ import {
 } from "./interfaces";
 
 export class AccountsService implements IAccountsService {
-  private accountsRepository: AccountsRepository;
+  private accountsRepository;
 
   constructor(dependencies: { accountsRepository: AccountsRepository }) {
     this.accountsRepository = dependencies.accountsRepository;
