@@ -1,4 +1,5 @@
 import { LoggerLevel } from "../../modules/logger/enums";
+import { Environment } from "./enums";
 
 export interface Env {
   development: boolean;
@@ -12,4 +13,8 @@ export interface Env {
   apiKey: string;
   loggerLevel: LoggerLevel;
   todoAppApiUrl: string;
+  sentry: {
+    dns: string;
+  };
+  environment: Environment;
 }

@@ -1,18 +1,28 @@
 import { Logger } from "../logger/interfaces";
 import { BaseError } from "../../errors";
-import { ErrorHandler as IErrorHandler } from "./interfaces";
+import {
+  ErrorHandler as IErrorHandler,
+  ErrorHandlerOptions,
+} from "./interfaces";
 import { ClientError, TooManyRequestsError } from "../../api/errors";
 import { ApplicationError } from "../../../application/errors";
+import { ErrorTracker } from "../error-tracker/interfaces";
 
 export class ErrorHandler implements IErrorHandler {
   private logger: Logger;
+  private errorTracker?: ErrorTracker;
 
-  constructor(dependencies: { logger: Logger }) {
+  constructor(dependencies: ErrorHandlerOptions) {
     this.logger = dependencies.logger;
+    this.errorTracker = dependencies.errorTracker;
   }
 
   async handleError(error: Error) {
     this.logError(error);
+
+    if (this.errorTracker) {
+      await this.errorTracker.trackError(error);
+    }
   }
 
   logError(error: Error) {

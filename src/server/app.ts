@@ -116,6 +116,16 @@ export class App implements IApp {
     this.logger.trace("Registration of application completed!");
   }
 
+  private registerEnv() {
+    this.logger.trace("Registration of env...");
+
+    this.container.register({
+      env: Awilix.asValue(this.env),
+    });
+
+    this.logger.trace("Registration of env completed!");
+  }
+
   private async listen() {
     await this.app.listen(this.port);
     this.logger.trace(`Application Listening in Port ${this.port}`);
@@ -138,6 +148,8 @@ export class App implements IApp {
     this.logger.trace("Starting the application...");
 
     await this.listen();
+
+    this.registerEnv();
 
     this.registerLogger();
     this.registerErrorHandler();

@@ -1,5 +1,6 @@
 import { App } from "../../interfaces";
 import { Logger } from "../logger/interfaces";
+import { ErrorTracker } from "../error-tracker/interfaces";
 
 export interface ErrorHandler {
   handleError: (error: Error) => Promise<void>;
@@ -12,4 +13,5 @@ export interface ApplicationErrorHandlerFactory {
 
 export interface ErrorHandlerOptions {
   logger: Logger;
+  errorTracker?: ErrorTracker;
 }

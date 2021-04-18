@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@sentry/node": "^6.2.5",
     "awilix": "^4.3.3",
     "axios": "^0.21.1",
     "kcors": "^2.2.2",

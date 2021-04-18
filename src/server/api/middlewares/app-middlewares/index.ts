@@ -8,3 +8,4 @@ export * from "./rate-limit-middleware";
 export * from "./request-id-middleware";
 export * from "./unified-response-middleware";
 export * from "./not-found-error-middleware";
+export * from "./initialize-error-tracker-scope-middleware";

@@ -12,7 +12,11 @@ import * as plugins from "./server/plugins";
 export const start = async () => {
   const app = new App({
     port: env.port,
-    plugins: [plugins.mongoPlugin, registerApplicationDependencies],
+    plugins: [
+      plugins.sentryPlugin,
+      plugins.mongoPlugin,
+      registerApplicationDependencies,
+    ],
     container: Awilix.createContainer(),
     routers: applicationRouters,
     applicationLogger: applicationLoggerFactory,
@@ -22,11 +26,12 @@ export const start = async () => {
       appMiddlewares.helmetMiddleware,
       appMiddlewares.bodyParserMiddleware,
       appMiddlewares.requestIdMiddleware,
+      appMiddlewares.authenticationMiddleware,
       appMiddlewares.initializeScopeMiddleware,
+      appMiddlewares.initializeErrorTrackerScopeMiddleware,
       appMiddlewares.logRequestMiddleware,
       appMiddlewares.unifiedResponseMiddleware,
       appMiddlewares.ratelimitMiddleware,
-      appMiddlewares.authenticationMiddleware,
       appMiddlewares.notFoundErrorMiddleware,
     ],
     env,

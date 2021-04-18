@@ -3,8 +3,6 @@ import { ErrorHandlerOptions } from "./interfaces";
 
 export const errorHandlerFactory = {
   get(options: ErrorHandlerOptions) {
-    return new ErrorHandler({
-      logger: options.logger,
-    });
+    return new ErrorHandler(options);
   },
 };
