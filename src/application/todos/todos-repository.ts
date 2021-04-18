@@ -2,65 +2,65 @@ import {
   Todo,
   TodoFilter,
   TodoSchema,
-  TodosRepository as ITodosRepository,
-} from "./interfaces";
-import { TodoDataModel } from "./types";
-import { generateUuid } from "../common/helpers";
-import { MongoError } from "../../server/modules/mongo/enums";
-import { DuplicateTodoError } from "./errors";
+  TodosRepository as ITodosRepository
+} from './interfaces'
+import { TodoDataModel } from './types'
+import { generateUuid } from '../common/helpers'
+import { MongoError } from '../../server/modules/mongo/enums'
+import { DuplicateTodoError } from './errors'
 
 export class TodosRepository implements ITodosRepository {
-  private todoDataModel;
+  private readonly todoDataModel
 
-  constructor(dependencies: { todoDataModel: TodoDataModel }) {
-    this.todoDataModel = dependencies.todoDataModel;
+  constructor (dependencies: { todoDataModel: TodoDataModel }) {
+    this.todoDataModel = dependencies.todoDataModel
   }
 
-  async get(filter: TodoFilter = {}): Promise<Todo[]> {
+  async get (filter: TodoFilter = {}): Promise<Todo[]> {
     const rawMatchedTodos = await this.todoDataModel.find(filter, null, {
-      lean: true,
-    });
+      lean: true
+    })
 
-    return rawMatchedTodos.length
+    return (rawMatchedTodos.length > 0)
       ? rawMatchedTodos.map((rawMatchedTodo) => this.mapToTodo(rawMatchedTodo))
-      : [];
+      : []
   }
 
-  async create(todo: Todo) {
+  async create (todo: Todo): Promise<Todo> {
     try {
       const rawTodo = await this.todoDataModel.create({
         ...todo,
-        id: todo.id || generateUuid(),
-      });
-      return this.mapToTodo(rawTodo);
+        id: todo.id ?? generateUuid()
+      })
+      return this.mapToTodo(rawTodo)
     } catch (error) {
-      if (error.message.includes(MongoError.Duplicate)) {
-        throw new DuplicateTodoError("Duplicated todo", {
+      if (error.message.includes(MongoError.Duplicate) === true) {
+        throw new DuplicateTodoError('Duplicated todo', {
           todo,
-          duplicateKey: error.keyValue,
-        });
+          duplicateKey: error.keyValue
+        })
       }
-      throw error;
+      throw error
     }
   }
 
-  async remove(id: string) {
+  async remove (id: string): Promise<void> {
     await this.todoDataModel.deleteOne({
-      id,
-    });
+      id
+    })
   }
 
-  async removeAll() {
-    await this.todoDataModel.deleteMany();
+  async removeAll (): Promise<void> {
+    await this.todoDataModel.deleteMany()
   }
 
-  private mapToTodo(rawTodo: TodoSchema): Todo {
+  private mapToTodo (rawTodo: TodoSchema): Todo {
     return {
       id: rawTodo.id,
       author: rawTodo.author,
       title: rawTodo.title,
       content: rawTodo.content,
-      isCompleted: rawTodo.isCompleted,
-    };
+      isCompleted: rawTodo.isCompleted
+    }
   }
 }

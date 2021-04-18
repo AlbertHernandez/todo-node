@@ -1,1 +1,1 @@
-export * from "./sentry-error-tracker";
+export * from './sentry-error-tracker'

@@ -1,36 +1,6 @@
 {
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module"
+    "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "prettier"
-  ],
-  "extends": [
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "env": {
-    "jest": true,
-    "node": true
-  },
-  "rules": {
-    "prettier/prettier": "error",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
-  },
-  "globals": {
-    "describe": true,
-    "expect": true,
-    "test": true,
-    "it": true,
-    "afterAll": true,
-    "afterEach": true,
-    "beforeAll": true,
-    "beforeEach": true,
-    "mountConnected": true,
-    "jest": true
-  }
+  "extends": ["standard-with-typescript"]
 }

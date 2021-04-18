@@ -1,55 +1,55 @@
-import Router from "koa-router";
-import { UserType } from "../../server/api/enums";
+import Router from 'koa-router'
+import { UserType } from '../../server/api/enums'
 
-import * as routerMiddleware from "../../server/api/middlewares/router-middlewares";
-import { accountsSchemaValidation } from "./accounts-schema-validation";
+import * as routerMiddleware from '../../server/api/middlewares/router-middlewares'
+import { accountsSchemaValidation } from './accounts-schema-validation'
 
 const accountsRouter = new Router({
-  prefix: "/api/v1",
-});
+  prefix: '/api/v1'
+})
 
 accountsRouter.get(
-  "/account",
+  '/account',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.get),
-  routerMiddleware.requestHandlerMiddleware(["accountsController", "get"])
-);
+  routerMiddleware.requestHandlerMiddleware(['accountsController', 'get'])
+)
 
 accountsRouter.get(
-  "/accounts",
+  '/accounts',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.getAll),
-  routerMiddleware.requestHandlerMiddleware(["accountsController", "getAll"])
-);
+  routerMiddleware.requestHandlerMiddleware(['accountsController', 'getAll'])
+)
 
 accountsRouter.post(
-  "/account",
+  '/account',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.create),
-  routerMiddleware.requestHandlerMiddleware(["accountsController", "create"])
-);
+  routerMiddleware.requestHandlerMiddleware(['accountsController', 'create'])
+)
 
 accountsRouter.delete(
-  "/account",
+  '/account',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(accountsSchemaValidation.remove),
-  routerMiddleware.requestHandlerMiddleware(["accountsController", "remove"])
-);
+  routerMiddleware.requestHandlerMiddleware(['accountsController', 'remove'])
+)
 
 accountsRouter.delete(
-  "/accounts",
+  '/accounts',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.requestHandlerMiddleware(["accountsController", "removeAll"])
-);
+  routerMiddleware.requestHandlerMiddleware(['accountsController', 'removeAll'])
+)
 
-export { accountsRouter };
+export { accountsRouter }

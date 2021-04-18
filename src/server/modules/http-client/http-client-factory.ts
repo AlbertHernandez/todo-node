@@ -1,9 +1,8 @@
-import axios from "axios";
-import { HttpClientFactory, HttpClientOptions } from "./interfaces";
-import { HttpClient } from "./http-client";
+import { HttpClientFactory, HttpClientOptions, HttpClient as IHttpClient } from './interfaces'
+import { HttpClient } from './http-client'
 
 export const httpClientFactory: HttpClientFactory = {
-  get: (options: HttpClientOptions) => {
-    return new HttpClient(options);
-  },
-};
+  get: (options: HttpClientOptions = {}): IHttpClient => {
+    return new HttpClient(options)
+  }
+}

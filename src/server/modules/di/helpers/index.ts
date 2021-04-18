@@ -1,1 +1,1 @@
-export * from "./create-scope";
+export * from './create-scope'

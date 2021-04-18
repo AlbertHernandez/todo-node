@@ -1,74 +1,75 @@
-import { env } from "../../server/config/environment";
-import { httpClientFactory } from "../../server/modules/http-client";
-import { loggerFactory } from "../../server/modules/logger/logger-factory";
-import { errorHandlerFactory } from "../../server/modules/error-handler";
-import { accountRecords, todoRecords } from "./feeds";
+import { env } from '../../server/config/environment'
+import { httpClientFactory } from '../../server/modules/http-client'
+import { loggerFactory } from '../../server/modules/logger/logger-factory'
+import { errorHandlerFactory } from '../../server/modules/error-handler'
+import { accountRecords, todoRecords } from './feeds'
 
 const logger = loggerFactory.get({
   prettify: true,
   utcTimestamp: true,
-  level: env.loggerLevel,
-});
+  level: env.loggerLevel
+})
 
 const errorHandler = errorHandlerFactory.get({
-  logger,
-});
+  logger
+})
 
 const httpClient = httpClientFactory.get({
   baseUrl: `${env.todoAppApiUrl}/api/v1/`,
   headers: {
-    "api-key": env.apiKey,
-  },
-});
+    'api-key': env.apiKey
+  }
+})
 
-const feedAccounts = async () => {
-  logger.trace("Feed accounts...");
+const feedAccounts = async (): Promise<void> => {
+  logger.trace('Feed accounts...')
 
-  logger.trace("Removing current accounts");
-  await httpClient.delete("accounts");
-  logger.trace("Removed accounts");
+  logger.trace('Removing current accounts')
+  await httpClient.delete('accounts')
+  logger.trace('Removed accounts')
 
-  logger.trace("Adding new accounts");
+  logger.trace('Adding new accounts')
   await Promise.all(
     accountRecords.map(async (accountRecord) => {
-      return await httpClient.post("account", accountRecord);
+      return await httpClient.post('account', accountRecord)
     })
-  );
-  logger.trace("New accounts added!");
+  )
+  logger.trace('New accounts added!')
 
-  logger.trace("Feed accounts completed!");
-};
+  logger.trace('Feed accounts completed!')
+}
 
-const feedTodos = async () => {
-  logger.trace("Feed todos...");
+const feedTodos = async (): Promise<void> => {
+  logger.trace('Feed todos...')
 
-  logger.trace("Removing current todos");
-  await httpClient.delete("todos");
-  logger.trace("Removed todos");
+  logger.trace('Removing current todos')
+  await httpClient.delete('todos')
+  logger.trace('Removed todos')
 
-  logger.trace("Adding new todos");
+  logger.trace('Adding new todos')
   await Promise.all(
     todoRecords.map(async (todoRecord) => {
-      return await httpClient.post("todo", todoRecord);
+      return await httpClient.post('todo', todoRecord)
     })
-  );
-  logger.trace("New todos added!");
+  )
+  logger.trace('New todos added!')
 
-  logger.trace("Feed todos completed!");
-};
+  logger.trace('Feed todos completed!')
+}
 
-const index = async () => {
-  logger.info("Starting to feed the database");
+const index = async (): Promise<void> => {
+  logger.info('Starting to feed the database')
 
   try {
-    await feedAccounts();
-    await feedTodos();
+    await feedAccounts()
+    await feedTodos()
 
-    logger.info("Feed database ends with success!");
+    logger.info('Feed database ends with success!')
   } catch (error) {
-    await errorHandler.handleError(error);
-    logger.error("Feed database ends with errors!");
+    await errorHandler.handleError(error)
+    logger.error('Feed database ends with errors!')
   }
-};
+}
 
-index();
+// eslint-disable-next-line no-void
+void index()

@@ -1,80 +1,80 @@
 import {
   Account,
   AccountSchema,
-  AccountsRepository as IAccountRepository,
-} from "./interfaces";
-import { DuplicateAccountError } from "./errors";
-import { AccountDataModel } from "./types";
-import { generateUuid } from "../common/helpers";
-import { MongoError } from "../../server/modules/mongo/enums";
+  AccountsRepository as IAccountRepository
+} from './interfaces'
+import { DuplicateAccountError } from './errors'
+import { AccountDataModel } from './types'
+import { generateUuid } from '../common/helpers'
+import { MongoError } from '../../server/modules/mongo/enums'
 
 export class AccountsRepository implements IAccountRepository {
-  private accountDataModel;
+  private readonly accountDataModel
 
-  constructor(dependencies: { accountDataModel: AccountDataModel }) {
-    this.accountDataModel = dependencies.accountDataModel;
+  constructor (dependencies: { accountDataModel: AccountDataModel }) {
+    this.accountDataModel = dependencies.accountDataModel
   }
 
-  async get(email: string) {
+  async get (email: string): Promise<Account | null> {
     const rawAccount = await this.accountDataModel.findOne(
       {
-        email,
+        email
       },
       null,
       {
-        lean: true,
+        lean: true
       }
-    );
+    )
 
-    return rawAccount ? this.mapToAccount(rawAccount) : null;
+    return (rawAccount != null) ? this.mapToAccount(rawAccount) : null
   }
 
-  async getAll() {
+  async getAll (): Promise<Account[]> {
     const rawAccounts = await this.accountDataModel.find({}, null, {
-      lean: true,
-    });
+      lean: true
+    })
 
-    return rawAccounts.length
+    return (rawAccounts.length > 0)
       ? rawAccounts.map((rawAccount) => this.mapToAccount(rawAccount))
-      : [];
+      : []
   }
 
-  async create(account: Account) {
+  async create (account: Account): Promise<Account> {
     try {
       const rawAccount = await this.accountDataModel.create({
         ...account,
-        id: account.id || generateUuid(),
-      });
+        id: account.id ?? generateUuid()
+      })
 
-      return this.mapToAccount(rawAccount);
+      return this.mapToAccount(rawAccount)
     } catch (error) {
-      if (error.message.includes(MongoError.Duplicate)) {
-        throw new DuplicateAccountError("Duplicated account", {
+      if (error.message.includes(MongoError.Duplicate) === true) {
+        throw new DuplicateAccountError('Duplicated account', {
           account,
-          duplicateKey: error.keyValue,
-        });
+          duplicateKey: error.keyValue
+        })
       }
-      throw error;
+      throw error
     }
   }
 
-  async remove(id: string) {
+  async remove (id: string): Promise<void> {
     await this.accountDataModel.deleteOne({
-      id,
-    });
+      id
+    })
   }
 
-  async removeAll() {
-    await this.accountDataModel.deleteMany();
+  async removeAll (): Promise<void> {
+    await this.accountDataModel.deleteMany()
   }
 
-  private mapToAccount(rawAccount: AccountSchema): Account {
+  private mapToAccount (rawAccount: AccountSchema): Account {
     return {
       id: rawAccount.id,
       name: rawAccount.name,
       email: rawAccount.email,
       createdAt: rawAccount.createdAt,
-      updatedAt: rawAccount.updatedAt,
-    };
+      updatedAt: rawAccount.updatedAt
+    }
   }
 }

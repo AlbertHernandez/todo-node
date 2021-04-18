@@ -1,17 +1,17 @@
-import { App } from "../../interfaces";
-import { Logger } from "../logger/interfaces";
-import { ErrorTracker } from "../error-tracker/interfaces";
+import { App } from '../../interfaces'
+import { Logger } from '../logger/interfaces'
+import { ErrorTracker } from '../error-tracker/interfaces'
 
 export interface ErrorHandler {
-  handleError: (error: Error) => Promise<void>;
-  isTrustedError: (error: Error) => boolean;
+  handleError: (error: Error) => Promise<void>
+  isTrustedError: (error: Error) => boolean
 }
 
 export interface ApplicationErrorHandlerFactory {
-  get(app: App): ErrorHandler;
+  get: (app: App) => ErrorHandler
 }
 
 export interface ErrorHandlerOptions {
-  logger: Logger;
-  errorTracker?: ErrorTracker;
+  logger: Logger
+  errorTracker?: ErrorTracker
 }

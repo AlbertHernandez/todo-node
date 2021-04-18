@@ -1,14 +1,15 @@
-import { HttpStatusCode } from "../../enums";
-import { AppMiddleware } from "./interfaces";
-import { NotFoundError } from "../../errors";
+import { HttpStatusCode } from '../../enums'
+import { AppMiddleware } from './interfaces'
+import { NotFoundError } from '../../errors'
 
 export const notFoundErrorMiddleware: AppMiddleware = () =>
-  async function notFoundErrorMiddleware(ctx, next) {
+  async function notFoundErrorMiddleware (ctx, next) {
     try {
-      await next();
+      await next()
     } finally {
       if (ctx.status === HttpStatusCode.NotFound) {
-        throw new NotFoundError("Not Found", ctx.ip);
+        // eslint-disable-next-line no-unsafe-finally
+        throw new NotFoundError('Not Found', ctx.ip)
       }
     }
-  };
+  }

@@ -1,31 +1,29 @@
-import { App } from "../../interfaces";
-import { LoggerLevel } from "./enums";
+import { App } from '../../interfaces'
+import { LoggerLevel } from './enums'
 
-type LogMessage = {
-  msg: string;
-  context: any;
-};
-
-interface LogMethod {
-  (message: LogMessage | string): void;
+interface LogMessage {
+  msg: string
+  context: any
 }
 
+type LogMethod = (message: LogMessage | string) => void
+
 export interface Logger {
-  trace: LogMethod;
-  debug: LogMethod;
-  info: LogMethod;
-  warn: LogMethod;
-  error: LogMethod;
-  fatal: LogMethod;
-  child: (options: any) => Logger;
+  trace: LogMethod
+  debug: LogMethod
+  info: LogMethod
+  warn: LogMethod
+  error: LogMethod
+  fatal: LogMethod
+  child: (options: any) => Logger
 }
 
 export interface ApplicationLoggerFactory {
-  get(app: App): Logger;
+  get: (app: App) => Logger
 }
 
 export interface LoggerOptions {
-  level?: LoggerLevel;
-  prettify?: boolean;
-  utcTimestamp?: boolean;
+  level?: LoggerLevel
+  prettify?: boolean
+  utcTimestamp?: boolean
 }

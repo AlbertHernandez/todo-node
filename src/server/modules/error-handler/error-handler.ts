@@ -1,29 +1,29 @@
-import { BaseError } from "../../errors";
+import { BaseError } from '../../errors'
 import {
   ErrorHandler as IErrorHandler,
-  ErrorHandlerOptions,
-} from "./interfaces";
-import { ClientError, TooManyRequestsError } from "../../api/errors";
-import { ApplicationError } from "../../../application/errors";
+  ErrorHandlerOptions
+} from './interfaces'
+import { ClientError, TooManyRequestsError } from '../../api/errors'
+import { ApplicationError } from '../../../application/errors'
 
 export class ErrorHandler implements IErrorHandler {
-  private logger;
-  private errorTracker?;
+  private readonly logger
+  private readonly errorTracker?
 
-  constructor(dependencies: ErrorHandlerOptions) {
-    this.logger = dependencies.logger;
-    this.errorTracker = dependencies.errorTracker;
+  constructor (dependencies: ErrorHandlerOptions) {
+    this.logger = dependencies.logger
+    this.errorTracker = dependencies.errorTracker
   }
 
-  async handleError(error: Error) {
-    this.logError(error);
+  async handleError (error: Error): Promise<void> {
+    this.logError(error)
 
-    if (this.errorTracker) {
-      await this.errorTracker.trackError(error);
+    if (this.errorTracker != null) {
+      await this.errorTracker.trackError(error)
     }
   }
 
-  logError(error: Error) {
+  logError (error: Error): void {
     if (error instanceof TooManyRequestsError) {
       this.logger.warn({
         msg: error.message,
@@ -33,10 +33,10 @@ export class ErrorHandler implements IErrorHandler {
           status: error.status,
           meta: error.meta,
           code: error.code,
-          name: error.name,
-        },
-      });
-      return;
+          name: error.name
+        }
+      })
+      return
     }
 
     if (error instanceof ClientError) {
@@ -48,10 +48,10 @@ export class ErrorHandler implements IErrorHandler {
           status: error.status,
           meta: error.meta,
           code: error.code,
-          name: error.name,
-        },
-      });
-      return;
+          name: error.name
+        }
+      })
+      return
     }
 
     if (error instanceof ApplicationError) {
@@ -63,10 +63,10 @@ export class ErrorHandler implements IErrorHandler {
           meta: error.meta,
           code: error.code,
           name: error.name,
-          stack: error.stack,
-        },
-      });
-      return;
+          stack: error.stack
+        }
+      })
+      return
     }
 
     if (error instanceof BaseError) {
@@ -78,26 +78,26 @@ export class ErrorHandler implements IErrorHandler {
           meta: error.meta,
           code: error.code,
           name: error.name,
-          stack: error.stack,
-        },
-      });
-      return;
+          stack: error.stack
+        }
+      })
+      return
     }
 
     this.logger.error({
       msg: error.message,
       context: {
         isOperational: false,
-        code: "error.generic",
-        stack: error.stack,
-      },
-    });
+        code: 'error.generic',
+        stack: error.stack
+      }
+    })
   }
 
-  isTrustedError(error: Error) {
+  isTrustedError (error: Error): boolean {
     if (error instanceof BaseError) {
-      return error.isOperational;
+      return error.isOperational
     }
-    return false;
+    return false
   }
 }

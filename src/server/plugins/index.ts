@@ -1,2 +1,2 @@
-export * from "./mongo-plugin";
-export * from "./sentry-plugin";
+export * from './mongo-plugin'
+export * from './sentry-plugin'

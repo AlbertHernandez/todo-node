@@ -1,30 +1,30 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const todoSchema = new mongoose.Schema(
   {
     id: {
       type: String,
       unique: true,
-      required: true,
+      required: true
     },
     author: {
       type: String,
-      required: true,
+      required: true
     },
     title: {
       type: String,
-      required: true,
+      required: true
     },
     content: {
-      type: String,
+      type: String
     },
     isCompleted: {
       type: String,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)

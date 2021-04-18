@@ -1,56 +1,56 @@
-import * as Koa from "koa";
-import { HttpStatusCode, RequestValues } from "../../enums";
-import { RequestValidationError } from "../../errors";
-import { SchemasConfig } from "../../interfaces";
+import * as Koa from 'koa'
+import { HttpStatusCode, RequestValues } from '../../enums'
+import { RequestValidationError } from '../../errors'
+import { SchemasConfig } from '../../interfaces'
 
-function getRequestPart(
+function getRequestPart (
   ctx: Koa.ParameterizedContext,
   requestPart: RequestValues
 ): NodeJS.Dict<any> {
   if (requestPart === RequestValues.Params) {
-    return ctx.params;
+    return ctx.params
   }
 
-  return ctx.request[requestPart];
+  return ctx.request[requestPart]
 }
 
-function setRequestPart(
+function setRequestPart (
   ctx: Koa.ParameterizedContext,
   requestPart: RequestValues,
   value: any
 ): void {
   if (requestPart === RequestValues.Params) {
-    ctx.params = value;
+    ctx.params = value
   } else {
-    ctx.request[requestPart] = value;
+    ctx.request[requestPart] = value
   }
 }
 
 export const schemaValidationMiddleware = (schemas: SchemasConfig | null) => {
-  return async function schemaValidationMiddleware(
+  return async function schemaValidationMiddleware (
     ctx: Koa.Context,
     next: Koa.Next
   ) {
-    if (schemas) {
+    if (schemas != null) {
       Object.entries(schemas).forEach(([requestPart, schema]) => {
-        const requestPartType = requestPart as RequestValues;
-        if (schema) {
-          const requestPart = getRequestPart(ctx, requestPartType);
+        const requestPartType = requestPart as RequestValues
+        if (schema != null) {
+          const requestPart = getRequestPart(ctx, requestPartType)
 
-          const { error, value } = schema.validate(requestPart);
+          const { error, value } = schema.validate(requestPart)
 
-          if (error) {
-            ctx.status = HttpStatusCode.BadRequest;
-            throw new RequestValidationError(error.message, ctx.ip);
+          if (error != null) {
+            ctx.status = HttpStatusCode.BadRequest
+            throw new RequestValidationError(error.message, ctx.ip)
           }
 
           if (Object.values(RequestValues).includes(requestPartType)) {
-            setRequestPart(ctx, requestPartType, value);
+            setRequestPart(ctx, requestPartType, value)
           }
         }
-      });
+      })
     }
 
-    await next();
-  };
-};
+    await next()
+  }
+}

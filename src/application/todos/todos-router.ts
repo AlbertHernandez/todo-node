@@ -1,46 +1,46 @@
-import Router from "koa-router";
+import Router from 'koa-router'
 
-import { todosSchemaValidation } from "./todos-schema-validation";
-import * as routerMiddleware from "../../server/api/middlewares/router-middlewares";
-import { UserType } from "../../server/api/enums";
+import { todosSchemaValidation } from './todos-schema-validation'
+import * as routerMiddleware from '../../server/api/middlewares/router-middlewares'
+import { UserType } from '../../server/api/enums'
 
 const todosRouter = new Router({
-  prefix: "/api/v1",
-});
+  prefix: '/api/v1'
+})
 
 todosRouter.get(
-  "/todos",
+  '/todos',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.get),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "get"])
-);
+  routerMiddleware.requestHandlerMiddleware(['todosController', 'get'])
+)
 
 todosRouter.post(
-  "/todo",
+  '/todo',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.create),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "create"])
-);
+  routerMiddleware.requestHandlerMiddleware(['todosController', 'create'])
+)
 
 todosRouter.delete(
-  "/todo",
+  '/todo',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
   routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.remove),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "remove"])
-);
+  routerMiddleware.requestHandlerMiddleware(['todosController', 'remove'])
+)
 
 todosRouter.delete(
-  "/todos",
+  '/todos',
   routerMiddleware.authorizationMiddleware({
-    allowedUserTypes: [UserType.Api],
+    allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.requestHandlerMiddleware(["todosController", "removeAll"])
-);
+  routerMiddleware.requestHandlerMiddleware(['todosController', 'removeAll'])
+)
 
-export { todosRouter };
+export { todosRouter }

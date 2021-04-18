@@ -1,21 +1,21 @@
-import * as Awilix from "awilix";
+import * as Awilix from 'awilix'
 
-import { App } from "./server/app";
-import { env } from "./server/config/environment";
-import { registerApplicationDependencies } from "./application/register-application-dependencies";
-import { applicationLoggerFactory } from "./server/modules/logger";
-import * as appMiddlewares from "./server/api/middlewares/app-middlewares";
-import { applicationRouters } from "./application/application-routers";
-import { applicationErrorHandlerFactory } from "./server/modules/error-handler";
-import * as plugins from "./server/plugins";
+import { App } from './server/app'
+import { env } from './server/config/environment'
+import { registerApplicationDependencies } from './application/register-application-dependencies'
+import { applicationLoggerFactory } from './server/modules/logger'
+import * as appMiddlewares from './server/api/middlewares/app-middlewares'
+import { applicationRouters } from './application/application-routers'
+import { applicationErrorHandlerFactory } from './server/modules/error-handler'
+import * as plugins from './server/plugins'
 
-export const start = async () => {
+export const start = async (): Promise<void> => {
   const app = new App({
     port: env.port,
     plugins: [
       plugins.sentryPlugin,
       plugins.mongoPlugin,
-      registerApplicationDependencies,
+      registerApplicationDependencies
     ],
     container: Awilix.createContainer(),
     routers: applicationRouters,
@@ -32,12 +32,13 @@ export const start = async () => {
       appMiddlewares.logRequestMiddleware,
       appMiddlewares.unifiedResponseMiddleware,
       appMiddlewares.ratelimitMiddleware,
-      appMiddlewares.notFoundErrorMiddleware,
+      appMiddlewares.notFoundErrorMiddleware
     ],
-    env,
-  });
+    env
+  })
 
-  await app.start();
-};
+  await app.start()
+}
 
-start();
+// eslint-disable-next-line no-void
+void start()

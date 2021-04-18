@@ -1,32 +1,32 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const accountSchema = new mongoose.Schema(
   {
     id: {
       type: String,
       unique: true,
-      required: true,
+      required: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
       required: true,
-      unique: true,
-    },
+      unique: true
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
 accountSchema.index(
   {
-    email: 1,
+    email: 1
   },
   {
-    unique: true,
+    unique: true
   }
-);
+)

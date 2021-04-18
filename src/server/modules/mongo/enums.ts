@@ -1,3 +1,3 @@
 export enum MongoError {
-  Duplicate = "duplicate key error",
+  Duplicate = 'duplicate key error',
 }

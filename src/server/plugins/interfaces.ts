@@ -1,5 +1,3 @@
-import { App } from "../interfaces";
+import { App } from '../interfaces'
 
-export interface Plugin {
-  (app: App): Promise<void>;
-}
+export type Plugin = (app: App) => Promise<void>

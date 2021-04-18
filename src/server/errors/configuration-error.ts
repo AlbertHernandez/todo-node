@@ -1,8 +1,8 @@
-import { HttpStatusCode } from "../api/enums";
-import { BaseError } from "./base-error";
+import { HttpStatusCode } from '../api/enums'
+import { BaseError } from './base-error'
 
 export class ConfigurationError extends BaseError {
-  constructor(
+  constructor (
     message: string,
     code?: string,
     status: HttpStatusCode = HttpStatusCode.NotImplemented,
@@ -13,8 +13,8 @@ export class ConfigurationError extends BaseError {
       message,
       status,
       isOperational,
-      code || "error.configuration.unexpected",
+      code ?? 'error.configuration.unexpected',
       meta
-    );
+    )
   }
 }

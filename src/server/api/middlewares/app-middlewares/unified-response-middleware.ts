@@ -1,14 +1,14 @@
-import { AppMiddleware } from "./interfaces";
+import { AppMiddleware } from './interfaces'
 
 export const unifiedResponseMiddleware: AppMiddleware = () =>
-  async function unifiedResponseMiddleware(ctx, next) {
+  async function unifiedResponseMiddleware (ctx, next) {
     try {
-      await next();
+      await next()
     } finally {
-      const { requestId } = ctx.scope.resolve("requestContext");
+      const { requestId } = ctx.scope.resolve('requestContext')
       ctx.body = {
         data: ctx.body,
-        requestId,
-      };
+        requestId
+      }
     }
-  };
+  }

@@ -1,13 +1,13 @@
-import { HttpStatusCode } from "../../../server/api/enums";
-import { ApplicationError } from "../../errors";
+import { HttpStatusCode } from '../../../server/api/enums'
+import { ApplicationError } from '../../errors'
 
 export class AccountNotFoundError extends ApplicationError {
-  constructor(message: string, meta?: Record<string, unknown>) {
+  constructor (message: string, meta?: Record<string, unknown>) {
     super(
       message,
       HttpStatusCode.NotAcceptable,
-      "error.business.accountNotFound",
+      'error.business.accountNotFound',
       meta
-    );
+    )
   }
 }

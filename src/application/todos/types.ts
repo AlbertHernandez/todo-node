@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
-import { TodoSchema } from "./interfaces";
+import mongoose from 'mongoose'
+import { TodoSchema } from './interfaces'
 
-export type TodoDataModel = mongoose.Model<TodoSchema>;
+export type TodoDataModel = mongoose.Model<TodoSchema>

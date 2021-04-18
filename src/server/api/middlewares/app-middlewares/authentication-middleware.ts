@@ -1,30 +1,30 @@
-import { App } from "../../../interfaces";
-import { Env } from "../../../config/environment/interfaces";
-import { AppMiddleware } from "./interfaces";
-import { UserName, UserType } from "../../enums";
-import { ApiUser } from "../../interfaces";
+import { App } from '../../../interfaces'
+import { Env } from '../../../config/environment/interfaces'
+import { AppMiddleware } from './interfaces'
+import { UserName, UserType } from '../../enums'
+import { ApiUser } from '../../interfaces'
 
 const getUsers = (app: App): ApiUser[] => {
-  const env: Env = app.env;
+  const env: Env = app.env
   return [
     {
       key: env.apiKey,
       name: UserName.GenericApiUser,
-      type: UserType.Api,
-    },
-  ];
-};
+      type: UserType.Api
+    }
+  ]
+}
 
 export const authenticationMiddleware: AppMiddleware = (app) =>
-  async function authenticationMiddleware(ctx, next) {
-    const users = getUsers(app);
-    const apiKey = ctx.get("api-key");
+  async function authenticationMiddleware (ctx, next) {
+    const users = getUsers(app)
+    const apiKey = ctx.get('api-key')
 
-    const user = users.find((user) => user.key === apiKey) || null;
+    const user = users.find((user) => user.key === apiKey) ?? null
 
     ctx.session = {
-      user,
-    };
+      user
+    }
 
-    await next();
-  };
+    await next()
+  }

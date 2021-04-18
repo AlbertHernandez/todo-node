@@ -1,43 +1,43 @@
-import { Request } from "../../server/api/interfaces";
+import { Request } from '../../server/api/interfaces'
 import {
   Account,
   AccountsController as IAccountsController,
-  AccountsService,
-} from "./interfaces";
+  AccountsService
+} from './interfaces'
 
 export class AccountsController implements IAccountsController {
-  private accountsService;
+  private readonly accountsService
 
-  constructor(dependencies: {
-    accountsService: AccountsService;
-    requestContext: any;
+  constructor (dependencies: {
+    accountsService: AccountsService
+    requestContext: any
   }) {
-    this.accountsService = dependencies.accountsService;
+    this.accountsService = dependencies.accountsService
   }
 
-  async get(request: Request) {
-    const email: string = request.body.email;
+  async get (request: Request): Promise<Account | null> {
+    const email: string = request.body.email
 
-    return await this.accountsService.get(email);
+    return await this.accountsService.get(email)
   }
 
-  async getAll() {
-    return await this.accountsService.getAll();
+  async getAll (): Promise<Account[]> {
+    return await this.accountsService.getAll()
   }
 
-  async create(request: Request) {
-    const account: Account = request.body;
+  async create (request: Request): Promise<Account> {
+    const account: Account = request.body
 
-    return await this.accountsService.create(account);
+    return await this.accountsService.create(account)
   }
 
-  async remove(request: Request) {
-    const id: string = request.body.id;
+  async remove (request: Request): Promise<void> {
+    const id: string = request.body.id
 
-    return await this.accountsService.remove(id);
+    return await this.accountsService.remove(id)
   }
 
-  async removeAll() {
-    return await this.accountsService.removeAll();
+  async removeAll (): Promise<void> {
+    return await this.accountsService.removeAll()
   }
 }

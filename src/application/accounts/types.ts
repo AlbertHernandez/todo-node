@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
-import { AccountSchema } from "./interfaces";
+import mongoose from 'mongoose'
+import { AccountSchema } from './interfaces'
 
-export type AccountDataModel = mongoose.Model<AccountSchema>;
+export type AccountDataModel = mongoose.Model<AccountSchema>
