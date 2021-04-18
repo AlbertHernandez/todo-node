@@ -12,7 +12,7 @@ export const sentryPlugin: Plugin = async (app) => {
   if (env.sentry.isEnabled && !env.sentry.dns) {
     throw new ConfigurationError(
       "Setting sentry plugin but no Sentry DNS configured",
-      "error.configuration.noMongoUrl"
+      "error.configuration.noSentryDns"
     );
   }
 
