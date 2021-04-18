@@ -7,7 +7,7 @@ export const initializeErrorTrackerScopeMiddleware: AppMiddleware = (app) =>
     const { requestId } = ctx.scope.resolve('requestContext')
     const user: ApiUser | null = ctx?.session?.user
 
-    const config: RequestScope = {
+    const requestScope: RequestScope = {
       request: {
         ...ctx.request,
         headers: {
@@ -25,7 +25,7 @@ export const initializeErrorTrackerScopeMiddleware: AppMiddleware = (app) =>
       }
     }
     const errorTracker: ErrorTracker = app.container.resolve('errorTracker')
-    errorTracker.configureRequestScope(config)
+    errorTracker.configureRequestScope(requestScope)
 
     await next()
   }
