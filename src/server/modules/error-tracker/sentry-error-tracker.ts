@@ -2,19 +2,25 @@ import * as Koa from "koa";
 import * as Sentry from "@sentry/node";
 import { Severity } from "@sentry/node";
 import { Env } from "../../config/environment/interfaces";
-import { ErrorTracker as IErrorTracker } from "./interfaces";
+import { ErrorTracker } from "./interfaces";
 import { ApiUser } from "../../api/interfaces";
 import { BaseError } from "../../errors";
 import { ClientError, TooManyRequestsError } from "../../api/errors";
 import { ApplicationError } from "../../../application/errors";
+import { Logger } from "../logger/interfaces";
 
-export class ErrorTracker implements IErrorTracker {
-  constructor(dependencies: { env: Env }) {
+export class SentryErrorTracker implements ErrorTracker {
+  constructor(dependencies: { env: Env; logger: Logger }) {
+    if (!dependencies.env.sentry.isEnabled) {
+      dependencies.logger.trace("Sentry is disabled");
+    }
+
     Sentry.init({
       environment: dependencies.env.environment,
       dsn: dependencies.env.sentry.dns,
       tracesSampleRate: 1.0,
       serverName: "Todo Node",
+      enabled: dependencies.env.sentry.isEnabled,
     });
   }
 

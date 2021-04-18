@@ -15,6 +15,7 @@ export interface Env {
   todoAppApiUrl: string;
   sentry: {
     dns: string;
+    isEnabled: boolean;
   };
   environment: Environment;
 }

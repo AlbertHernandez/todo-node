@@ -25,6 +25,10 @@ const getEnvironment = (): Environment => {
     : Environment.Development;
 };
 
+const parseStringToBoolean = (value = "") => {
+  return value === "true";
+};
+
 export const env: Env = {
   development: isNodeEnv(Environment.Development),
   test: isNodeEnv(Environment.Test),
@@ -39,6 +43,7 @@ export const env: Env = {
   todoAppApiUrl: process.env.TODO_APP_API_URL || "",
   sentry: {
     dns: process.env.SENTRY_DSN || "",
+    isEnabled: parseStringToBoolean(process.env.IS_ENABLE_SENTRY),
   },
   environment: getEnvironment(),
 };
