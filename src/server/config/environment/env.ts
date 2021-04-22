@@ -45,5 +45,5 @@ export const env: Env = {
     dns: process.env.SENTRY_DSN ?? '',
     isEnabled: parseStringToBoolean(process.env.IS_ENABLE_SENTRY)
   },
-  environment: getEnvironment(),
+  environment: getEnvironment()
 }
