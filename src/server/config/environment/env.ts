@@ -42,8 +42,8 @@ export const env: Env = {
   loggerLevel: getLoggerLevel(),
   todoAppApiUrl: process.env.TODO_APP_API_URL ?? '',
   sentry: {
-    dns: process.env.SENTRY_DSN || '',
+    dns: process.env.SENTRY_DSN ?? '',
     isEnabled: parseStringToBoolean(process.env.IS_ENABLE_SENTRY)
   },
-  environment: getEnvironment(),
+  environment: getEnvironment()
 }
