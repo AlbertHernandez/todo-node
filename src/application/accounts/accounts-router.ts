@@ -26,7 +26,7 @@ accountsRouter.get(
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'getAll'])
 )
 
-accountsRouter.post(
+accountsRouter.put(
   '/account',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
@@ -36,7 +36,7 @@ accountsRouter.post(
 )
 
 accountsRouter.delete(
-  '/account',
+  '/account/:id',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),

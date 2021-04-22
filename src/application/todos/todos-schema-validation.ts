@@ -8,9 +8,10 @@ export const todosSchemaValidation = {
     })
   },
   remove: {
-    body: Joi.object({
+    params: Joi.object({
       id: Joi.string().required()
-    })
+    }),
+    body: Joi.object({})
   },
   create: {
     body: Joi.object({

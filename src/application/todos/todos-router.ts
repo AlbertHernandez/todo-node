@@ -17,7 +17,7 @@ todosRouter.get(
   routerMiddleware.requestHandlerMiddleware(['todosController', 'get'])
 )
 
-todosRouter.post(
+todosRouter.put(
   '/todo',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
@@ -27,7 +27,7 @@ todosRouter.post(
 )
 
 todosRouter.delete(
-  '/todo',
+  '/todo/:id',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),

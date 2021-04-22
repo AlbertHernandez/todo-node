@@ -25,7 +25,7 @@ export class TodosController implements ITodoController {
   }
 
   async remove (request: Request): Promise<void> {
-    const id: string = request.body.id
+    const id: string = request.params.id
 
     return await this.todosService.remove(id)
   }
