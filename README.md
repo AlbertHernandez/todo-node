@@ -5,6 +5,8 @@
     Todo application using node
 </p>
 
+[![Lint](https://github.com/AlbertHernandez/todo-node/workflows/lint/badge.svg)](https://github.com/AlbertHernandez/todo-node/actions/workflows/lint.yml)
+
 ## Table of Contents
 
 * [Installation](#installation)
