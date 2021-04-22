@@ -7,8 +7,8 @@
     "start": "node build/service/index.js",
     "watch": "nodemon --exec node --inspect=0.0.0.0:56745 -r ts-node/register src/index.ts",
     "build": "rm -rf ./build && ./node_modules/typescript/bin/tsc -b --verbose",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint": "eslint --ignore-path .gitignore . --ext .js,.ts",
+    "lint:fix": "npm run lint -- --fix",
     "prepare": "husky install",
     "database:feed": "node -r ts-node/register src/scripts/feed-database/index.ts"
   },
