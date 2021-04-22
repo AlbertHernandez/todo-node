@@ -17,5 +17,5 @@ export const mongoPlugin: Plugin = async (app) => {
 
   await connectMongo(app.logger, env.mongo.url)
 
-  app.logger.trace('Finalization Mongo Plugin!')
+  app.logger.trace('Finalization Mongo Plugin!');
 }
