@@ -15,7 +15,7 @@ export class TodosController implements ITodoController {
 
   async get (request: Request): Promise<Todo[]> {
     const todoFilter: TodoFilter = request.body
-    return await this.todosService.get(todoFilter);
+    return await this.todosService.get(todoFilter)
   }
 
   async create (request: Request): Promise<Todo> {
