@@ -62,6 +62,7 @@ const index = async (): Promise<void> => {
 
   try {
     await feedAccounts()
+
     await feedTodos()
 
     logger.info('Feed database ends with success!')
