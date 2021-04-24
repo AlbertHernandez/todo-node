@@ -21,7 +21,7 @@ export class TodosController implements ITodoController {
   async create (request: Request): Promise<Todo> {
     const todo: Todo = request.body
 
-    return await this.todosService.create(todo)
+    return await this.todosService.create(todo);
   }
 
   async remove (request: Request): Promise<void> {
