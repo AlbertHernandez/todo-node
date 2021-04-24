@@ -12,7 +12,7 @@ export const mongoPlugin: Plugin = async (app) => {
     throw new ConfigurationError(
       'Setting mongo plugin but no Mongo Url configured',
       'error.configuration.noMongoUrl'
-    )
+    );
   }
 
   await connectMongo(app.logger, env.mongo.url)
