@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../../../api/enums'
+import { HttpStatusCode } from '../../../api/constants'
 
 export interface ErrorContext {
   'Operational Error': boolean

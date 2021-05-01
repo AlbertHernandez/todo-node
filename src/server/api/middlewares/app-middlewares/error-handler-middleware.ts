@@ -1,5 +1,5 @@
 import { ErrorHandler } from '../../../modules/error-handler/interfaces'
-import { HttpStatusCode } from '../../enums'
+import { HttpStatusCode } from '../../constants'
 import { AppMiddleware } from './interfaces'
 
 const isClientError = (

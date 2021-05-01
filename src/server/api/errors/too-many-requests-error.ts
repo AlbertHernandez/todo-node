@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../enums'
+import { HttpStatusCode } from '../constants'
 import { ClientError } from './client-error'
 
 export class TooManyRequestsError extends ClientError {

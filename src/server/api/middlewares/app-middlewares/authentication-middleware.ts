@@ -1,5 +1,5 @@
 import { AppMiddleware } from './interfaces'
-import { UserName, UserType } from '../../enums'
+import { UserName, UserType } from '../../constants'
 import { Env } from '../../../config/environment/interfaces'
 import { App } from '../../../interfaces'
 import { ApiUser } from '../../interfaces'

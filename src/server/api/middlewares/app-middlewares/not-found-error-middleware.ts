@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../../enums'
+import { HttpStatusCode } from '../../constants'
 import { AppMiddleware } from './interfaces'
 import { NotFoundError } from '../../errors'
 

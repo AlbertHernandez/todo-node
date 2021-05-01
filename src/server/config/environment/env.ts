@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
-import { LoggerLevel } from '../../modules/logger/enums'
-import { Environment } from './enums'
+import { LoggerLevel } from '../../modules/logger/constants'
+import { Environment } from './constants'
 import { Env } from './interfaces'
 
 dotenv.config()
@@ -37,7 +37,7 @@ export const env: Env = {
   mongo: {
     url: process.env.MONGO_URI ?? ''
   },
-  port: Number(process.env.PORT) ?? 3000,
+  port: Number(process.env.PORT ?? 3000),
   apiKey: process.env.API_KEY ?? '',
   loggerLevel: getLoggerLevel(),
   todoAppApiUrl: process.env.TODO_APP_API_URL ?? '',

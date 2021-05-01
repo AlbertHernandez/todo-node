@@ -6,7 +6,7 @@ import {
 import { DuplicateAccountError } from './errors'
 import { AccountDataModel } from './types'
 import { generateUuid } from '../common/helpers'
-import { MongoError } from '../../server/modules/mongo/enums'
+import { MongoError } from '../../server/modules/mongo/constants'
 
 export class AccountsRepository implements IAccountRepository {
   private readonly accountDataModel

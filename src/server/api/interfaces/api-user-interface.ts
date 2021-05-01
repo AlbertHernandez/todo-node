@@ -1,4 +1,4 @@
-import { UserName, UserType } from '../enums'
+import { UserName, UserType } from '../constants'
 
 export interface ApiUser {
   type: UserType

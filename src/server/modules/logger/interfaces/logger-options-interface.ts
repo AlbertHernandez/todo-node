@@ -1,4 +1,4 @@
-import { LoggerLevel } from '../enums'
+import { LoggerLevel } from '../constants'
 
 export interface LoggerOptions {
   level?: LoggerLevel

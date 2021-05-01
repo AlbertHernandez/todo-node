@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { UserType } from '../../server/api/enums'
+import { UserType } from '../../server/api/constants'
 
 import * as routerMiddleware from '../../server/api/middlewares/router-middlewares'
 import { accountsSchemaValidation } from './accounts-schema-validation'

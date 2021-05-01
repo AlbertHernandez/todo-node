@@ -1,5 +1,5 @@
 import * as Koa from 'koa'
-import { HttpStatusCode, RequestValues } from '../../enums'
+import { HttpStatusCode, RequestValues } from '../../constants'
 import { RequestValidationError } from '../../errors'
 import { SchemasConfig } from '../../interfaces'
 

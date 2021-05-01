@@ -1,5 +1,5 @@
-import { LoggerLevel } from '../../../modules/logger/enums'
-import { Environment } from '../enums'
+import { LoggerLevel } from '../../../modules/logger/constants'
+import { Environment } from '../constants'
 
 export interface Env {
   development: boolean

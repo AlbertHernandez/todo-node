@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../api/enums'
+import { HttpStatusCode } from '../api/constants'
 import { BaseError } from './base-error'
 
 export class ConfigurationError extends BaseError {

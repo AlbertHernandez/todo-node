@@ -2,7 +2,7 @@ import Router from 'koa-router'
 
 import { todosSchemaValidation } from './todos-schema-validation'
 import * as routerMiddleware from '../../server/api/middlewares/router-middlewares'
-import { UserType } from '../../server/api/enums'
+import { UserType } from '../../server/api/constants'
 
 const todosRouter = new Router({
   prefix: '/api/v1'

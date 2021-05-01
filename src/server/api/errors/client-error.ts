@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../enums'
+import { HttpStatusCode } from '../constants'
 import { HttpError } from './http-error'
 
 export class ClientError extends HttpError {

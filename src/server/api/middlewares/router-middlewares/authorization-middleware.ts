@@ -1,5 +1,5 @@
 import * as Koa from 'koa'
-import { HttpStatusCode, UserType } from '../../enums'
+import { HttpStatusCode, UserType } from '../../constants'
 import { UnauthorizedError } from '../../errors'
 import { ApiUser } from '../../interfaces'
 
