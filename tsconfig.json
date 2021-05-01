@@ -4,11 +4,11 @@
     "esModuleInterop": true,
     "lib": ["es2020"],
     "target": "es2019",
-    "outDir": "./build",
+    "baseUrl": "./",
+    "outDir": "./dist",
     "sourceMap": true,
     "strict": true,
-    "typeRoots": [
-      "./src/@types", "./node_modules/@types"]
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.test.ts", "./src/@types/*"]
