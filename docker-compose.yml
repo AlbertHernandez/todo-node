@@ -3,10 +3,10 @@ version: "3"
 services:
   server-todo-node:
     container_name: server-todo-node
-    image: "node:14"
     restart: unless-stopped
     working_dir: /usr/src/app
-    build: .
+    build:
+      context: .
     env_file: .env
     volumes:
       - ./:/usr/src/app
@@ -24,17 +24,13 @@ services:
 
   mongo-todo-node:
     container_name: mongo-todo-node
-    image: "mongo:latest"
+    image: "mongo:4.2.6"
     volumes:
       - ./mongo-data:/data/db
     environment:
       - MONGO_DATA_DIR=/mongo-data
       - MONGO_LOG_DIR=/dev/null
     command: mongod
-    expose:
-      - "27017"
-    ports:
-      - "27017:27017"
     networks:
       - default
 
