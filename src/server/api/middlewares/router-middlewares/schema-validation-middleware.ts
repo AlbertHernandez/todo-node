@@ -1,6 +1,6 @@
 import * as Koa from 'koa'
 import { HttpStatusCode, RequestValues } from '../../constants'
-import { RequestValidationError } from '../../errors'
+import { BadRequestError } from '../../errors'
 import { SchemasConfig } from '../../interfaces'
 
 function getRequestPart (
@@ -41,7 +41,7 @@ export const schemaValidationMiddleware = (schemas: SchemasConfig | null) => {
 
           if (error != null) {
             ctx.status = HttpStatusCode.BadRequest
-            throw new RequestValidationError(error.message, ctx.ip)
+            throw new BadRequestError(error.message, ctx.ip)
           }
 
           if (Object.values(RequestValues).includes(requestPartType)) {

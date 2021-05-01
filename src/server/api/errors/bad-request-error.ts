@@ -1,7 +1,7 @@
 import { HttpStatusCode } from '../constants'
 import { ClientError } from './client-error'
 
-export class RequestValidationError extends ClientError {
+export class BadRequestError extends ClientError {
   constructor (message: string, ip: string, meta?: any) {
     super(
       message,
