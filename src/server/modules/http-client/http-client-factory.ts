@@ -1,4 +1,8 @@
-import { HttpClientFactory, HttpClientOptions, HttpClient as IHttpClient } from './interfaces'
+import {
+  HttpClientFactory,
+  HttpClientOptions,
+  HttpClient as IHttpClient
+} from './interfaces'
 import { HttpClient } from './http-client'
 
 export const httpClientFactory: HttpClientFactory = {

@@ -1,7 +1,7 @@
 import * as Awilix from 'awilix'
 import { TodosController, TodosRepository, TodosService } from './'
 
-import { Plugin } from '../../server/plugins/interfaces'
+import { Plugin } from '../../server/plugins/interfaces/plugin-interface'
 import mongoose from 'mongoose'
 import { todoSchema } from './todo-schema'
 

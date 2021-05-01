@@ -1,4 +1,4 @@
-import { Plugin } from '../server/plugins/interfaces'
+import { Plugin } from '../server/plugins/interfaces/plugin-interface'
 import { registerTodosDependencies } from './todos'
 import { registerAccountsDependencies } from './accounts'
 

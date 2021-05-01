@@ -1,15 +1,4 @@
-import { HttpStatusCode } from '../../api/enums'
-
-export interface HttpClientOptions {
-  baseUrl?: string
-  timeout?: number
-  headers?: any
-}
-
-export interface ResponseSchema {
-  data: any
-  status: HttpStatusCode
-}
+import { ResponseSchema } from './response-schema-interface'
 
 export interface HttpClient {
   get: (url: string, payload?: any) => Promise<ResponseSchema>
@@ -17,8 +6,4 @@ export interface HttpClient {
   post: (url: string, payload?: any) => Promise<ResponseSchema>
   put: (url: string, payload?: any) => Promise<ResponseSchema>
   patch: (url: string, payload?: any) => Promise<ResponseSchema>
-}
-
-export interface HttpClientFactory {
-  get: (options?: HttpClientOptions) => HttpClient
 }

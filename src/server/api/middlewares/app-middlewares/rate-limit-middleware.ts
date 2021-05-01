@@ -1,9 +1,9 @@
 import * as Koa from 'koa'
 import rateLimit from 'koa-ratelimit'
 import { AppMiddleware } from './interfaces'
-import { Env } from '../../../config/environment/interfaces'
 import { HttpStatusCode } from '../../enums'
 import { TooManyRequestsError } from '../../errors'
+import { Env } from '../../../config/environment/interfaces'
 
 const TEN_MINUTES = 10 * 60 * 1000
 

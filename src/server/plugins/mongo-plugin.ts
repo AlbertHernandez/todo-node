@@ -1,8 +1,8 @@
-import { Env } from '../config/environment/interfaces'
 
-import { Plugin } from './interfaces'
+import { Plugin } from './interfaces/plugin-interface'
 import { ConfigurationError } from '../errors'
 import { connectMongo } from '../modules/mongo'
+import { Env } from '../config/environment/interfaces'
 
 export const mongoPlugin: Plugin = async (app) => {
   app.logger.trace('Starting Mongo Plugin...')

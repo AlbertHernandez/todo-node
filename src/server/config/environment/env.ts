@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
-import { Env } from './interfaces'
 import { LoggerLevel } from '../../modules/logger/enums'
 import { Environment } from './enums'
+import { Env } from './interfaces'
 
 dotenv.config()
 

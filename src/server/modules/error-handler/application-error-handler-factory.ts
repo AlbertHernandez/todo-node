@@ -1,7 +1,7 @@
-import { ApplicationErrorHandlerFactory } from './interfaces'
 import { App } from '../../interfaces'
-import { errorHandlerFactory } from './error-handler-factory'
 import { ErrorTracker } from '../error-tracker/interfaces'
+import { errorHandlerFactory } from './error-handler-factory'
+import { ApplicationErrorHandlerFactory } from './interfaces'
 
 export const applicationErrorHandlerFactory: ApplicationErrorHandlerFactory = {
   get (app: App) {

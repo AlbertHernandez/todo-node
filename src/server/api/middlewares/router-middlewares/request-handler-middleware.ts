@@ -1,6 +1,6 @@
 import * as Koa from 'koa'
-import { Request } from '../../interfaces'
 import { HttpStatusCode } from '../../enums'
+import { Request } from '../../interfaces'
 
 type Handler = [string, string]
 

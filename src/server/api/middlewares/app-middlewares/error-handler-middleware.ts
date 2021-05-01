@@ -1,6 +1,6 @@
+import { ErrorHandler } from '../../../modules/error-handler/interfaces'
 import { HttpStatusCode } from '../../enums'
 import { AppMiddleware } from './interfaces'
-import { ErrorHandler } from '../../../modules/error-handler/interfaces'
 
 const isClientError = (
   error: Error & { status?: string | number }

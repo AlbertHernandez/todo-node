@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/node'
 import { Severity } from '@sentry/node'
-import { Env } from '../../config/environment/interfaces'
 import { ErrorContext, ErrorTracker, RequestScope } from './interfaces'
 import { BaseError } from '../../errors'
 import { ClientError, TooManyRequestsError } from '../../api/errors'
 import { ApplicationError } from '../../../application/errors'
 import { Logger } from '../logger/interfaces'
+import { Env } from '../../config/environment/interfaces'
 
 export class SentryErrorTracker implements ErrorTracker {
   constructor (dependencies: { env: Env, logger: Logger }) {

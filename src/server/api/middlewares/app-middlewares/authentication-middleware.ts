@@ -1,7 +1,7 @@
-import { App } from '../../../interfaces'
-import { Env } from '../../../config/environment/interfaces'
 import { AppMiddleware } from './interfaces'
 import { UserName, UserType } from '../../enums'
+import { Env } from '../../../config/environment/interfaces'
+import { App } from '../../../interfaces'
 import { ApiUser } from '../../interfaces'
 
 const getUsers = (app: App): ApiUser[] => {
