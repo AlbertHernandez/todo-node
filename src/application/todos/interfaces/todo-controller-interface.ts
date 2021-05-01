@@ -1,4 +1,4 @@
-import { Request } from '../../../server/api/interfaces'
+import { Request } from '@server/api/interfaces'
 import { Todo } from './todo-interface'
 
 export interface TodoController {

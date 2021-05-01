@@ -1,4 +1,4 @@
-import { LoggerLevel } from '../../../modules/logger/constants'
+import { LoggerLevel } from '@modules/logger/constants'
 import { Environment } from '../constants'
 
 export interface Env {

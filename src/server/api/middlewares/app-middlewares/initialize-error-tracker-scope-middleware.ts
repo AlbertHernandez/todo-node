@@ -1,6 +1,6 @@
 import { AppMiddleware } from './interfaces'
 import { ApiUser } from '../../interfaces'
-import { ErrorTracker, RequestScope } from '../../../modules/error-tracker/interfaces'
+import { ErrorTracker, RequestScope } from '@modules/error-tracker/interfaces'
 
 export const initializeErrorTrackerScopeMiddleware: AppMiddleware = (app) =>
   async function initializeErrorTrackerScopeMiddleware (ctx, next) {

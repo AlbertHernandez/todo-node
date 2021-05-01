@@ -1,4 +1,4 @@
-import { ErrorHandler } from '../../../modules/error-handler/interfaces'
+import { ErrorHandler } from '@modules/error-handler/interfaces'
 import { HttpStatusCode } from '../../constants'
 import { AppMiddleware } from './interfaces'
 

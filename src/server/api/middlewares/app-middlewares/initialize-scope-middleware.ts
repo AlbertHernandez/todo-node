@@ -1,5 +1,5 @@
 import * as Awilix from 'awilix'
-import { createScope } from '../../../modules/di/helpers'
+import { createScope } from '@modules/di/helpers'
 import { AppMiddleware } from './interfaces'
 
 export const initializeScopeMiddleware: AppMiddleware = (app) =>

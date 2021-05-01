@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { LoggerLevel } from '../../modules/logger/constants'
+import { LoggerLevel } from '@modules/logger/constants'
 import { Environment } from './constants'
 import { Env } from './interfaces'
 

@@ -1,7 +1,7 @@
-import { env } from '../../server/config/environment'
-import { httpClientFactory } from '../../server/modules/http-client'
-import { loggerFactory } from '../../server/modules/logger/logger-factory'
-import { errorHandlerFactory } from '../../server/modules/error-handler'
+import { env } from '@config/environment'
+import { httpClientFactory } from '@modules/http-client'
+import { loggerFactory } from '@modules/logger/logger-factory'
+import { errorHandlerFactory } from '@modules/error-handler'
 import { accountRecords, todoRecords } from './feeds'
 
 const logger = loggerFactory.get({

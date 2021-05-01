@@ -1,7 +1,7 @@
 import * as Awilix from 'awilix'
 import mongoose from 'mongoose'
 
-import { Plugin } from '../../server/plugins/interfaces/plugin-interface'
+import { Plugin } from '@plugins/interfaces/plugin-interface'
 import { AccountsController, AccountsRepository, AccountsService } from '.'
 import { accountSchema } from './account-schema'
 

@@ -6,7 +6,7 @@ import {
 } from './interfaces'
 import { TodoDataModel } from './types'
 import { generateUuid } from '../common/helpers'
-import { MongoError } from '../../server/modules/mongo/constants'
+import { MongoError } from '@modules/mongo/constants'
 import { DuplicateTodoError } from './errors'
 
 export class TodosRepository implements ITodosRepository {

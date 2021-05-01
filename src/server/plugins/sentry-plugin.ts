@@ -2,8 +2,8 @@ import * as Awilix from 'awilix'
 
 import { Plugin } from './interfaces/plugin-interface'
 import { ConfigurationError } from '../errors'
-import { SentryErrorTracker } from '../modules/error-tracker'
-import { Env } from '../config/environment/interfaces'
+import { SentryErrorTracker } from '@modules/error-tracker'
+import { Env } from '@config/environment/interfaces'
 
 export const sentryPlugin: Plugin = async (app) => {
   app.logger.trace('Starting Sentry Plugin...')

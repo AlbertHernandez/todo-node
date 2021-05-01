@@ -2,11 +2,11 @@ import Koa from 'koa'
 import * as Awilix from 'awilix'
 
 import { Plugin } from './plugins/interfaces/plugin-interface'
-import { ApplicationLoggerFactory } from './modules/logger/interfaces'
+import { ApplicationLoggerFactory } from '@modules/logger/interfaces'
 import Router from 'koa-router'
 import { App as IApp } from './interfaces'
 import { AppMiddleware } from './api/middlewares/app-middlewares/interfaces'
-import { ApplicationErrorHandlerFactory } from './modules/error-handler/interfaces'
+import { ApplicationErrorHandlerFactory } from '@modules/error-handler/interfaces'
 
 export class App implements IApp {
   app: Koa

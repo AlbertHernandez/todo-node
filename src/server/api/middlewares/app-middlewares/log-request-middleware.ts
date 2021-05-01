@@ -1,4 +1,4 @@
-import { Logger } from '../../../modules/logger/interfaces'
+import { Logger } from '@modules/logger/interfaces'
 import { AppMiddleware } from './interfaces'
 
 export const logRequestMiddleware: AppMiddleware = () =>

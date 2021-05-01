@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../../../server/api/constants'
+import { HttpStatusCode } from '@server/api/constants'
 import { ApplicationError } from '../../errors'
 
 export class DuplicateAccountError extends ApplicationError {

@@ -3,7 +3,7 @@ import rateLimit from 'koa-ratelimit'
 import { AppMiddleware } from './interfaces'
 import { HttpStatusCode } from '../../constants'
 import { TooManyRequestsError } from '../../errors'
-import { Env } from '../../../config/environment/interfaces'
+import { Env } from '@config/environment/interfaces'
 
 const TEN_MINUTES = 10 * 60 * 1000
 

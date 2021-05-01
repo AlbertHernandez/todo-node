@@ -1,4 +1,4 @@
-import { Logger } from '../../server/modules/logger/interfaces'
+import { Logger } from '@modules/logger/interfaces'
 import { AccountsService } from '../accounts/interfaces'
 import { AccountNotFoundError } from '../errors'
 import {

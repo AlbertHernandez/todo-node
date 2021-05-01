@@ -1,4 +1,4 @@
-import { Request } from '../../server/api/interfaces'
+import { Request } from '@server/api/interfaces'
 import {
   Account,
   AccountsController as IAccountsController,

@@ -3,7 +3,7 @@ import {
   AccountsRepository,
   AccountsService as IAccountsService
 } from './interfaces'
-import { Logger } from '../../server/modules/logger/interfaces'
+import { Logger } from '@modules/logger/interfaces'
 
 export class AccountsService implements IAccountsService {
   private readonly accountsRepository
