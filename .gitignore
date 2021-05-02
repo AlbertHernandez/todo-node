@@ -13,6 +13,9 @@ node_modules
 # production
 /dist
 
+#doc
+/docs/.vuepress/dist
+
 # InteliJ IDE config
 .idea/
 
