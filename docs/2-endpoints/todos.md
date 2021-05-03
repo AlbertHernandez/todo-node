@@ -28,17 +28,15 @@ PUT /api/v1/todo
 ### Response
 
 ```json
-Status: 200
-
 {
-    "data": {
-        "id": "5a08ce98-f987-449f-934c-8053176d31b2",
-        "author": "albert@todos.com",
-        "title": "Test 1",
-        "content": "This is a test",
-        "isCompleted": "false"
-    },
-    "requestId": "b0aabc1b-95e8-4aac-8ad7-5122342a3daf"
+  "data": {
+    "id": "5a08ce98-f987-449f-934c-8053176d31b2",
+    "author": "albert@todos.com",
+    "title": "Test 1",
+    "content": "This is a test",
+    "isCompleted": "false"
+  },
+  "requestId": "b0aabc1b-95e8-4aac-8ad7-5122342a3daf"
 }
 ```
 
@@ -87,8 +85,6 @@ GET /api/v1/todos
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": [
     {
@@ -144,8 +140,6 @@ DELETE /api/v1/todo/:id
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {},
   "requestId": "7ae2bfc3-7707-48b1-8fc0-bc8f6ab2aa68"
@@ -182,8 +176,6 @@ DELETE /api/v1/todos
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {},
   "requestId": "e357794b-2130-4b99-a377-8cac437d2d80"

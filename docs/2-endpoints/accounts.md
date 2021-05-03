@@ -25,8 +25,6 @@ GET /api/v1/account
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {
     "id": "c04af4bd-1f6a-4fde-b594-9f059ab44042",
@@ -73,8 +71,6 @@ GET /api/v1/accounts
 ### Response
 
 ```json
-Status: 200
-
 {
 "data": [
     {
@@ -148,8 +144,6 @@ GET /api/v1/account
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {
     "id": "4d2c6d02-d044-4b51-a8e4-4c85ac635435",
@@ -203,8 +197,6 @@ DELETE /api/v1/account/:id
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {},
   "requestId": "8095f88f-4f41-48ce-912a-80b99e6d7e11"
@@ -241,8 +233,6 @@ DELETE /api/v1/accounts
 ### Response
 
 ```json
-Status: 200
-
 {
   "data": {},
   "requestId": "aeb58bd2-daf7-44ac-9141-483fed980805"
