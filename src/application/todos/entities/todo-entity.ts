@@ -2,8 +2,15 @@ import * as mongoose from 'mongoose'
 import { prop, getModelForClass } from '@typegoose/typegoose'
 import { generateUuid } from '@application/common/helpers'
 import { Model } from 'mongoose'
+import { Exclude } from 'class-transformer'
 
 export class Todo {
+  @Exclude()
+  public _id!: string
+
+  @Exclude()
+  public __v!: number
+
   @prop({
     unique: true,
     required: true,

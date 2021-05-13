@@ -4,6 +4,7 @@ import {
 import { DuplicateAccountError } from './errors'
 import { MongoError } from '@modules/mongo/constants'
 import { Account, accountModel } from './entities'
+import { plainToClass } from 'class-transformer'
 
 export class AccountsRepository implements IAccountRepository {
   private readonly accountModel
@@ -39,8 +40,7 @@ export class AccountsRepository implements IAccountRepository {
   async create (account: Account): Promise<Account> {
     try {
       const rawAccount = await this.accountModel.create(account)
-
-      return this.mapToAccount(rawAccount)
+      return await this.get(rawAccount.email) as Account
     } catch (error) {
       if (error.message.includes(MongoError.Duplicate) === true) {
         throw new DuplicateAccountError('Duplicated account', {
@@ -63,12 +63,6 @@ export class AccountsRepository implements IAccountRepository {
   }
 
   private mapToAccount (rawAccount: any): Account {
-    return {
-      id: rawAccount.id,
-      name: rawAccount.name,
-      email: rawAccount.email,
-      createdAt: rawAccount.createdAt,
-      updatedAt: rawAccount.updatedAt
-    }
+    return plainToClass(Account, rawAccount)
   }
 }

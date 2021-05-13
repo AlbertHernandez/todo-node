@@ -5,6 +5,7 @@ import {
 import { MongoError } from '@modules/mongo/constants'
 import { DuplicateTodoError } from './errors'
 import { Todo, todoModel } from './entities'
+import { plainToClass } from 'class-transformer'
 
 export class TodosRepository implements ITodosRepository {
   private readonly todoModel
@@ -26,7 +27,8 @@ export class TodosRepository implements ITodosRepository {
   async create (todo: Todo): Promise<Todo> {
     try {
       const rawTodo = await this.todoModel.create(todo)
-      return this.mapToTodo(rawTodo)
+      const [createdTodo] = await this.get({ id: rawTodo.id })
+      return createdTodo
     } catch (error) {
       if (error.message.includes(MongoError.Duplicate) === true) {
         throw new DuplicateTodoError('Duplicated todo', {
@@ -49,14 +51,6 @@ export class TodosRepository implements ITodosRepository {
   }
 
   private mapToTodo (rawTodo: any): Todo {
-    return {
-      id: rawTodo.id,
-      author: rawTodo.author,
-      title: rawTodo.title,
-      content: rawTodo.content,
-      isCompleted: rawTodo.isCompleted,
-      updatedAt: rawTodo.updatedAt,
-      createdAt: rawTodo.createdAt
-    }
+    return plainToClass(Todo, rawTodo)
   }
 }
