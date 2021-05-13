@@ -31,7 +31,7 @@ const feedAccounts = async (): Promise<void> => {
   logger.trace('Adding new accounts')
   await Promise.all(
     accountRecords.map(async (accountRecord) => {
-      return await httpClient.put('account', accountRecord)
+      return await httpClient.post('accounts', accountRecord)
     })
   )
   logger.trace('New accounts added!')
@@ -49,7 +49,7 @@ const feedTodos = async (): Promise<void> => {
   logger.trace('Adding new todos')
   await Promise.all(
     todoRecords.map(async (todoRecord) => {
-      return await httpClient.put('todo', todoRecord)
+      return await httpClient.post('todos', todoRecord)
     })
   )
   logger.trace('New todos added!')
@@ -67,7 +67,6 @@ const index = async (): Promise<void> => {
     logger.info('Feed database ends with success!')
   } catch (error) {
     await errorHandler.handleError(error)
-    logger.error('Feed database ends with errors!')
   }
 }
 

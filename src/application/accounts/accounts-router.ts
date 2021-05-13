@@ -9,7 +9,7 @@ const accountsRouter = new Router({
 })
 
 accountsRouter.get(
-  '/account',
+  '/accounts',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
@@ -26,8 +26,8 @@ accountsRouter.get(
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'getAll'])
 )
 
-accountsRouter.put(
-  '/account',
+accountsRouter.post(
+  '/accounts',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
@@ -36,7 +36,7 @@ accountsRouter.put(
 )
 
 accountsRouter.delete(
-  '/account/:id',
+  '/accounts/:id',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
