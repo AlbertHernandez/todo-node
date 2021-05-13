@@ -16,7 +16,7 @@ export class AccountsController implements IAccountsController {
   }
 
   async get (request: Request): Promise<Account | null> {
-    const email: string = request.body.email
+    const email: string = request.params.email
 
     return await this.accountsService.get(email)
   }

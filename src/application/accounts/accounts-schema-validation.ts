@@ -14,7 +14,7 @@ export const accountsSchemaValidation = {
     body: Joi.object({})
   },
   get: {
-    body: Joi.object({
+    params: Joi.object({
       email: Joi.string().required()
     })
   },

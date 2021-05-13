@@ -9,7 +9,7 @@ const accountsRouter = new Router({
 })
 
 accountsRouter.get(
-  '/accounts',
+  '/accounts/:email',
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
