@@ -3,6 +3,8 @@
     "module": "commonjs",
     "removeComments": true,
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "lib": ["es2020"],
     "target": "es2019",
     "baseUrl": "./",
