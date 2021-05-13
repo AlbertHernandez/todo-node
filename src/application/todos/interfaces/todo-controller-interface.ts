@@ -1,5 +1,5 @@
 import { Request } from '@server/api/interfaces'
-import { Todo } from './todo-interface'
+import { Todo } from '../entities'
 
 export interface TodoController {
   get: (request: Request) => Promise<Todo[]>

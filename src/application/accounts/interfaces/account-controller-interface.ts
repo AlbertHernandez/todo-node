@@ -1,5 +1,5 @@
 import { Request } from '@server/api/interfaces'
-import { Account } from './account-interface'
+import { Account } from '../entities'
 
 export interface AccountsController {
   get: (request: Request) => Promise<Account | null>

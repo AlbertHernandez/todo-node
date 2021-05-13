@@ -1,5 +1,3 @@
 export * from './account-controller-interface'
-export * from './account-interface'
 export * from './account-repository-interface'
-export * from './account-schema-interface'
 export * from './account-service-interface'

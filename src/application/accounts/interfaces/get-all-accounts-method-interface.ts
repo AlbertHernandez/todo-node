@@ -1,3 +1,3 @@
-import { Account } from './account-interface'
+import { Account } from '../entities/account-entity'
 
 export type GetAllAccountsMethod = () => Promise<Account[]>

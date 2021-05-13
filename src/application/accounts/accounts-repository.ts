@@ -1,22 +1,19 @@
 import {
-  Account,
-  AccountSchema,
   AccountsRepository as IAccountRepository
 } from './interfaces'
 import { DuplicateAccountError } from './errors'
-import { AccountDataModel } from './types'
-import { generateUuid } from '../common/helpers'
 import { MongoError } from '@modules/mongo/constants'
+import { Account, accountModel } from './entities'
 
 export class AccountsRepository implements IAccountRepository {
-  private readonly accountDataModel
+  private readonly accountModel
 
-  constructor (dependencies: { accountDataModel: AccountDataModel }) {
-    this.accountDataModel = dependencies.accountDataModel
+  constructor (dependencies: { accountModel: accountModel }) {
+    this.accountModel = dependencies.accountModel
   }
 
   async get (email: string): Promise<Account | null> {
-    const rawAccount = await this.accountDataModel.findOne(
+    const rawAccount = await this.accountModel.findOne(
       {
         email
       },
@@ -30,7 +27,7 @@ export class AccountsRepository implements IAccountRepository {
   }
 
   async getAll (): Promise<Account[]> {
-    const rawAccounts = await this.accountDataModel.find({}, null, {
+    const rawAccounts = await this.accountModel.find({}, null, {
       lean: true
     })
 
@@ -41,10 +38,7 @@ export class AccountsRepository implements IAccountRepository {
 
   async create (account: Account): Promise<Account> {
     try {
-      const rawAccount = await this.accountDataModel.create({
-        ...account,
-        id: account.id ?? generateUuid()
-      })
+      const rawAccount = await this.accountModel.create(account)
 
       return this.mapToAccount(rawAccount)
     } catch (error) {
@@ -59,16 +53,16 @@ export class AccountsRepository implements IAccountRepository {
   }
 
   async remove (id: string): Promise<void> {
-    await this.accountDataModel.deleteOne({
+    await this.accountModel.deleteOne({
       id
     })
   }
 
   async removeAll (): Promise<void> {
-    await this.accountDataModel.deleteMany()
+    await this.accountModel.deleteMany({})
   }
 
-  private mapToAccount (rawAccount: AccountSchema): Account {
+  private mapToAccount (rawAccount: any): Account {
     return {
       id: rawAccount.id,
       name: rawAccount.name,

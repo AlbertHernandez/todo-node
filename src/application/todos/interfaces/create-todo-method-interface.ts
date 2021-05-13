@@ -1,3 +1,3 @@
-import { Todo } from './todo-interface'
+import { Todo } from '../entities'
 
 export type CreateTodoMethod = (todo: Todo) => Promise<Todo>

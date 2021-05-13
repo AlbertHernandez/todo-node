@@ -1,6 +1,6 @@
 import { Request } from '@server/api/interfaces'
+import { Account } from './entities'
 import {
-  Account,
   AccountsController as IAccountsController,
   AccountsService
 } from './interfaces'

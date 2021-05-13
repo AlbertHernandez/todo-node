@@ -1,3 +1,3 @@
-import { Account } from './account-interface'
+import { Account } from '../entities'
 
 export type CreateAccountMethod = (account: Account) => Promise<Account>

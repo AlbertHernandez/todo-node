@@ -1,9 +1,8 @@
 import * as Awilix from 'awilix'
-import mongoose from 'mongoose'
 
 import { Plugin } from '@plugins/interfaces/plugin-interface'
 import { AccountsController, AccountsRepository, AccountsService } from '.'
-import { accountSchema } from './account-schema'
+import { AccountModel } from './entities'
 
 export const registerAccountsDependencies: Plugin = async (app) => {
   app.logger.trace('Registration of accounts dependencies...')
@@ -12,7 +11,7 @@ export const registerAccountsDependencies: Plugin = async (app) => {
     accountsController: Awilix.asClass(AccountsController),
     accountsService: Awilix.asClass(AccountsService),
     accountsRepository: Awilix.asClass(AccountsRepository),
-    accountDataModel: Awilix.asValue(mongoose.model('Account', accountSchema))
+    accountModel: Awilix.asValue(AccountModel)
   })
 
   app.logger.trace('Registration of accounts dependencies completed!')

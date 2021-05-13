@@ -1,6 +1,6 @@
 import { Request } from '@server/api/interfaces'
+import { Todo } from './entities'
 import {
-  Todo,
   TodoController as ITodoController,
   TodoFilter,
   TodosService

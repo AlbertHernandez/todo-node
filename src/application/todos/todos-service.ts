@@ -1,8 +1,8 @@
 import { Logger } from '@modules/logger/interfaces'
 import { AccountsService } from '../accounts/interfaces'
 import { AccountNotFoundError } from '../errors'
+import { Todo } from './entities'
 import {
-  Todo,
   TodoFilter,
   TodosRepository,
   TodosService as ITodosService

@@ -1,9 +1,9 @@
 import {
-  Account,
   AccountsRepository,
   AccountsService as IAccountsService
 } from './interfaces'
 import { Logger } from '@modules/logger/interfaces'
+import { Account } from './entities'
 
 export class AccountsService implements IAccountsService {
   private readonly accountsRepository
