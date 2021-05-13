@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node'
 import { Severity } from '@sentry/node'
-import { ErrorContext, ErrorTracker, RequestScope } from './interfaces'
+import { ErrorContext, ErrorTracker } from './interfaces'
 import { BaseError } from '../../errors'
 import { ClientError, TooManyRequestsError } from '../../api/errors'
 import { ApplicationError } from '@application/errors'
@@ -24,27 +24,9 @@ export class SentryErrorTracker implements ErrorTracker {
     })
   }
 
-  configureRequestScope (requestScope: RequestScope): void {
+  configureScope (callback: (scope: Sentry.Scope) => void): void {
     Sentry.configureScope((scope) => {
-      if (requestScope.request != null) {
-        scope.addEventProcessor((event) => {
-          return Sentry.Handlers.parseRequest(event, requestScope.request)
-        })
-      }
-
-      if (requestScope.context != null) {
-        scope.setContext('Request', requestScope.context)
-      }
-
-      if (requestScope.user != null) {
-        const { ip, name, type, ...restUserProps } = requestScope.user
-        scope.setUser({
-          ip_address: ip,
-          username: name,
-          type: type,
-          ...restUserProps
-        })
-      }
+      callback(scope)
     })
   }
 

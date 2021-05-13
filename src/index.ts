@@ -29,7 +29,7 @@ export const start = async (): Promise<void> => {
       appMiddlewares.requestIdMiddleware,
       appMiddlewares.authenticationMiddleware,
       appMiddlewares.initializeScopeMiddleware,
-      appMiddlewares.initializeErrorTrackerScopeMiddleware,
+      appMiddlewares.configureSentryScopeMiddleware,
       appMiddlewares.logRequestMiddleware,
       appMiddlewares.unifiedResponseMiddleware,
       appMiddlewares.ratelimitMiddleware,

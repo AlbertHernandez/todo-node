@@ -1,6 +1,6 @@
-import { RequestScope } from './request-scope-interface'
+import * as Sentry from '@sentry/node'
 
 export interface ErrorTracker {
   trackError: (error: Error, context?: any) => Promise<void>
-  configureRequestScope: (requestScope: RequestScope) => void
+  configureScope: (callback: (scope: Sentry.Scope) => void) => void
 }
