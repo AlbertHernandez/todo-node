@@ -1,9 +1,11 @@
 import { Request } from '@server/api/interfaces'
+import { CreateAccountDto } from './dto'
 import { Account } from './entities'
 import {
   AccountsController as IAccountsController,
   AccountsService
 } from './interfaces'
+import { plainToClass } from 'class-transformer'
 
 export class AccountsController implements IAccountsController {
   private readonly accountsService
@@ -26,9 +28,9 @@ export class AccountsController implements IAccountsController {
   }
 
   async create (request: Request): Promise<Account> {
-    const account: Account = request.body
+    const createAccountDto = plainToClass(CreateAccountDto, request.body)
 
-    return await this.accountsService.create(account)
+    return await this.accountsService.create(createAccountDto)
   }
 
   async remove (request: Request): Promise<void> {

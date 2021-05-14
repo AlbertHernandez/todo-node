@@ -1,6 +1,7 @@
 import { Logger } from '@modules/logger/interfaces'
 import { AccountsService } from '../accounts/interfaces'
 import { AccountNotFoundError } from '../errors'
+import { CreateTodoDto } from './dto'
 import { Todo } from './entities'
 import {
   TodoFilter,
@@ -27,22 +28,22 @@ export class TodosService implements ITodosService {
     return await this.todosRepository.get(filter)
   }
 
-  async create (todo: Todo): Promise<Todo> {
+  async create (createTodoDto: CreateTodoDto): Promise<Todo> {
     this.logger.trace({
       msg: 'Creating a todo...',
-      context: todo
+      context: { createTodoDto }
     })
 
-    const account = await this.accountsService.get(todo.author)
+    const account = await this.accountsService.get(createTodoDto.author)
 
     if (account == null) {
       this.logger.trace({
         msg: 'Not able to create the todo, account does not exist',
-        context: todo
+        context: { createTodoDto }
       })
 
       throw new AccountNotFoundError('Account not found', {
-        email: todo.author
+        email: createTodoDto.author
       })
     }
 
@@ -50,20 +51,20 @@ export class TodosService implements ITodosService {
       msg: 'Account exists, storing the todo...',
       context: {
         account,
-        todo
+        createTodoDto
       }
     })
 
-    const createdTodo = await this.todosRepository.create(todo)
+    const todo = await this.todosRepository.create(createTodoDto)
 
     this.logger.info({
       msg: 'Todo created successfully',
       context: {
-        createdTodo
+        todo
       }
     })
 
-    return createdTodo
+    return todo
   }
 
   async remove (id: string): Promise<void> {

@@ -4,6 +4,7 @@ import {
 } from './interfaces'
 import { Logger } from '@modules/logger/interfaces'
 import { Account } from './entities'
+import { CreateAccountDto } from './dto'
 
 export class AccountsService implements IAccountsService {
   private readonly accountsRepository
@@ -22,20 +23,20 @@ export class AccountsService implements IAccountsService {
     return await this.accountsRepository.getAll()
   }
 
-  async create (account: Account): Promise<Account> {
+  async create (createAccountDto: CreateAccountDto): Promise<Account> {
     this.logger.trace({
       msg: 'Creating an account...',
-      context: account
+      context: { createAccountDto }
     })
 
-    const createdAccount = await this.accountsRepository.create(account)
+    const account = await this.accountsRepository.create(createAccountDto)
 
     this.logger.trace({
       msg: 'Account created successfully',
-      context: createdAccount
+      context: { account }
     })
 
-    return createdAccount
+    return account
   }
 
   async remove (id: string): Promise<void> {

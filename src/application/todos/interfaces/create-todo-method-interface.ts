@@ -1,3 +1,4 @@
+import { CreateTodoDto } from '../dto'
 import { Todo } from '../entities'
 
-export type CreateTodoMethod = (todo: Todo) => Promise<Todo>
+export type CreateTodoMethod = (createTodoDto: CreateTodoDto) => Promise<Todo>
