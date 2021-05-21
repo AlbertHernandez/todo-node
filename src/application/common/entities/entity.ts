@@ -4,15 +4,19 @@ import { generateUuid } from '@application/common/helpers'
 export class Entity {
   @prop({
     unique: true,
-    required: false,
+    required: true,
     index: true
   })
   public id!: string
 
-  @prop()
+  @prop({
+    required: true
+  })
   public updatedAt!: Date
 
-  @prop()
+  @prop({
+    required: true
+  })
   public createdAt!: Date
 
   constructor (entity: {

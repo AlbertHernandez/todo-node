@@ -13,6 +13,7 @@ export class Todo extends Entity {
   @prop()
   public content?: string
 
+  @prop({ required: true })
   public isCompleted!: boolean
 
   constructor (todo: {
