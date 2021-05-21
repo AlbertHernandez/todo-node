@@ -11,7 +11,6 @@ export class AccountsController implements IAccountsController {
 
   constructor (dependencies: {
     accountsService: AccountsService
-    requestContext: any
   }) {
     this.accountsService = dependencies.accountsService
   }
