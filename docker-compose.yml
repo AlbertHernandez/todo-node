@@ -31,6 +31,10 @@ services:
       - MONGO_DATA_DIR=/mongo-data
       - MONGO_LOG_DIR=/dev/null
     command: mongod
+    expose:
+      - '27017'
+    ports:
+      - '27017:27017'
     networks:
       - default
 
