@@ -1,19 +1,20 @@
+import 'reflect-metadata'
 import * as Awilix from 'awilix'
 
 import { App } from '@server/app'
-import { env } from '@server/config/environment'
+import { env, envSchema } from '@server/config/environment'
 import { registerApplicationDependencies } from '@application/register-application-dependencies'
 import { applicationLoggerFactory } from '@modules/logger'
 import * as appMiddlewares from './server/api/middlewares/app-middlewares'
 import { applicationRouters } from '@application/application-routers'
 import { applicationErrorHandlerFactory } from '@modules/error-handler'
-import { sentryPlugin } from '@plugins/sentry-plugin'
-import { mongoPlugin } from '@plugins/mongo-plugin'
+import { validateEnvPlugin, mongoPlugin, sentryPlugin } from '@server/plugins'
 
 export const start = async (): Promise<void> => {
   const app = new App({
     port: env.port,
     plugins: [
+      validateEnvPlugin(envSchema),
       sentryPlugin,
       mongoPlugin,
       registerApplicationDependencies
