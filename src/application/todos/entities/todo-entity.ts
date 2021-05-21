@@ -13,8 +13,24 @@ export class Todo extends Entity {
   @prop()
   public content?: string
 
-  @prop({ default: false })
-  public isCompleted!: string
+  public isCompleted!: boolean
+
+  constructor (todo: {
+    id?: string
+    author: string
+    title: string
+    content?: string
+    isCompleted?: boolean
+    updatedAt?: Date
+    createdAt?: Date
+  }) {
+    super(todo)
+
+    this.author = todo.author
+    this.title = todo.title
+    this.content = todo.content
+    this.isCompleted = todo.isCompleted ?? false
+  }
 }
 
 export const TodoModel = getModelForClass(Todo)

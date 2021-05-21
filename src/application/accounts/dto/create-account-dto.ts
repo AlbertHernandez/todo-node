@@ -1,5 +1,9 @@
 export class CreateAccountDto {
-  readonly name!: string
+  name: string
+  email: string
 
-  readonly email!: string
+  constructor (dependencies: { name: string, email: string}) {
+    this.name = dependencies.name
+    this.email = dependencies.email
+  }
 }

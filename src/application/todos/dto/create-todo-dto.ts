@@ -1,9 +1,18 @@
 export class CreateTodoDto {
-  readonly author!: string
+  author: string
+  title: string
+  content: string
+  isCompleted: boolean
 
-  readonly title!: string
-
-  readonly content!: string
-
-  readonly isCompleted: boolean = false
+  constructor (createTodoDto: {
+    author: string
+    title: string
+    content: string
+    isCompleted?: boolean
+  }) {
+    this.author = createTodoDto.author
+    this.title = createTodoDto.title
+    this.content = createTodoDto.content
+    this.isCompleted = createTodoDto.isCompleted ?? false
+  }
 }

@@ -5,7 +5,6 @@ import {
   AccountsController as IAccountsController,
   AccountsService
 } from './interfaces'
-import { plainToClass } from 'class-transformer'
 
 export class AccountsController implements IAccountsController {
   private readonly accountsService
@@ -28,7 +27,7 @@ export class AccountsController implements IAccountsController {
   }
 
   async create (request: Request): Promise<Account> {
-    const createAccountDto = plainToClass(CreateAccountDto, request.body)
+    const createAccountDto = new CreateAccountDto(request.body)
 
     return await this.accountsService.create(createAccountDto)
   }

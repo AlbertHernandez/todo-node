@@ -1,5 +1,4 @@
 import { Request } from '@server/api/interfaces'
-import { plainToClass } from 'class-transformer'
 import { CreateTodoDto } from './dto'
 import { Todo } from './entities'
 import {
@@ -21,7 +20,7 @@ export class TodosController implements ITodoController {
   }
 
   async create (request: Request): Promise<Todo> {
-    const createTodoDto = plainToClass(CreateTodoDto, request.body)
+    const createTodoDto = new CreateTodoDto(request.body)
 
     return await this.todosService.create(createTodoDto)
   }

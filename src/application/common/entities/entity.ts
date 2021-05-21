@@ -1,25 +1,27 @@
-import { Exclude } from 'class-transformer'
 import { prop } from '@typegoose/typegoose'
 import { generateUuid } from '@application/common/helpers'
 
 export class Entity {
-  @Exclude()
-  public readonly _id?: string
-
-  @Exclude()
-  public readonly __v?: number
-
   @prop({
     unique: true,
-    required: true,
-    index: true,
-    default: () => generateUuid()
+    required: false,
+    index: true
   })
   public id!: string
 
-  @prop({ default: Date.now })
+  @prop()
   public updatedAt!: Date
 
-  @prop({ default: Date.now })
+  @prop()
   public createdAt!: Date
+
+  constructor (entity: {
+    updatedAt?: Date
+    createdAt?: Date
+    id?: string
+  }) {
+    this.id = entity.id ?? generateUuid()
+    this.updatedAt = entity.updatedAt ?? new Date()
+    this.createdAt = entity.createdAt ?? new Date()
+  }
 }
