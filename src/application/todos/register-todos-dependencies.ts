@@ -1,10 +1,10 @@
 import * as Awilix from 'awilix'
 import { TodosController, TodosRepository, TodosService } from './'
 
-import { Plugin } from '@plugins/interfaces/plugin-interface'
+import { AppDependencies } from '@plugins/interfaces/plugin-interface'
 import { TodoModel } from './entities/todo-entity'
 
-export const registerTodosDependencies: Plugin = async (app) => {
+export const registerTodosDependencies: AppDependencies = async (app) => {
   app.logger.trace('Registration of todos dependencies...')
 
   app.container.register({

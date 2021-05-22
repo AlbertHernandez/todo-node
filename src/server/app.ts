@@ -46,7 +46,7 @@ export class App implements IApp {
     this.logger.trace('Initializing plugins...')
 
     for (const plugin of this.plugins) {
-      await plugin(this)
+      await plugin.use(this)
     }
     this.logger.trace('Plugins ready!')
   }

@@ -3,21 +3,40 @@ import * as Awilix from 'awilix'
 
 import { App } from '@server/app'
 import { env, envSchema } from '@server/config/environment'
-import { registerApplicationDependencies } from '@application/register-application-dependencies'
 import { applicationLoggerFactory } from '@modules/logger'
 import * as appMiddlewares from './server/api/middlewares/app-middlewares'
 import { applicationRouters } from '@application/application-routers'
 import { applicationErrorHandlerFactory } from '@modules/error-handler'
-import { validateEnvPlugin, mongoPlugin, sentryPlugin } from '@server/plugins'
+import { appDependencies } from '@application/register-application-dependencies'
+import {
+  AppDependenciesPlugin,
+  MongoPlugin,
+  SentryPlugin,
+  ValidationPlugin
+} from '@server/plugins'
 
 export const start = async (): Promise<void> => {
   const app = new App({
     port: env.port,
     plugins: [
-      validateEnvPlugin(envSchema),
-      sentryPlugin,
-      mongoPlugin,
-      registerApplicationDependencies
+      new ValidationPlugin({
+        identifier: 'Environment variables',
+        schema: envSchema,
+        config: process.env
+      }),
+      new SentryPlugin({
+        enabled: env.sentry.isEnabled,
+        dsn: env.sentry.dns,
+        environment: env.environment,
+        serverName: 'Todo Service',
+        tracesSampleRate: 1.0
+      }),
+      new MongoPlugin({
+        url: env.mongo.url
+      }),
+      new AppDependenciesPlugin({
+        appDependencies
+      })
     ],
     container: Awilix.createContainer(),
     routers: applicationRouters,

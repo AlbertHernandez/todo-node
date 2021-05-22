@@ -4,23 +4,21 @@ import { ErrorContext, ErrorTracker } from './interfaces'
 import { BaseError } from '../../errors'
 import { ClientError, TooManyRequestsError } from '../../api/errors'
 import { ApplicationError } from '@application/errors'
-import { Logger } from '../logger/interfaces'
-import { Env } from '@config/environment/interfaces'
 
 export class SentryErrorTracker implements ErrorTracker {
-  constructor (dependencies: { env: Env, logger: Logger }) {
-    if (dependencies.env.sentry.isEnabled) {
-      dependencies.logger.trace('Sentry is enabled')
-    } else {
-      dependencies.logger.trace('Sentry is disabled')
-    }
-
+  constructor (dependencies: {
+    enabled: boolean
+    dsn: string
+    environment: string
+    serverName: string
+    tracesSampleRate: number
+  }) {
     Sentry.init({
-      environment: dependencies.env.environment,
-      dsn: dependencies.env.sentry.dns,
-      tracesSampleRate: 1.0,
-      serverName: 'Todo Node',
-      enabled: dependencies.env.sentry.isEnabled
+      environment: dependencies.environment,
+      dsn: dependencies.dsn,
+      tracesSampleRate: dependencies.tracesSampleRate,
+      serverName: dependencies.serverName,
+      enabled: dependencies.enabled
     })
   }
 

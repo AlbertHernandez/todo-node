@@ -1,12 +1,8 @@
-import { Plugin } from '../server/plugins/interfaces/plugin-interface'
 import { registerTodosDependencies } from './todos'
 import { registerAccountsDependencies } from './accounts'
+import { AppDependencies } from '@plugins/interfaces/plugin-interface'
 
-export const registerApplicationDependencies: Plugin = async (app) => {
-  app.logger.trace('Registration of application dependencies...')
-
-  await registerTodosDependencies(app)
-  await registerAccountsDependencies(app)
-
-  app.logger.trace('Registration of application dependencies completed!')
-}
+export const appDependencies: AppDependencies[] = [
+  registerTodosDependencies,
+  registerAccountsDependencies
+]

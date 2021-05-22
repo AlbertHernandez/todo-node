@@ -1,3 +1,7 @@
 import { App } from '../../interfaces'
 
-export type Plugin = (app: App) => Promise<void>
+export interface Plugin {
+  use: (app: App) => Promise<void>
+}
+
+export type AppDependencies = (app: App) => Promise<void>

@@ -1,10 +1,10 @@
 import * as Awilix from 'awilix'
 
-import { Plugin } from '@plugins/interfaces/plugin-interface'
+import { AppDependencies } from '@plugins/interfaces/plugin-interface'
 import { AccountsController, AccountsRepository, AccountsService } from '.'
 import { AccountModel } from './entities'
 
-export const registerAccountsDependencies: Plugin = async (app) => {
+export const registerAccountsDependencies: AppDependencies = async (app) => {
   app.logger.trace('Registration of accounts dependencies...')
 
   app.container.register({
