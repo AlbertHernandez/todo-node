@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import { UserType } from '@server/api/constants'
 
 import * as routerMiddleware from '@middlewares/router-middlewares'
-import { accountsSchemaValidation } from './accounts-schema-validation'
+import { accountsSchemaValidation } from './schemas/accounts-schema-validation'
 
 const accountsRouter = new Router({
   prefix: '/api/v1'
