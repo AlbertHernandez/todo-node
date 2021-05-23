@@ -1,14 +1,17 @@
 import * as Sentry from '@sentry/node';
-import { AppMiddleware } from './interfaces';
 import { ApiUser } from '../../interfaces';
 import { ErrorTracker } from '@modules/error-tracker/interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const configureSentryScopeMiddleware: AppMiddleware = (app) =>
-  async function initializeErrorTrackerScopeMiddleware(ctx, next) {
+export class ConfigureSentryScopeMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     const { requestId } = ctx.scope.resolve('requestContext');
     const user: ApiUser | null = ctx?.session?.user;
 
-    const errorTracker: ErrorTracker = app.container.resolve('errorTracker');
+    const errorTracker: ErrorTracker = this.app.container.resolve(
+      'errorTracker',
+    );
     errorTracker.configureScope((scope: Sentry.Scope) => {
       scope.addEventProcessor((event) => {
         return Sentry.Handlers.parseRequest(event, ctx.request);
@@ -26,4 +29,5 @@ export const configureSentryScopeMiddleware: AppMiddleware = (app) =>
     });
 
     await next();
-  };
+  }
+}

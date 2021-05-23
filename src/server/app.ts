@@ -5,8 +5,8 @@ import { Plugin } from '@plugins/interfaces/plugin-interface';
 import { ApplicationLoggerFactory } from '@modules/logger/interfaces';
 import Router from 'koa-router';
 import { App as IApp } from './interfaces';
-import { AppMiddleware } from '@middlewares/app-middlewares/interfaces';
 import { ApplicationErrorHandlerFactory } from '@modules/error-handler/interfaces';
+import { Middleware } from '@middlewares/interfaces/middleware-interface';
 
 export class App implements IApp {
   app: Koa;
@@ -17,7 +17,7 @@ export class App implements IApp {
   env: any;
   private readonly plugins: Plugin[];
   private readonly routers: Router[];
-  private readonly middlewares: AppMiddleware[];
+  private readonly middlewares: Middleware[];
 
   constructor(dependencies: {
     port: number;
@@ -26,7 +26,7 @@ export class App implements IApp {
     plugins?: Plugin[];
     applicationLoggerFactory: ApplicationLoggerFactory;
     applicationErrorHandlerFactory: ApplicationErrorHandlerFactory;
-    middlewares?: AppMiddleware[];
+    middlewares?: Middleware[];
     env: any;
   }) {
     this.app = new Koa();
@@ -55,7 +55,12 @@ export class App implements IApp {
     this.logger.trace('Initializing middlewares...');
 
     for (const middleware of this.middlewares) {
-      this.app.use(middleware(this));
+      this.app.use((ctx: Koa.Context, next: Koa.Next) => {
+        if (middleware.setApp) {
+          middleware.setApp(this);
+        }
+        return middleware.use(ctx, next);
+      });
     }
 
     this.logger.trace('Middlewares ready!');

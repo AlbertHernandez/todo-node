@@ -1,28 +1,43 @@
 import * as Koa from 'koa';
 import rateLimit from 'koa-ratelimit';
-import { AppMiddleware } from './interfaces';
 import { HttpStatusCode } from '../../constants';
 import { TooManyRequestsError } from '../../errors';
-import { Env } from '@config/environment/interfaces';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-const TEN_MINUTES = 10 * 60 * 1000;
+export class RateLimitMiddleware extends BaseMiddleware {
+  db;
+  max;
+  duration;
+  driver;
+  whitelist;
 
-export const ratelimitMiddleware: AppMiddleware = (app) => {
-  const db = new Map();
-  return async function ratelimitMiddleware(ctx, next) {
+  constructor(dependencies: {
+    max: number;
+    duration: number;
+    db: any;
+    driver: 'redis' | 'memory';
+    whitelist?: (ctx: Koa.Context) => boolean;
+  }) {
+    super();
+
+    this.db = dependencies.db;
+    this.max = dependencies.max;
+    this.duration = dependencies.duration;
+    this.driver = dependencies.driver;
+    this.whitelist = dependencies.whitelist;
+  }
+
+  async use(ctx: Koa.Context, next: Koa.Next) {
     try {
       return rateLimit({
-        driver: 'memory',
-        db,
+        driver: this.driver,
+        db: this.db,
         id: (ctx: Koa.Context) => ctx.ip,
-        max: 100,
-        duration: TEN_MINUTES,
+        max: this.max,
+        duration: this.duration,
         disableHeader: false,
         throw: true,
-        whitelist: () => {
-          const env: Env = app.env;
-          return env.development || env.test;
-        },
+        whitelist: this.whitelist,
       })(ctx, next);
     } catch (error) {
       if (ctx.status === HttpStatusCode.TooManyRequests) {
@@ -33,5 +48,5 @@ export const ratelimitMiddleware: AppMiddleware = (app) => {
         throw error;
       }
     }
-  };
-};
+  }
+}

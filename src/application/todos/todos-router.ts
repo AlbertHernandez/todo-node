@@ -1,46 +1,50 @@
 import Router from 'koa-router';
 
 import * as todosSchema from './schemas';
-import * as routerMiddleware from '@middlewares/router-middlewares';
 import { UserType } from '@server/api/constants';
+import {
+  authorizationMiddleware,
+  requestHandlerMiddleware,
+  schemaValidationMiddleware,
+} from '@server/api/middlewares/router-middlewares';
 
 const todosRouter = new Router({
-  prefix: '/api/v1',
+  prefix: '/api/v1/todos',
 });
 
 todosRouter.get(
-  '/todos',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchema.getTodosSchema),
-  routerMiddleware.requestHandlerMiddleware(['todosController', 'get']),
+  schemaValidationMiddleware(todosSchema.getTodosSchema),
+  requestHandlerMiddleware(['todosController', 'get']),
 );
 
 todosRouter.post(
-  '/todos',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchema.createTodoSchema),
-  routerMiddleware.requestHandlerMiddleware(['todosController', 'create']),
+  schemaValidationMiddleware(todosSchema.createTodoSchema),
+  requestHandlerMiddleware(['todosController', 'create']),
 );
 
 todosRouter.delete(
-  '/todos/:id',
-  routerMiddleware.authorizationMiddleware({
+  '/:id',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchema.removeTodoSchema),
-  routerMiddleware.requestHandlerMiddleware(['todosController', 'remove']),
+  schemaValidationMiddleware(todosSchema.removeTodoSchema),
+  requestHandlerMiddleware(['todosController', 'remove']),
 );
 
 todosRouter.delete(
-  '/todos',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.requestHandlerMiddleware(['todosController', 'removeAll']),
+  requestHandlerMiddleware(['todosController', 'removeAll']),
 );
 
 export { todosRouter };

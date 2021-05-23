@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es2020"],
     "target": "es2019",
     "baseUrl": "./",
@@ -20,7 +21,5 @@
       "@middlewares/*": ["src/server/api/middlewares/*"],
       "@config/*": ["src/server/config/*"]
     }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts", "./src/@types/*"]
+  }
 }

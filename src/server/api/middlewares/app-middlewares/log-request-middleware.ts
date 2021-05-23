@@ -1,8 +1,9 @@
 import { Logger } from '@modules/logger/interfaces';
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const logRequestMiddleware: AppMiddleware = () =>
-  async function logRequestMiddleware(ctx, next) {
+export class LogRequestMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     const logger: Logger = ctx.scope.resolve('logger');
 
     try {
@@ -25,4 +26,5 @@ export const logRequestMiddleware: AppMiddleware = () =>
         },
       });
     }
-  };
+  }
+}

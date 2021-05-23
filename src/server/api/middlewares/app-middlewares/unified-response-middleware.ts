@@ -1,7 +1,8 @@
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const unifiedResponseMiddleware: AppMiddleware = () =>
-  async function unifiedResponseMiddleware(ctx, next) {
+export class UnifiedResponseMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     try {
       await next();
     } finally {
@@ -11,4 +12,5 @@ export const unifiedResponseMiddleware: AppMiddleware = () =>
         requestId,
       };
     }
-  };
+  }
+}

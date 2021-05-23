@@ -1,8 +1,9 @@
 import requestId from 'koa-requestid';
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const requestIdMiddleware: AppMiddleware = () => {
-  return async function requestIdMiddleware(ctx, next) {
+export class RequestIdMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     return requestId()(ctx, next);
-  };
-};
+  }
+}

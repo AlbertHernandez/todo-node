@@ -1,22 +1,17 @@
 import { ErrorHandler } from '@modules/error-handler/interfaces';
 import { HttpStatusCode } from '../../constants';
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-const isClientError = (
-  error: Error & { status?: string | number },
-): boolean => {
-  return Boolean(error?.status?.toString().startsWith('4'));
-};
-
-export const errorHandlerMiddleware: AppMiddleware = () =>
-  async function errorHandlerMiddleware(ctx, next) {
+export class ErrorHandlerMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     try {
       await next();
     } catch (error) {
       const errorHandler: ErrorHandler = ctx.scope.resolve('errorHandler');
       await errorHandler.handleError(error);
 
-      const clientError = isClientError(error);
+      const clientError = this.isClientError(error);
       ctx.status = error.status ?? HttpStatusCode.InternalServer;
 
       ctx.body = {
@@ -24,7 +19,11 @@ export const errorHandlerMiddleware: AppMiddleware = () =>
           message: clientError ? error.message : 'Internal Server Error',
           meta: clientError ? error.meta : undefined,
         },
-        ...ctx.body,
       };
     }
-  };
+  }
+
+  private isClientError(error: Error & { status?: string | number }): boolean {
+    return Boolean(error?.status?.toString().startsWith('4'));
+  }
+}

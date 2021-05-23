@@ -1,8 +1,10 @@
 import bodyParser from 'koa-bodyparser';
-import { AppMiddleware } from './interfaces';
 
-export const bodyParserMiddleware: AppMiddleware = () => {
-  return async function bodyParserMiddleware(ctx, next) {
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
+
+export class BodyParserMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     return bodyParser()(ctx, next);
-  };
-};
+  }
+}

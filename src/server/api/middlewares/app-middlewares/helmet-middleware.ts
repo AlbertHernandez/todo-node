@@ -1,8 +1,9 @@
 import helmet from 'koa-helmet';
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const helmetMiddleware: AppMiddleware = () => {
-  return async function helmetMiddleware(ctx, next) {
+export class HelmetMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     return helmet()(ctx, next);
-  };
-};
+  }
+}

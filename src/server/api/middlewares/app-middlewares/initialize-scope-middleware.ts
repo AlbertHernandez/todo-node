@@ -1,17 +1,18 @@
 import * as Awilix from 'awilix';
 import { createScope } from '@modules/di/helpers';
-import { AppMiddleware } from './interfaces';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const initializeScopeMiddleware: AppMiddleware = (app) =>
-  async function initializeScopeMiddleware(ctx, next) {
+export class InitializeScopeMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     const requestId = ctx.state.id;
 
-    const scope = createScope(app.container, {
+    const scope = createScope(this.app.container, {
       loggerType: 'request',
       requestId: ctx.state.id,
     });
 
-    app.container.register({
+    this.app.container.register({
       requestContext: Awilix.asValue({
         requestId,
       }),
@@ -20,4 +21,5 @@ export const initializeScopeMiddleware: AppMiddleware = (app) =>
     ctx.scope = scope;
 
     await next();
-  };
+  }
+}

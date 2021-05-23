@@ -1,64 +1,59 @@
 import Router from 'koa-router';
 import { UserType } from '@server/api/constants';
 
-import * as routerMiddleware from '@middlewares/router-middlewares';
 import * as accountsSchema from './schemas';
+import {
+  authorizationMiddleware,
+  requestHandlerMiddleware,
+  schemaValidationMiddleware,
+} from '@server/api/middlewares/router-middlewares';
 
 const accountsRouter = new Router({
-  prefix: '/api/v1',
+  prefix: '/api/v1/accounts',
 });
 
 accountsRouter.get(
-  '/accounts/:email',
-  routerMiddleware.authorizationMiddleware({
+  '/:email',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(accountsSchema.getAccountSchema),
-  routerMiddleware.requestHandlerMiddleware(['accountsController', 'get']),
+  schemaValidationMiddleware(accountsSchema.getAccountSchema),
+  requestHandlerMiddleware(['accountsController', 'get']),
 );
 
 accountsRouter.get(
-  '/accounts',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(
-    accountsSchema.getAllAccountsSchema,
-  ),
-  routerMiddleware.requestHandlerMiddleware(['accountsController', 'getAll']),
+  schemaValidationMiddleware(accountsSchema.getAllAccountsSchema),
+  requestHandlerMiddleware(['accountsController', 'getAll']),
 );
 
 accountsRouter.post(
-  '/accounts',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(
-    accountsSchema.createAccountSchema,
-  ),
-  routerMiddleware.requestHandlerMiddleware(['accountsController', 'create']),
+  schemaValidationMiddleware(accountsSchema.createAccountSchema),
+  requestHandlerMiddleware(['accountsController', 'create']),
 );
 
 accountsRouter.delete(
-  '/accounts/:id',
-  routerMiddleware.authorizationMiddleware({
+  '/:id',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.schemaValidationMiddleware(
-    accountsSchema.removeAccountSchema,
-  ),
-  routerMiddleware.requestHandlerMiddleware(['accountsController', 'remove']),
+  schemaValidationMiddleware(accountsSchema.removeAccountSchema),
+  requestHandlerMiddleware(['accountsController', 'remove']),
 );
 
 accountsRouter.delete(
-  '/accounts',
-  routerMiddleware.authorizationMiddleware({
+  '/',
+  authorizationMiddleware({
     allowedUserTypes: [UserType.Api],
   }),
-  routerMiddleware.requestHandlerMiddleware([
-    'accountsController',
-    'removeAll',
-  ]),
+  requestHandlerMiddleware(['accountsController', 'removeAll']),
 );
 
 export { accountsRouter };

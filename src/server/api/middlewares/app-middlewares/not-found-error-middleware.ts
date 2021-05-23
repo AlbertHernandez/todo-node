@@ -1,15 +1,16 @@
 import { HttpStatusCode } from '../../constants';
-import { AppMiddleware } from './interfaces';
 import { NotFoundError } from '../../errors';
+import * as Koa from 'koa';
+import { BaseMiddleware } from '@middlewares/base-middleware';
 
-export const notFoundErrorMiddleware: AppMiddleware = () =>
-  async function notFoundErrorMiddleware(ctx, next) {
+export class NotFoundErrorMiddleware extends BaseMiddleware {
+  async use(ctx: Koa.Context, next: Koa.Next) {
     try {
       await next();
     } finally {
       if (ctx.status === HttpStatusCode.NotFound) {
-        // eslint-disable-next-line no-unsafe-finally
         throw new NotFoundError('Not Found', ctx.ip);
       }
     }
-  };
+  }
+}
