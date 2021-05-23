@@ -11,6 +11,7 @@ import {
   MongoPlugin,
   RegisterEnvPlugin,
   RegisterErrorHandlerPlugin,
+  RegisterLoggerPlugin,
   SentryPlugin,
   SubscribeErrorPlugin,
   ValidationPlugin,
@@ -48,6 +49,7 @@ export const start = async (): Promise<void> => {
     new RegisterEnvPlugin({
       env,
     }),
+    new RegisterLoggerPlugin(),
     new RegisterErrorHandlerPlugin(),
     new SubscribeErrorPlugin(),
     new SentryPlugin({

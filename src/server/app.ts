@@ -81,21 +81,6 @@ export class App implements IApp {
     this.logger.trace('Routers ready!');
   }
 
-  private registerLogger(): void {
-    const applicationLogger = this.logger.child({
-      loggerType: 'application',
-    });
-
-    applicationLogger.trace('Registration of Application Logger...');
-
-    this.container.register({
-      applicationLogger: Awilix.asValue(applicationLogger),
-      logger: Awilix.aliasTo('applicationLogger'),
-    });
-
-    applicationLogger.trace('Registration of Application Logger completed!');
-  }
-
   private registerApp(): void {
     this.logger.trace('Registration of application...');
 
@@ -115,8 +100,6 @@ export class App implements IApp {
     this.logger.trace('Starting the application...');
 
     await this.listen();
-
-    this.registerLogger();
 
     await this.initializePlugins();
 
