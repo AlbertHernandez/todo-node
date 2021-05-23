@@ -11,35 +11,40 @@ import { Middleware } from '@middlewares/interfaces/middleware-interface';
 export class App implements IApp {
   app: Koa;
   port;
-  container;
+  container: Awilix.AwilixContainer;
   logger;
   errorHandler;
-  env: any;
-  private readonly plugins: Plugin[];
+  private plugins: Plugin[];
   private readonly routers: Router[];
-  private readonly middlewares: Middleware[];
+  private middlewares: Middleware[];
 
   constructor(dependencies: {
+    app?: Koa;
     port: number;
     routers?: Router[];
-    container: Awilix.AwilixContainer;
-    plugins?: Plugin[];
+    container?: Awilix.AwilixContainer;
     applicationLoggerFactory: ApplicationLoggerFactory;
     applicationErrorHandlerFactory: ApplicationErrorHandlerFactory;
-    middlewares?: Middleware[];
-    env: any;
   }) {
-    this.app = new Koa();
+    this.app = dependencies.app ?? new Koa();
     this.port = dependencies.port;
-    this.container = dependencies.container;
-    this.plugins = dependencies.plugins ?? [];
-    this.routers = dependencies.routers ?? [];
+    this.container = dependencies.container ?? Awilix.createContainer();
 
-    this.middlewares = dependencies.middlewares ?? [];
-    this.env = dependencies.env ?? {};
+    this.plugins = [];
+    this.middlewares = [];
+
+    this.routers = dependencies.routers ?? [];
 
     this.logger = dependencies.applicationLoggerFactory.get(this);
     this.errorHandler = dependencies.applicationErrorHandlerFactory.get(this);
+  }
+
+  public usePlugins(...plugins: Plugin[]): void {
+    this.plugins.push(...plugins);
+  }
+
+  public useMiddlewares(...middlewares: Middleware[]): void {
+    this.middlewares.push(...middlewares);
   }
 
   private async initializePlugins(): Promise<void> {
@@ -118,16 +123,6 @@ export class App implements IApp {
     this.logger.trace('Registration of application completed!');
   }
 
-  private registerEnv(): void {
-    this.logger.trace('Registration of env...');
-
-    this.container.register({
-      env: Awilix.asValue(this.env),
-    });
-
-    this.logger.trace('Registration of env completed!');
-  }
-
   private async listen(): Promise<void> {
     await this.app.listen(this.port);
     this.logger.trace(`Application Listening in Port ${this.port}`);
@@ -150,8 +145,6 @@ export class App implements IApp {
     this.logger.trace('Starting the application...');
 
     await this.listen();
-
-    this.registerEnv();
 
     this.registerLogger();
     this.registerErrorHandler();

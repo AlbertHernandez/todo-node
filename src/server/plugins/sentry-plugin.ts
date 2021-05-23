@@ -3,7 +3,6 @@ import * as Awilix from 'awilix';
 import { Plugin } from './interfaces/plugin-interface';
 import { ConfigurationError } from '../errors';
 import { SentryErrorTracker } from '@modules/error-tracker';
-import { Env } from '@config/environment/interfaces';
 import { App } from '@server/interfaces';
 
 export class SentryPlugin implements Plugin {
@@ -29,15 +28,14 @@ export class SentryPlugin implements Plugin {
 
   async use(app: App): Promise<void> {
     app.logger.trace('Starting Sentry Plugin...');
-    const env: Env = app.env;
 
-    if (env.sentry.isEnabled) {
+    if (this.enabled) {
       app.logger.trace('Sentry is enabled');
     } else {
       app.logger.trace('Sentry is disabled');
     }
 
-    if (env.sentry.isEnabled && env.sentry.dns === '') {
+    if (this.enabled && this.dsn === '') {
       throw new ConfigurationError(
         'Setting sentry plugin but no Sentry DNS configured',
         'error.configuration.noSentryDns',
