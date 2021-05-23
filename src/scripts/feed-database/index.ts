@@ -70,5 +70,4 @@ const index = async (): Promise<void> => {
   }
 };
 
-// eslint-disable-next-line no-void
-void index();
+index();
