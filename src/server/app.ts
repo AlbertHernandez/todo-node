@@ -96,23 +96,6 @@ export class App implements IApp {
     applicationLogger.trace('Registration of Application Logger completed!');
   }
 
-  private registerErrorHandler(): void {
-    const applicationLogger = this.logger.child({
-      loggerType: 'application',
-    });
-
-    applicationLogger.trace('Registration of Application Error Handler...');
-
-    this.container.register({
-      applicationErrorHandler: Awilix.asValue(this.errorHandler),
-      errorHandler: Awilix.aliasTo('applicationErrorHandler'),
-    });
-
-    applicationLogger.trace(
-      'Registration of Application Error Handler completed!',
-    );
-  }
-
   private registerApp(): void {
     this.logger.trace('Registration of application...');
 
@@ -134,7 +117,6 @@ export class App implements IApp {
     await this.listen();
 
     this.registerLogger();
-    this.registerErrorHandler();
 
     await this.initializePlugins();
 
