@@ -81,16 +81,6 @@ export class App implements IApp {
     this.logger.trace('Routers ready!');
   }
 
-  private registerApp(): void {
-    this.logger.trace('Registration of application...');
-
-    this.container.register({
-      app: Awilix.asValue(this),
-    });
-
-    this.logger.trace('Registration of application completed!');
-  }
-
   private async listen(): Promise<void> {
     await this.app.listen(this.port);
     this.logger.trace(`Application Listening in Port ${this.port}`);
@@ -99,14 +89,11 @@ export class App implements IApp {
   async start(): Promise<void> {
     this.logger.trace('Starting the application...');
 
-    await this.listen();
-
     await this.initializePlugins();
-
     this.initializeMiddlewares();
     this.initializeRouters();
 
-    this.registerApp();
+    await this.listen();
 
     this.logger.info('Application Ready to be Used!');
   }

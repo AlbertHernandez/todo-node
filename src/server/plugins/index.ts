@@ -6,3 +6,4 @@ export * from './register-env-plugin';
 export * from './subscribe-error-plugin';
 export * from './register-error-handler-plugin';
 export * from './register-logger-plugin';
+export * from './register-app-plugin';

@@ -9,6 +9,7 @@ import { appDependencies } from '@application/register-application-dependencies'
 import {
   AppDependenciesPlugin,
   MongoPlugin,
+  RegisterAppPlugin,
   RegisterEnvPlugin,
   RegisterErrorHandlerPlugin,
   RegisterLoggerPlugin,
@@ -65,6 +66,7 @@ export const start = async (): Promise<void> => {
     new AppDependenciesPlugin({
       appDependencies,
     }),
+    new RegisterAppPlugin(),
   );
 
   app.useMiddlewares(
