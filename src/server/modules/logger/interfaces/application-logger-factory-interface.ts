@@ -1,6 +1,6 @@
-import { App } from '../../../interfaces'
-import { Logger } from './logger-interface'
+import { App } from '../../../interfaces';
+import { Logger } from './logger-interface';
 
 export interface ApplicationLoggerFactory {
-  get: (app: App) => Logger
+  get: (app: App) => Logger;
 }

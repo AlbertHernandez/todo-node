@@ -1,7 +1,7 @@
-import { LoggerLevel } from '../constants'
+import { LoggerLevel } from '../constants';
 
 export interface LoggerOptions {
-  level?: LoggerLevel
-  prettify?: boolean
-  utcTimestamp?: boolean
+  level?: LoggerLevel;
+  prettify?: boolean;
+  utcTimestamp?: boolean;
 }

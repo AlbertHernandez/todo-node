@@ -1,4 +1,4 @@
 export interface ErrorHandler {
-  handleError: (error: Error) => Promise<void>
-  isTrustedError: (error: Error) => boolean
+  handleError: (error: Error) => Promise<void>;
+  isTrustedError: (error: Error) => boolean;
 }

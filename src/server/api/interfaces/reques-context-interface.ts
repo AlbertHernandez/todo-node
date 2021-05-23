@@ -1,3 +1,3 @@
 export interface RequestContext {
-  requestId: string
+  requestId: string;
 }

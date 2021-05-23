@@ -1,9 +1,9 @@
-import { Logger } from '@modules/logger/interfaces'
-import { AppMiddleware } from './interfaces'
+import { Logger } from '@modules/logger/interfaces';
+import { AppMiddleware } from './interfaces';
 
 export const logRequestMiddleware: AppMiddleware = () =>
-  async function logRequestMiddleware (ctx, next) {
-    const logger: Logger = ctx.scope.resolve('logger')
+  async function logRequestMiddleware(ctx, next) {
+    const logger: Logger = ctx.scope.resolve('logger');
 
     try {
       logger.debug({
@@ -12,17 +12,17 @@ export const logRequestMiddleware: AppMiddleware = () =>
           method: ctx.request.method,
           url: ctx.url,
           header: ctx.header,
-          body: ctx.request.body
-        }
-      })
-      await next()
+          body: ctx.request.body,
+        },
+      });
+      await next();
     } finally {
       logger.debug({
         msg: 'Finishing Request',
         context: {
           body: ctx.body,
-          status: ctx.status
-        }
-      })
+          status: ctx.status,
+        },
+      });
     }
-  }
+  };

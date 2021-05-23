@@ -1,4 +1,6 @@
-import { Account } from '../entities'
-import { CreateAccountDto } from '@application/accounts/dto'
+import { Account } from '../entities';
+import { CreateAccountDto } from '@application/accounts/dto';
 
-export type CreateAccountMethod = (createAccountDto: CreateAccountDto) => Promise<Account>
+export type CreateAccountMethod = (
+  createAccountDto: CreateAccountDto,
+) => Promise<Account>;

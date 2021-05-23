@@ -1,1 +1,1 @@
-export type DeleteTodoMethod = (id: string) => Promise<void>
+export type DeleteTodoMethod = (id: string) => Promise<void>;

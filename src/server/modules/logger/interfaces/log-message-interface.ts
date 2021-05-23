@@ -1,4 +1,4 @@
 export interface LogMessage {
-  msg: string
-  context: any
+  msg: string;
+  context: any;
 }

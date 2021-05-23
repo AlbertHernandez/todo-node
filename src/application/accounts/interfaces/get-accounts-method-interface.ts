@@ -1,3 +1,3 @@
-import { Account } from '../entities'
+import { Account } from '../entities';
 
-export type GetAccountsMethod = (email: string) => Promise<Account | null>
+export type GetAccountsMethod = (email: string) => Promise<Account | null>;

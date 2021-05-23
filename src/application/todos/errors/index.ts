@@ -1,1 +1,1 @@
-export * from './duplicate-todo-error'
+export * from './duplicate-todo-error';

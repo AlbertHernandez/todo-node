@@ -1,95 +1,95 @@
-import { Logger } from '@modules/logger/interfaces'
-import { AccountsService } from '../accounts/interfaces'
-import { AccountNotFoundError } from '../errors'
-import { CreateTodoDto } from './dto'
-import { Todo } from './entities'
+import { Logger } from '@modules/logger/interfaces';
+import { AccountsService } from '../accounts/interfaces';
+import { AccountNotFoundError } from '../errors';
+import { CreateTodoDto } from './dto';
+import { Todo } from './entities';
 import {
   TodoFilter,
   TodosRepository,
-  TodosService as ITodosService
-} from './interfaces'
+  TodosService as ITodosService,
+} from './interfaces';
 
 export class TodosService implements ITodosService {
-  private readonly todosRepository
-  private readonly accountsService
-  private readonly logger
+  private readonly todosRepository;
+  private readonly accountsService;
+  private readonly logger;
 
-  constructor (dependencies: {
-    todosRepository: TodosRepository
-    accountsService: AccountsService
-    logger: Logger
+  constructor(dependencies: {
+    todosRepository: TodosRepository;
+    accountsService: AccountsService;
+    logger: Logger;
   }) {
-    this.todosRepository = dependencies.todosRepository
-    this.accountsService = dependencies.accountsService
-    this.logger = dependencies.logger
+    this.todosRepository = dependencies.todosRepository;
+    this.accountsService = dependencies.accountsService;
+    this.logger = dependencies.logger;
   }
 
-  async get (filter?: TodoFilter): Promise<Todo[]> {
-    return await this.todosRepository.get(filter)
+  async get(filter?: TodoFilter): Promise<Todo[]> {
+    return await this.todosRepository.get(filter);
   }
 
-  async create (createTodoDto: CreateTodoDto): Promise<Todo> {
+  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
     this.logger.trace({
       msg: 'Creating a todo...',
-      context: { createTodoDto }
-    })
+      context: { createTodoDto },
+    });
 
-    const account = await this.accountsService.get(createTodoDto.author)
+    const account = await this.accountsService.get(createTodoDto.author);
 
     if (account == null) {
       this.logger.trace({
         msg: 'Not able to create the todo, account does not exist',
-        context: { createTodoDto }
-      })
+        context: { createTodoDto },
+      });
 
       throw new AccountNotFoundError('Account not found', {
-        email: createTodoDto.author
-      })
+        email: createTodoDto.author,
+      });
     }
 
     this.logger.trace({
       msg: 'Account exists, storing the todo...',
       context: {
         account,
-        createTodoDto
-      }
-    })
+        createTodoDto,
+      },
+    });
 
-    const todo = await this.todosRepository.create(createTodoDto)
+    const todo = await this.todosRepository.create(createTodoDto);
 
     this.logger.info({
       msg: 'Todo created successfully',
       context: {
-        todo
-      }
-    })
+        todo,
+      },
+    });
 
-    return todo
+    return todo;
   }
 
-  async remove (id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     this.logger.trace({
       msg: 'Removing todo...',
       context: {
-        id
-      }
-    })
+        id,
+      },
+    });
 
-    await this.todosRepository.remove(id)
+    await this.todosRepository.remove(id);
 
     this.logger.trace({
       msg: 'Removed todo successfully',
       context: {
-        id
-      }
-    })
+        id,
+      },
+    });
   }
 
-  async removeAll (): Promise<void> {
-    this.logger.trace('Removing all todos...')
+  async removeAll(): Promise<void> {
+    this.logger.trace('Removing all todos...');
 
-    await this.todosRepository.removeAll()
+    await this.todosRepository.removeAll();
 
-    this.logger.trace('Removed all todos successfully')
+    this.logger.trace('Removed all todos successfully');
   }
 }

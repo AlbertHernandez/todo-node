@@ -1,1 +1,1 @@
-export * from './mongo-error-constant'
+export * from './mongo-error-constant';

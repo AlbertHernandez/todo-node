@@ -1,1 +1,1 @@
-export * from './app-middleware-interface'
+export * from './app-middleware-interface';

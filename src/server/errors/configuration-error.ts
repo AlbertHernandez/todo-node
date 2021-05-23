@@ -1,20 +1,20 @@
-import { HttpStatusCode } from '../api/constants'
-import { BaseError } from './base-error'
+import { HttpStatusCode } from '../api/constants';
+import { BaseError } from './base-error';
 
 export class ConfigurationError extends BaseError {
-  constructor (
+  constructor(
     message: string,
     code?: string,
     status: HttpStatusCode = HttpStatusCode.NotImplemented,
     isOperational = false,
-    meta?: Record<string, unknown>
+    meta?: Record<string, unknown>,
   ) {
     super(
       message,
       status,
       isOperational,
       code ?? 'error.configuration.unexpected',
-      meta
-    )
+      meta,
+    );
   }
 }

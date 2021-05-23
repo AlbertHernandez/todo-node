@@ -1,6 +1,6 @@
-import { HttpClient } from './http-client-interface'
-import { HttpClientOptions } from './http-client-options-interface'
+import { HttpClient } from './http-client-interface';
+import { HttpClientOptions } from './http-client-options-interface';
 
 export interface HttpClientFactory {
-  get: (options?: HttpClientOptions) => HttpClient
+  get: (options?: HttpClientOptions) => HttpClient;
 }

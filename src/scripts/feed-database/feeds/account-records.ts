@@ -1,14 +1,14 @@
 export const accountRecords = [
   {
     name: 'Albert',
-    email: 'albert@todos.com'
+    email: 'albert@todos.com',
   },
   {
     name: 'Juan',
-    email: 'juan@todos.com'
+    email: 'juan@todos.com',
   },
   {
     name: 'Fran',
-    email: 'fran@todos.com'
-  }
-]
+    email: 'fran@todos.com',
+  },
+];

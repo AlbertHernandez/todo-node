@@ -1,19 +1,19 @@
-import 'reflect-metadata'
-import * as Awilix from 'awilix'
+import 'reflect-metadata';
+import * as Awilix from 'awilix';
 
-import { App } from '@server/app'
-import { env, envSchema } from '@server/config/environment'
-import { applicationLoggerFactory } from '@modules/logger'
-import * as appMiddlewares from './server/api/middlewares/app-middlewares'
-import { applicationRouters } from '@application/application-routers'
-import { applicationErrorHandlerFactory } from '@modules/error-handler'
-import { appDependencies } from '@application/register-application-dependencies'
+import { App } from '@server/app';
+import { env, envSchema } from '@server/config/environment';
+import { applicationLoggerFactory } from '@modules/logger';
+import * as appMiddlewares from './server/api/middlewares/app-middlewares';
+import { applicationRouters } from '@application/application-routers';
+import { applicationErrorHandlerFactory } from '@modules/error-handler';
+import { appDependencies } from '@application/register-application-dependencies';
 import {
   AppDependenciesPlugin,
   MongoPlugin,
   SentryPlugin,
-  ValidationPlugin
-} from '@server/plugins'
+  ValidationPlugin,
+} from '@server/plugins';
 
 export const start = async (): Promise<void> => {
   const app = new App({
@@ -22,21 +22,21 @@ export const start = async (): Promise<void> => {
       new ValidationPlugin({
         identifier: 'Environment variables',
         schema: envSchema,
-        config: process.env
+        config: process.env,
       }),
       new SentryPlugin({
         enabled: env.sentry.isEnabled,
         dsn: env.sentry.dns,
         environment: env.environment,
         serverName: 'Todo Service',
-        tracesSampleRate: 1.0
+        tracesSampleRate: 1.0,
       }),
       new MongoPlugin({
-        url: env.mongo.url
+        url: env.mongo.url,
       }),
       new AppDependenciesPlugin({
-        appDependencies
-      })
+        appDependencies,
+      }),
     ],
     container: Awilix.createContainer(),
     routers: applicationRouters,
@@ -53,13 +53,12 @@ export const start = async (): Promise<void> => {
       appMiddlewares.logRequestMiddleware,
       appMiddlewares.unifiedResponseMiddleware,
       appMiddlewares.ratelimitMiddleware,
-      appMiddlewares.notFoundErrorMiddleware
+      appMiddlewares.notFoundErrorMiddleware,
     ],
-    env
-  })
+    env,
+  });
 
-  await app.start()
-}
+  await app.start();
+};
 
-// eslint-disable-next-line no-void
-void start()
+start();

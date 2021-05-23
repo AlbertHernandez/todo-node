@@ -1,26 +1,26 @@
-import { HttpStatusCode } from '../api/constants'
+import { HttpStatusCode } from '../api/constants';
 
 export class BaseError extends Error {
-  code
-  meta?
-  status
-  isOperational
+  code;
+  meta?;
+  status;
+  isOperational;
 
-  constructor (
+  constructor(
     message: string,
     status: HttpStatusCode,
     isOperational: boolean,
     code?: string,
-    meta?: Record<string, unknown>
+    meta?: Record<string, unknown>,
   ) {
-    super(message)
+    super(message);
 
-    this.status = status
-    this.isOperational = isOperational
-    this.code = code ?? 'error.unexpected'
-    this.meta = meta
-    this.name = this.constructor.name
+    this.status = status;
+    this.isOperational = isOperational;
+    this.code = code ?? 'error.unexpected';
+    this.meta = meta;
+    this.name = this.constructor.name;
 
-    Error.captureStackTrace(this, this.constructor)
+    Error.captureStackTrace(this, this.constructor);
   }
 }

@@ -1,1 +1,1 @@
-export * from './logger-level-constant'
+export * from './logger-level-constant';

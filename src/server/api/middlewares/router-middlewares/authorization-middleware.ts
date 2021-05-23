@@ -1,22 +1,22 @@
-import * as Koa from 'koa'
-import { HttpStatusCode, UserType } from '../../constants'
-import { UnauthorizedError } from '../../errors'
-import { ApiUser } from '../../interfaces'
+import * as Koa from 'koa';
+import { HttpStatusCode, UserType } from '../../constants';
+import { UnauthorizedError } from '../../errors';
+import { ApiUser } from '../../interfaces';
 
 export const authorizationMiddleware = ({
-  allowedUserTypes
+  allowedUserTypes,
 }: {
-  allowedUserTypes: UserType[]
+  allowedUserTypes: UserType[];
 }) =>
-  async function authorizationMiddleware (ctx: Koa.Context, next: Koa.Next) {
-    const user: ApiUser | null = ctx.session.user
+  async function authorizationMiddleware(ctx: Koa.Context, next: Koa.Next) {
+    const user: ApiUser | null = ctx.session.user;
 
-    const isAllowedUser = (user != null) && allowedUserTypes.includes(user.type)
+    const isAllowedUser = user != null && allowedUserTypes.includes(user.type);
 
-    if ((user == null) || !isAllowedUser) {
-      ctx.status = HttpStatusCode.Unauthorized
-      throw new UnauthorizedError('Unauthorized', ctx.ip)
+    if (user == null || !isAllowedUser) {
+      ctx.status = HttpStatusCode.Unauthorized;
+      throw new UnauthorizedError('Unauthorized', ctx.ip);
     }
 
-    await next()
-  }
+    await next();
+  };

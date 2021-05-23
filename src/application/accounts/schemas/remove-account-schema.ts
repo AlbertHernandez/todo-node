@@ -1,8 +1,8 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 
 export const removeAccountSchema = {
   params: Joi.object({
-    id: Joi.string().required()
+    id: Joi.string().required(),
   }),
-  body: Joi.object({})
-}
+  body: Joi.object({}),
+};

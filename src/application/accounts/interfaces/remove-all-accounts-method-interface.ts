@@ -1,1 +1,1 @@
-export type RemoveAllAccountsMethod = () => Promise<void>
+export type RemoveAllAccountsMethod = () => Promise<void>;

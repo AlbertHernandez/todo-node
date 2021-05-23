@@ -1,5 +1,5 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 
 export const getAllAccountsSchema = {
-  body: Joi.object({})
-}
+  body: Joi.object({}),
+};

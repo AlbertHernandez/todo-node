@@ -1,1 +1,1 @@
-export * from './connect-mongo'
+export * from './connect-mongo';

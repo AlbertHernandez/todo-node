@@ -1,30 +1,30 @@
-import * as mongoose from 'mongoose'
-import { prop, getModelForClass } from '@typegoose/typegoose'
-import { Entity } from '@application/common/entities/entity'
+import * as mongoose from 'mongoose';
+import { prop, getModelForClass } from '@typegoose/typegoose';
+import { Entity } from '@application/common/entities/entity';
 
 export class Account extends Entity {
   @prop({ required: true })
-  public name!: string
+  public name!: string;
 
   @prop({ unique: true, required: true, index: true })
-  public email!: string
+  public email!: string;
 
-  constructor (account: {
-    id?: string
-    name: string
-    email: string
-    updatedAt?: Date
-    createdAt?: Date
+  constructor(account: {
+    id?: string;
+    name: string;
+    email: string;
+    updatedAt?: Date;
+    createdAt?: Date;
   }) {
-    super(account)
+    super(account);
 
-    this.name = account.name
-    this.email = account.email
+    this.name = account.name;
+    this.email = account.email;
   }
 }
 
-export const AccountModel = getModelForClass(Account)
+export const AccountModel = getModelForClass(Account);
 
-export type AccountDocument = Account & mongoose.Document
+export type AccountDocument = Account & mongoose.Document;
 
-export type accountModel = mongoose.Model<AccountDocument>
+export type accountModel = mongoose.Model<AccountDocument>;

@@ -1,6 +1,6 @@
-import { App } from '../../../interfaces'
-import { ErrorHandler } from './error-handler-interface'
+import { App } from '../../../interfaces';
+import { ErrorHandler } from './error-handler-interface';
 
 export interface ApplicationErrorHandlerFactory {
-  get: (app: App) => ErrorHandler
+  get: (app: App) => ErrorHandler;
 }

@@ -1,3 +1,3 @@
-import { Account } from '../entities/account-entity'
+import { Account } from '../entities/account-entity';
 
-export type GetAllAccountsMethod = () => Promise<Account[]>
+export type GetAllAccountsMethod = () => Promise<Account[]>;

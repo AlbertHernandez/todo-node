@@ -1,2 +1,2 @@
-export * from './env'
-export * from './env-schema'
+export * from './env';
+export * from './env-schema';
