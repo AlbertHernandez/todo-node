@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 
-import { todosSchemaValidation } from './schemas/todos-schema-validation'
+import * as todosSchema from './schemas'
 import * as routerMiddleware from '@middlewares/router-middlewares'
 import { UserType } from '@server/api/constants'
 
@@ -13,7 +13,9 @@ todosRouter.get(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.get),
+  routerMiddleware.schemaValidationMiddleware(
+    todosSchema.getTodosSchema
+  ),
   routerMiddleware.requestHandlerMiddleware(['todosController', 'get'])
 )
 
@@ -22,7 +24,9 @@ todosRouter.post(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.create),
+  routerMiddleware.schemaValidationMiddleware(
+    todosSchema.createTodoSchema
+  ),
   routerMiddleware.requestHandlerMiddleware(['todosController', 'create'])
 )
 
@@ -31,7 +35,9 @@ todosRouter.delete(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(todosSchemaValidation.remove),
+  routerMiddleware.schemaValidationMiddleware(
+    todosSchema.removeTodoSchema
+  ),
   routerMiddleware.requestHandlerMiddleware(['todosController', 'remove'])
 )
 

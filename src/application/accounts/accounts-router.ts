@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import { UserType } from '@server/api/constants'
 
 import * as routerMiddleware from '@middlewares/router-middlewares'
-import * as accountSchemas from './schemas'
+import * as accountsSchema from './schemas'
 
 const accountsRouter = new Router({
   prefix: '/api/v1'
@@ -13,7 +13,7 @@ accountsRouter.get(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(accountSchemas.getAccountSchema),
+  routerMiddleware.schemaValidationMiddleware(accountsSchema.getAccountSchema),
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'get'])
 )
 
@@ -22,7 +22,7 @@ accountsRouter.get(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(accountSchemas.getAllAccountsSchema),
+  routerMiddleware.schemaValidationMiddleware(accountsSchema.getAllAccountsSchema),
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'getAll'])
 )
 
@@ -31,7 +31,7 @@ accountsRouter.post(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(accountSchemas.createAccountSchema),
+  routerMiddleware.schemaValidationMiddleware(accountsSchema.createAccountSchema),
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'create'])
 )
 
@@ -40,7 +40,7 @@ accountsRouter.delete(
   routerMiddleware.authorizationMiddleware({
     allowedUserTypes: [UserType.Api]
   }),
-  routerMiddleware.schemaValidationMiddleware(accountSchemas.removeAccountSchema),
+  routerMiddleware.schemaValidationMiddleware(accountsSchema.removeAccountSchema),
   routerMiddleware.requestHandlerMiddleware(['accountsController', 'remove'])
 )
 
