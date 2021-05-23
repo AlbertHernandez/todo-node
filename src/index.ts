@@ -11,6 +11,7 @@ import {
   MongoPlugin,
   RegisterEnvPlugin,
   SentryPlugin,
+  SubscribeErrorPlugin,
   ValidationPlugin,
 } from '@server/plugins';
 import {
@@ -46,6 +47,7 @@ export const start = async (): Promise<void> => {
     new RegisterEnvPlugin({
       env,
     }),
+    new SubscribeErrorPlugin(),
     new SentryPlugin({
       enabled: env.sentry.isEnabled,
       dsn: env.sentry.dns,

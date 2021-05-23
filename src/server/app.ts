@@ -128,19 +128,6 @@ export class App implements IApp {
     this.logger.trace(`Application Listening in Port ${this.port}`);
   }
 
-  private subscribeToErrors(): void {
-    process.on('unhandledRejection', (reason: Error) => {
-      throw reason;
-    });
-
-    process.on('uncaughtException', (error: Error) => {
-      this.errorHandler.handleError(error);
-      if (!this.errorHandler.isTrustedError(error)) {
-        process.exit(1);
-      }
-    });
-  }
-
   async start(): Promise<void> {
     this.logger.trace('Starting the application...');
 
@@ -155,8 +142,6 @@ export class App implements IApp {
     this.initializeRouters();
 
     this.registerApp();
-
-    this.subscribeToErrors();
 
     this.logger.info('Application Ready to be Used!');
   }
