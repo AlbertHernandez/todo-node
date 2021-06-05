@@ -4,6 +4,8 @@ node_modules
 # dotenv environment variables file
 .env
 
+*.private
+
 # OS
 .DS_Store
 
