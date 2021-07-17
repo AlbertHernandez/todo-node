@@ -74,7 +74,7 @@ export class MessageClient implements IMessageClient {
           payload: JSON.parse(pubSubMessage.data.toString()),
           metadata: {
             messageId: id,
-            publishTime: publishTime.getUTCDate().toString(),
+            publishTime: publishTime.toISOString(),
           },
         };
 
