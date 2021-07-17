@@ -45,5 +45,13 @@ export const env: Env = {
     dns: process.env.SENTRY_DSN ?? '',
     isEnabled: parseStringToBoolean(process.env.IS_ENABLE_SENTRY),
   },
+  messageClient: {
+    projectId: process.env.CLIENT_MESSAGE_PROJECT_ID ?? '',
+  },
+  messageListenerClient: {
+    enabled: parseStringToBoolean(
+      process.env.IS_ENABLE_MESSAGE_LISTENER_CLIENT,
+    ),
+  },
   environment: getEnvironment(),
 };

@@ -7,3 +7,5 @@ export * from './subscribe-error-plugin';
 export * from './register-error-handler-plugin';
 export * from './register-logger-plugin';
 export * from './register-app-plugin';
+export * from './message-client-plugin';
+export * from './message-listener-client-plugin';

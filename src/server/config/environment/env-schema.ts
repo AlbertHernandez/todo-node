@@ -17,4 +17,9 @@ export const envSchema: joi.Schema = joi.object({
   TODO_APP_API_URL: joi.string().required(),
   SENTRY_DSN: joi.string(),
   IS_ENABLE_SENTRY: joi.string().valid('true', 'false'),
+  CLIENT_MESSAGE_PROJECT_ID: joi.string().required(),
+  IS_ENABLE_MESSAGE_LISTENER_CLIENT: joi
+    .string()
+    .valid('true', 'false')
+    .required(),
 });

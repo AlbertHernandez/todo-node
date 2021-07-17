@@ -7,7 +7,7 @@ export class RegisterAppPlugin implements Plugin {
     app.logger.trace('Registration of application...');
 
     app.container.register({
-      app: Awilix.asValue(this),
+      app: Awilix.asValue(app),
     });
 
     app.logger.trace('Registration of application completed!');

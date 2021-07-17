@@ -8,6 +8,7 @@ import { applicationErrorHandlerFactory } from '@modules/error-handler';
 import { appDependencies } from '@application/register-application-dependencies';
 import {
   AppDependenciesPlugin,
+  MessageClientPlugin,
   MongoPlugin,
   RegisterAppPlugin,
   RegisterEnvPlugin,
@@ -16,6 +17,7 @@ import {
   SentryPlugin,
   SubscribeErrorPlugin,
   ValidationPlugin,
+  MessageListenerClientPlugin,
 } from '@server/plugins';
 import {
   AuthenticationMiddleware,
@@ -32,6 +34,7 @@ import {
 } from './server/api/middlewares/app-middlewares';
 import { UserName } from '@server/api/constants/user-name-constant';
 import { UserType } from '@server/api/constants/user-type-constant';
+import { messageListenerClientConfig } from './message-listener-client-config';
 
 export const start = async (): Promise<void> => {
   const app = new App({
@@ -63,10 +66,17 @@ export const start = async (): Promise<void> => {
     new MongoPlugin({
       url: env.mongo.url,
     }),
+    new MessageClientPlugin({
+      projectId: env.messageClient.projectId,
+    }),
     new AppDependenciesPlugin({
       appDependencies,
     }),
     new RegisterAppPlugin(),
+    new MessageListenerClientPlugin({
+      messageListenerClientConfig,
+      enabled: env.messageListenerClient.enabled,
+    }),
   );
 
   app.useMiddlewares(

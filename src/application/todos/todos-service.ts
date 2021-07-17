@@ -1,4 +1,5 @@
 import { Logger } from '@modules/logger/interfaces';
+import { MessageClient } from '@server/modules/message-client';
 import { AccountsService } from '../accounts/interfaces';
 import { AccountNotFoundError } from '../errors';
 import { CreateTodoDto } from './dto';
@@ -13,15 +14,18 @@ export class TodosService implements ITodosService {
   private readonly todosRepository;
   private readonly accountsService;
   private readonly logger;
+  private readonly messageClient;
 
   constructor(dependencies: {
     todosRepository: TodosRepository;
     accountsService: AccountsService;
     logger: Logger;
+    messageClient: MessageClient;
   }) {
     this.todosRepository = dependencies.todosRepository;
     this.accountsService = dependencies.accountsService;
     this.logger = dependencies.logger;
+    this.messageClient = dependencies.messageClient;
   }
 
   async get(filter?: TodoFilter): Promise<Todo[]> {
@@ -56,6 +60,9 @@ export class TodosService implements ITodosService {
     });
 
     const todo = await this.todosRepository.create(createTodoDto);
+    await this.messageClient.publish('todo-created', {
+      payload: todo,
+    });
 
     this.logger.info({
       msg: 'Todo created successfully',

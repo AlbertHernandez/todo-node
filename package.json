@@ -1,6 +1,7 @@
 {
     "author": "Albert Hernandez <alberthernandezdev@gmail.com>",
     "dependencies": {
+        "@google-cloud/pubsub": "^2.16.0",
         "@hapi/joi": "^17.1.1",
         "@sentry/node": "^6.2.5",
         "@typegoose/typegoose": "^7.6.0",

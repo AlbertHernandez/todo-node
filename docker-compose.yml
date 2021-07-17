@@ -38,5 +38,17 @@ services:
     networks:
       - default
 
+  pubsub-todo-node:
+    container_name: pubsub-todo-node
+    image: "messagebird/gcloud-pubsub-emulator:latest"
+    environment:
+      - PUBSUB_PROJECT1=todo-node,todo-created:todo-created-email
+    expose:
+      - '8681'
+    ports:
+      - '8681:8681'
+    networks:
+      - default
+
 volumes:
   mongo-data:

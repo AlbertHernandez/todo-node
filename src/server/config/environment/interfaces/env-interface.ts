@@ -18,4 +18,10 @@ export interface Env {
     isEnabled: boolean;
   };
   environment: Environment;
+  messageClient: {
+    projectId: string;
+  };
+  messageListenerClient: {
+    enabled: boolean;
+  };
 }
