@@ -10,33 +10,42 @@ export class MessageClient implements IMessageClient {
   private readonly projectId;
   private client: PubSub | null;
   private readonly logger;
+  private readonly app;
 
   constructor(dependencies: MessageClientOptions) {
     this.logger = dependencies.logger;
     this.projectId = dependencies.projectId;
+    this.app = dependencies.app;
     this.client = null;
   }
 
-  async publish(topicName: string, message: InputMessage): Promise<void> {
+  async publish(message: InputMessage): Promise<void> {
     this.logger.trace({
       msg: 'Publishing message...',
       context: {
-        topicName,
         message,
       },
     });
 
     try {
-      const dataBuffer = Buffer.from(JSON.stringify(message.payload));
+      const data = {
+        type: message.type,
+        attributes: message.attributes,
+        meta: {
+          requestContext: this.app.container.resolve('requestContext', {
+            allowUnregistered: true,
+          }),
+        },
+      };
+      const dataBuffer = Buffer.from(JSON.stringify(data));
       const client = this.getClient();
-      const topic = client.topic(topicName);
+      const topic = client.topic(message.type);
 
       const messageId = await topic.publish(dataBuffer);
       this.logger.trace({
         msg: 'Message published',
         context: {
-          messageId: messageId,
-          topicName,
+          messageId,
           message,
         },
       });
@@ -45,10 +54,10 @@ export class MessageClient implements IMessageClient {
         msg: 'Received error while publishing',
         context: {
           error,
-          topicName,
           message,
         },
       });
+      throw error;
     }
   }
 
@@ -68,18 +77,20 @@ export class MessageClient implements IMessageClient {
       const subscription = client.subscription(subscriptionName);
 
       subscription.on('message', async (pubSubMessage: PubSubMessage) => {
-        const { id, publishTime } = pubSubMessage;
-
+        const rawData = JSON.parse(pubSubMessage.data.toString());
         const message: OutputMessage = {
-          payload: JSON.parse(pubSubMessage.data.toString()),
-          metadata: {
-            messageId: id,
-            publishTime: publishTime.toISOString(),
+          data: {
+            id: pubSubMessage.id,
+            type: rawData.type,
+            occurredOn: pubSubMessage.publishTime.toISOString(),
+            attributes: rawData.attributes,
+            meta: rawData.meta,
           },
         };
-
-        await processFunc(message);
-        pubSubMessage.ack();
+        try {
+          await processFunc(message);
+          pubSubMessage.ack();
+        } catch (error) {}
       });
     } catch (error) {
       this.logger.error({
@@ -89,6 +100,7 @@ export class MessageClient implements IMessageClient {
           subscriptionName,
         },
       });
+      throw error;
     }
   }
 

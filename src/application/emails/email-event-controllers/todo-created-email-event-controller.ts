@@ -15,7 +15,7 @@ export class TodoCreatedEmailEventController
   }
 
   async handleMessage(message: OutputMessage): Promise<void> {
-    const todoCreated: Todo = message.payload;
+    const todoCreated: Todo = message.data.attributes;
 
     await this.emailService.sendEmail(`Title: ${todoCreated.title}`);
   }

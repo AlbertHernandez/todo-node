@@ -17,6 +17,8 @@ export class ConfigureSentryScopeMiddleware extends BaseMiddleware {
         return Sentry.Handlers.parseRequest(event, ctx.request);
       });
 
+      scope.setTag('Type', 'Request');
+
       scope.setContext('Request', {
         requestId,
       });

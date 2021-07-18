@@ -42,7 +42,7 @@ services:
     container_name: pubsub-todo-node
     image: "messagebird/gcloud-pubsub-emulator:latest"
     environment:
-      - PUBSUB_PROJECT1=todo-node,todo-created:todo-created-email
+      - PUBSUB_PROJECT1=todoNode,todoCompany.todoService.1.event.todo.created:emailService.email.notifyOnTodoCreated
     expose:
       - '8681'
     ports:

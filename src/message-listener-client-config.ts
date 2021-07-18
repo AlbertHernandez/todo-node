@@ -2,7 +2,7 @@ import { MessageListenerClientConfig } from '@modules/message-listener-client/in
 
 export const messageListenerClientConfig: MessageListenerClientConfig = [
   {
-    subscriptionName: 'todo-created-email',
+    subscriptionName: 'emailService.email.notifyOnTodoCreated',
     handlerClass: 'todoCreatedEmailEventController',
   },
 ];

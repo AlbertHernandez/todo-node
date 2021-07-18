@@ -1,3 +1,4 @@
 export interface InputMessage {
-  payload: any;
+  attributes: Record<string, any>;
+  type: string;
 }

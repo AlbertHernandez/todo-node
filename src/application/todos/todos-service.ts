@@ -9,6 +9,7 @@ import {
   TodosRepository,
   TodosService as ITodosService,
 } from './interfaces';
+import { TodoEvent } from './constants';
 
 export class TodosService implements ITodosService {
   private readonly todosRepository;
@@ -60,8 +61,9 @@ export class TodosService implements ITodosService {
     });
 
     const todo = await this.todosRepository.create(createTodoDto);
-    await this.messageClient.publish('todo-created', {
-      payload: todo,
+    await this.messageClient.publish({
+      type: TodoEvent.TodoCreated,
+      attributes: todo,
     });
 
     this.logger.info({
