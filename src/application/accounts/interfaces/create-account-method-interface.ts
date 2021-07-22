@@ -1,5 +1,5 @@
 import { Account } from '../entities';
-import { CreateAccountDto } from '@application/accounts/dto';
+import { CreateAccountDto } from 'src/application/accounts/dto';
 
 export type CreateAccountMethod = (
   createAccountDto: CreateAccountDto,

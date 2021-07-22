@@ -1,5 +1,5 @@
 import { AppDependencies, Plugin } from './interfaces/plugin-interface';
-import { App } from '@server/interfaces';
+import { App } from 'src/server/interfaces';
 
 export class AppDependenciesPlugin implements Plugin {
   appDependencies;

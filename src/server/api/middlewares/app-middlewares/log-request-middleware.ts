@@ -1,6 +1,6 @@
-import { Logger } from '@modules/logger/interfaces';
+import { Logger } from 'src/server/modules/logger/interfaces';
 import * as Koa from 'koa';
-import { BaseMiddleware } from '@middlewares/base-middleware';
+import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
 
 export class LogRequestMiddleware extends BaseMiddleware {
   async use(ctx: Koa.Context, next: Koa.Next) {

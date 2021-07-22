@@ -2,7 +2,7 @@ import * as Koa from 'koa';
 import rateLimit from 'koa-ratelimit';
 import { HttpStatusCode } from '../../constants';
 import { TooManyRequestsError } from '../../errors';
-import { BaseMiddleware } from '@middlewares/base-middleware';
+import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
 
 export class RateLimitMiddleware extends BaseMiddleware {
   db;

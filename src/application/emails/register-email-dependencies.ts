@@ -1,7 +1,7 @@
 import * as Awilix from 'awilix';
 import { TodoCreatedEmailEventController, EmailService } from './';
 
-import { AppDependencies } from '@plugins/interfaces/plugin-interface';
+import { AppDependencies } from 'src/server/plugins/interfaces/plugin-interface';
 
 export const registerEmailDependencies: AppDependencies = async ({
   logger,

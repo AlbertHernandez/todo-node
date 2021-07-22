@@ -1,4 +1,4 @@
-import { Logger } from '@server/modules/logger/interfaces';
+import { Logger } from 'src/server/modules/logger/interfaces';
 import { EmailService as IEmailService } from './interfaces';
 
 export class EmailService implements IEmailService {

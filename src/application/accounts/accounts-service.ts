@@ -2,7 +2,7 @@ import {
   AccountsRepository,
   AccountsService as IAccountsService,
 } from './interfaces';
-import { Logger } from '@modules/logger/interfaces';
+import { Logger } from 'src/server/modules/logger/interfaces';
 import { Account } from './entities';
 import { CreateAccountDto } from './dto';
 

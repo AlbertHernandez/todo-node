@@ -1,4 +1,4 @@
-import { Request } from '@server/api/interfaces';
+import { Request } from 'src/server/api/interfaces';
 import { Account } from '../entities';
 
 export interface AccountsController {

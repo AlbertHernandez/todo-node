@@ -1,12 +1,12 @@
 import Router from 'koa-router';
-import { UserType } from '@server/api/constants';
+import { UserType } from 'src/server/api/constants';
 
 import * as accountsSchema from './schemas';
 import {
   authorizationMiddleware,
   requestHandlerMiddleware,
   schemaValidationMiddleware,
-} from '@server/api/middlewares/router-middlewares';
+} from 'src/server/api/middlewares/router-middlewares';
 
 const accountsRouter = new Router({
   prefix: '/api/v1/accounts',

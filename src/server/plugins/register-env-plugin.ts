@@ -1,5 +1,5 @@
 import { Plugin } from './interfaces/plugin-interface';
-import { App } from '@server/interfaces';
+import { App } from 'src/server/interfaces';
 import * as Awilix from 'awilix';
 
 export class RegisterEnvPlugin implements Plugin {

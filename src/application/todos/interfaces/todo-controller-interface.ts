@@ -1,4 +1,4 @@
-import { Request } from '@server/api/interfaces';
+import { Request } from 'src/server/api/interfaces';
 import { Todo } from '../entities';
 
 export interface TodoController {

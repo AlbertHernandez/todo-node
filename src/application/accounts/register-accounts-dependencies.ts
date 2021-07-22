@@ -1,6 +1,6 @@
 import * as Awilix from 'awilix';
 
-import { AppDependencies } from '@plugins/interfaces/plugin-interface';
+import { AppDependencies } from 'src/server/plugins/interfaces/plugin-interface';
 import { AccountsController, AccountsRepository, AccountsService } from '.';
 import { AccountModel } from './entities';
 

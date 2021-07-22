@@ -1,5 +1,5 @@
-import { App } from '@server/interfaces';
-import { Logger } from '@server/modules/logger/interfaces';
+import { App } from 'src/server/interfaces';
+import { Logger } from 'src/server/modules/logger/interfaces';
 
 export interface MessageClientOptions {
   projectId: string;

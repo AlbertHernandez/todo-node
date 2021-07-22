@@ -1,5 +1,5 @@
 import { TodoFilter, TodosRepository as ITodosRepository } from './interfaces';
-import { MongoError } from '@modules/mongo/constants';
+import { MongoError } from 'src/server/modules/mongo/constants';
 import { DuplicateTodoError } from './errors';
 import { Todo, todoModel } from './entities';
 import { CreateTodoDto } from './dto';

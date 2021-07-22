@@ -1,7 +1,7 @@
-import { ErrorHandler } from '@modules/error-handler/interfaces';
+import { ErrorHandler } from 'src/server/modules/error-handler/interfaces';
 import { HttpStatusCode } from '../../constants';
 import * as Koa from 'koa';
-import { BaseMiddleware } from '@middlewares/base-middleware';
+import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
 
 export class ErrorHandlerMiddleware extends BaseMiddleware {
   async use(ctx: Koa.Context, next: Koa.Next) {

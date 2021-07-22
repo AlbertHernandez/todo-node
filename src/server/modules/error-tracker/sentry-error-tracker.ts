@@ -3,7 +3,7 @@ import { Severity } from '@sentry/node';
 import { ErrorContext, ErrorTracker } from './interfaces';
 import { BaseError } from '../../errors';
 import { ClientError, TooManyRequestsError } from '../../api/errors';
-import { ApplicationError } from '@application/errors';
+import { ApplicationError } from 'src/application/errors';
 
 export class SentryErrorTracker implements ErrorTracker {
   constructor(dependencies: {

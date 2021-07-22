@@ -1,6 +1,6 @@
 import { AccountsRepository as IAccountRepository } from './interfaces';
 import { DuplicateAccountError } from './errors';
-import { MongoError } from '@modules/mongo/constants';
+import { MongoError } from 'src/server/modules/mongo/constants';
 import { Account, accountModel } from './entities';
 import { CreateAccountDto } from './dto';
 

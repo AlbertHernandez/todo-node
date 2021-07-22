@@ -1,7 +1,7 @@
 import * as Awilix from 'awilix';
 import { TodosController, TodosRepository, TodosService } from './';
 
-import { AppDependencies } from '@plugins/interfaces/plugin-interface';
+import { AppDependencies } from 'src/server/plugins/interfaces/plugin-interface';
 import { TodoModel } from './entities/todo-entity';
 
 export const registerTodosDependencies: AppDependencies = async ({

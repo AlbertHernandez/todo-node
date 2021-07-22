@@ -1,6 +1,6 @@
 import { ApiUser } from '../../interfaces';
 import * as Koa from 'koa';
-import { BaseMiddleware } from '@middlewares/base-middleware';
+import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
 
 export class AuthenticationMiddleware extends BaseMiddleware {
   apiUsers;

@@ -1,6 +1,6 @@
 import { Plugin } from './interfaces/plugin-interface';
-import { connectMongo } from '@modules/mongo';
-import { App } from '@server/interfaces';
+import { connectMongo } from 'src/server/modules/mongo';
+import { App } from 'src/server/interfaces';
 
 export class MongoPlugin implements Plugin {
   url;

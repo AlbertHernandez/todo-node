@@ -1,4 +1,4 @@
-import { env } from '@server/config/environment';
+import { env } from 'src/server/config/environment';
 import { ApplicationLoggerFactory, Logger } from './interfaces';
 import { loggerFactory } from './logger-factory';
 

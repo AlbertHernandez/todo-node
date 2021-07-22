@@ -1,5 +1,5 @@
 import { Plugin } from './interfaces/plugin-interface';
-import { App } from '@server/interfaces';
+import { App } from 'src/server/interfaces';
 
 export class SubscribeErrorPlugin implements Plugin {
   async use(app: App): Promise<void> {

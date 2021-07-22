@@ -13,13 +13,5 @@
     "sourceMap": true,
     "strict": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
-    "paths": {
-      "@server/*": ["src/server/*"],
-      "@application/*": ["src/application/*"],
-      "@modules/*": ["src/server/modules/*"],
-      "@plugins/*": ["src/server/plugins/*"],
-      "@middlewares/*": ["src/server/api/middlewares/*"],
-      "@config/*": ["src/server/config/*"]
-    }
   }
 }

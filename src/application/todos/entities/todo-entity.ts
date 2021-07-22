@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { prop, getModelForClass } from '@typegoose/typegoose';
 import { Model } from 'mongoose';
-import { Entity } from '@application/common/entities/entity';
+import { Entity } from 'src/application/common/entities/entity';
 
 export class Todo extends Entity {
   @prop({ required: true })

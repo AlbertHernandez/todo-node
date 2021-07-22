@@ -2,8 +2,8 @@ import * as Awilix from 'awilix';
 
 import { Plugin } from './interfaces/plugin-interface';
 import { ConfigurationError } from '../errors';
-import { SentryErrorTracker } from '@modules/error-tracker';
-import { App } from '@server/interfaces';
+import { SentryErrorTracker } from 'src/server/modules/error-tracker';
+import { App } from 'src/server/interfaces';
 
 export class SentryPlugin implements Plugin {
   enabled;

@@ -1,5 +1,5 @@
 import { Middleware } from './interfaces/middleware-interface';
-import { App } from '@server/interfaces';
+import { App } from 'src/server/interfaces';
 import * as Koa from 'koa';
 
 export class BaseMiddleware implements Middleware {
