@@ -1,6 +1,6 @@
 import joi from '@hapi/joi';
-import { Environment } from 'src/server/config/environment/constants';
-import { LoggerLevel } from 'src/server/modules/logger/constants';
+import { Environment } from './constants';
+import { LoggerLevel } from '../../modules/logger/constants';
 
 export const envSchema: joi.Schema = joi.object({
   NODE_ENV: joi

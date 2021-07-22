@@ -1,5 +1,5 @@
-import { Logger } from 'src/server/modules/logger/interfaces';
-import { MessageClient } from 'src/server/modules/message-client';
+import { Logger } from '../../server/modules/logger/interfaces';
+import { MessageClient } from '../../server/modules/message-client';
 import { AccountsService } from '../accounts/interfaces';
 import { AccountNotFoundError } from '../errors';
 import { CreateTodoDto } from './dto';

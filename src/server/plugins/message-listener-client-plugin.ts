@@ -1,9 +1,9 @@
 import * as Awilix from 'awilix';
 
 import { Plugin } from './interfaces/plugin-interface';
-import { App } from 'src/server/interfaces';
-import { MessageListenerClient } from 'src/server/modules/message-listener-client';
-import { MessageListenerClientConfig } from 'src/server/modules/message-listener-client/interfaces';
+import { App } from '../interfaces';
+import { MessageListenerClient } from '../modules/message-listener-client';
+import { MessageListenerClientConfig } from '../modules/message-listener-client/interfaces';
 
 export class MessageListenerClientPlugin implements Plugin {
   private readonly messageListenerClientConfig;

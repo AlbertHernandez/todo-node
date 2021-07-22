@@ -1,7 +1,7 @@
 import * as Awilix from 'awilix';
-import { createScope } from 'src/server/modules/di/helpers';
+import { createScope } from '../../../modules/di/helpers';
 import * as Koa from 'koa';
-import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
+import { BaseMiddleware } from '../base-middleware';
 
 export class InitializeScopeMiddleware extends BaseMiddleware {
   async use(ctx: Koa.Context, next: Koa.Next) {

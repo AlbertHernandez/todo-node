@@ -1,8 +1,8 @@
 import * as Awilix from 'awilix';
 
 import { Plugin } from './interfaces/plugin-interface';
-import { App } from 'src/server/interfaces';
-import { MessageClient } from 'src/server/modules/message-client';
+import { App } from '../interfaces';
+import { MessageClient } from '../modules/message-client';
 
 export class MessageClientPlugin implements Plugin {
   private readonly projectId;

@@ -1,4 +1,4 @@
-import { MessageListenerClientConfig } from 'src/server/modules/message-listener-client/interfaces';
+import { MessageListenerClientConfig } from './server/modules/message-listener-client/interfaces';
 
 export const messageListenerClientConfig: MessageListenerClientConfig = [
   {

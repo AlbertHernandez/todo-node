@@ -1,7 +1,7 @@
 import { Plugin } from './interfaces/plugin-interface';
 import joi from '@hapi/joi';
-import { ConfigurationError } from 'src/server/errors';
-import { App } from 'src/server/interfaces';
+import { ConfigurationError } from '../errors';
+import { App } from '../interfaces';
 
 export class ValidationPlugin implements Plugin {
   schema;

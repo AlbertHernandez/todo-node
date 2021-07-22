@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose';
-import { generateUuid } from 'src/application/common/helpers';
+import { generateUuid } from '../helpers';
 
 export class Entity {
   @prop({

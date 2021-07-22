@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/node';
 import { ApiUser } from '../../interfaces';
-import { ErrorTracker } from 'src/server/modules/error-tracker/interfaces';
+import { ErrorTracker } from '../../../modules/error-tracker/interfaces';
 import * as Koa from 'koa';
-import { BaseMiddleware } from 'src/server/api/middlewares/base-middleware';
+import { BaseMiddleware } from '../base-middleware';
 
 export class ConfigureSentryScopeMiddleware extends BaseMiddleware {
   async use(ctx: Koa.Context, next: Koa.Next) {

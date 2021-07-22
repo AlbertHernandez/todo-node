@@ -1,7 +1,7 @@
-import { Logger } from 'src/server/modules/logger/interfaces';
-import { MessageListenerClassHandler } from 'src/server/modules/message-listener-client/interfaces';
-import { OutputMessage } from 'src/server/modules/message-client/interfaces';
-import { Todo } from 'src/application/todos/entities';
+import { Logger } from '../../../server/modules/logger/interfaces';
+import { MessageListenerClassHandler } from '../../../server/modules/message-listener-client/interfaces';
+import { OutputMessage } from '../../../server/modules/message-client/interfaces';
+import { Todo } from '../../todos/entities';
 import { EmailService } from '../interfaces';
 
 export class TodoCreatedEmailEventController

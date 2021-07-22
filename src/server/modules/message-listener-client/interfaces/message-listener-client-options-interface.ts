@@ -1,6 +1,6 @@
 import { App } from 'src/server/interfaces';
-import { Logger } from 'src/server/modules/logger/interfaces';
-import { MessageClient } from 'src/server/modules/message-client';
+import { Logger } from '../../logger/interfaces';
+import { MessageClient } from '../../message-client';
 import { MessageListenerClientConfig } from './message-listener-client-config-interface';
 
 export interface MessageListenerClientOptions {

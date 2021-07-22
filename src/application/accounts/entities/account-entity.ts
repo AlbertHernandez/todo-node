@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { prop, getModelForClass } from '@typegoose/typegoose';
-import { Entity } from 'src/application/common/entities/entity';
+import { Entity } from '../../common/entities/entity';
 
 export class Account extends Entity {
   @prop({ required: true })

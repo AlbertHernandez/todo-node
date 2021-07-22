@@ -1,5 +1,5 @@
 import * as Awilix from 'awilix';
-import { generateUuid } from 'src/application/common/helpers';
+import { generateUuid } from '../../../application/common/helpers';
 import { App } from 'src/server/interfaces';
 import { createScope } from '../di/helpers';
 import { OutputMessage } from '../message-client/interfaces';

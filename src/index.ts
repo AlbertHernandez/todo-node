@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 
-import { App } from 'src/server/app';
-import { env, envSchema } from 'src/server/config/environment';
-import { applicationLoggerFactory } from 'src/server/modules/logger';
-import { applicationRouters } from 'src/application/application-routers';
-import { applicationErrorHandlerFactory } from 'src/server/modules/error-handler';
-import { appDependencies } from 'src/application/register-application-dependencies';
+import { App } from './server/app';
+import { env, envSchema } from './server/config/environment';
+import { applicationLoggerFactory } from './server/modules/logger';
+import { applicationRouters } from './application/application-routers';
+import { applicationErrorHandlerFactory } from './server/modules/error-handler';
+import { appDependencies } from './application/register-application-dependencies';
 import {
   AppDependenciesPlugin,
   MessageClientPlugin,
@@ -18,7 +18,7 @@ import {
   SubscribeErrorPlugin,
   ValidationPlugin,
   MessageListenerClientPlugin,
-} from 'src/server/plugins';
+} from './server/plugins';
 import {
   AuthenticationMiddleware,
   BodyParserMiddleware,
@@ -32,8 +32,7 @@ import {
   RequestIdMiddleware,
   UnifiedResponseMiddleware,
 } from './server/api/middlewares/app-middlewares';
-import { UserName } from 'src/server/api/constants/user-name-constant';
-import { UserType } from 'src/server/api/constants/user-type-constant';
+import { UserName, UserType } from './server/api/constants';
 import { messageListenerClientConfig } from './message-listener-client-config';
 
 export const start = async (): Promise<void> => {

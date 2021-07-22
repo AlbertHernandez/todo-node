@@ -1,12 +1,12 @@
 import Router from 'koa-router';
 
 import * as todosSchema from './schemas';
-import { UserType } from 'src/server/api/constants';
+import { UserType } from '../../server/api/constants';
 import {
   authorizationMiddleware,
   requestHandlerMiddleware,
   schemaValidationMiddleware,
-} from 'src/server/api/middlewares/router-middlewares';
+} from '../../server/api/middlewares/router-middlewares';
 
 const todosRouter = new Router({
   prefix: '/api/v1/todos',
