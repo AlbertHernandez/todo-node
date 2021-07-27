@@ -90,8 +90,8 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "test": "npm run test:unit && npm run test:integration",
-    "test:unit": "jest ./src",
-    "test:integration": "jest --runInBand --passWithNoTests --forceExit --detectOpenHandles ./tests"
+    "test:unit": "jest ./src --coverage",
+    "test:integration": "jest --runInBand --passWithNoTests --forceExit --detectOpenHandles ./tests --coverage"
   },
   "version": "1.0.0"
 }
