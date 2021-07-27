@@ -11,4 +11,5 @@ export interface App {
   container: Awilix.AwilixContainer;
   logger: Logger;
   errorHandler: ErrorHandler;
+  close: () => void;
 }

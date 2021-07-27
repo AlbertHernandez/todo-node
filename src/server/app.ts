@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import * as Awilix from 'awilix';
+import { Server } from 'http';
 
 import { Plugin } from 'src/server/plugins/interfaces/plugin-interface';
 import { ApplicationLoggerFactory } from 'src/server/modules/logger/interfaces';
@@ -14,6 +15,7 @@ export class App implements IApp {
   container: Awilix.AwilixContainer;
   logger;
   errorHandler;
+  private server: Server | undefined;
   private plugins: Plugin[];
   private readonly routers: Router[];
   private middlewares: Middleware[];
@@ -82,7 +84,8 @@ export class App implements IApp {
   }
 
   private async listen(): Promise<void> {
-    await this.app.listen(this.port);
+    this.server = await this.app.listen(this.port);
+
     this.logger.trace(`Application Listening in Port ${this.port}`);
   }
 
@@ -96,5 +99,11 @@ export class App implements IApp {
     await this.listen();
 
     this.logger.info('Application Ready to be Used!');
+  }
+
+  close() {
+    if (this.server) {
+      this.server.close();
+    }
   }
 }
