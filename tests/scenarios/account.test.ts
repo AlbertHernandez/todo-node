@@ -18,7 +18,10 @@ describe('Account', () => {
   });
 
   beforeEach(async () => {
-    const account = await getAccount(testAccount.email);
+    const getAccountResponse = await getAccount(testAccount.email);
+    expect(getAccountResponse.status).toBe(HttpStatusCode.Ok);
+    const account = getAccountResponse.body.data;
+
     if (!_.isEmpty(account)) {
       const deleteAccountResponse = await deleteAccount(account.id);
       expect(deleteAccountResponse.status).toBe(HttpStatusCode.Ok);
@@ -68,5 +71,46 @@ describe('Account', () => {
       email: testAccount.email,
       name: testAccount.name,
     });
+  });
+
+  test('We can delete the account', async () => {
+    const createdAccountResponse = await createAccount(
+      testAccount.name,
+      testAccount.email,
+    );
+    expect(createdAccountResponse.status).toBe(HttpStatusCode.Ok);
+    const createdAccount = createdAccountResponse.body.data;
+
+    const deletedAccountResponse = await deleteAccount(createdAccount.id);
+    expect(deletedAccountResponse.status).toBe(HttpStatusCode.Ok);
+
+    const getAccountResponseDeleted = await getAccount(testAccount.email);
+    expect(getAccountResponseDeleted.status).toBe(HttpStatusCode.Ok);
+    const accountDeleted = getAccountResponseDeleted.body.data;
+    expect(accountDeleted).toMatchObject({});
+  });
+
+  test('We can get the account', async () => {
+    const createdAccountResponse = await createAccount(
+      testAccount.name,
+      testAccount.email,
+    );
+    expect(createdAccountResponse.status).toBe(HttpStatusCode.Ok);
+
+    const getAccountResponse = await getAccount(testAccount.email);
+    expect(getAccountResponse.status).toBe(HttpStatusCode.Ok);
+    const account = getAccountResponse.body.data;
+
+    expect(account.name).toBe(testAccount.name);
+    expect(account.email).toBe(testAccount.email);
+
+    expect(account.id).not.toBeNull();
+    expect(typeof account.id).toBe('string');
+
+    expect(account.updatedAt).not.toBeNull();
+    expect(typeof account.updatedAt).toBe('string');
+
+    expect(account.createdAt).not.toBeNull();
+    expect(typeof account.createdAt).toBe('string');
   });
 });
